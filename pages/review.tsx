@@ -19,6 +19,7 @@ import useUpdateOrderDeliveryShipping from '../modules/checkout/hooks/useUpdateD
 import useUpdateCart from '../modules/checkout/hooks/useUpdateCart';
 import MetaTags from '../modules/common/components/MetaTags';
 import LoadingItem from '../modules/common/components/LoadingItem';
+import QRCodeComponent from '../modules/checkout/components/QRCodeComponent';
 
 const Review = () => {
   const { user, loading } = useUser();
@@ -112,7 +113,6 @@ const Review = () => {
                   </h2>
                   <DeliveryAddressEditable user={user} />
                 </div>
-
                 {/* Delivery Method */}
                 <div className="mt-10 border-t border-slate-200 pt-10">
                   <RadioGroup
@@ -192,7 +192,6 @@ const Review = () => {
                     </div>
                   </RadioGroup>
                 </div>
-
                 {/* Billing Address */}
                 <div className="mt-10 border-t border-slate-200 pt-10">
                   <h4 className="mt-5 text-slate-900 dark:text-white">
@@ -218,7 +217,6 @@ const Review = () => {
                   </div>
                   <BillingAddressEditable user={user} />
                 </div>
-k
                 {/* Payment */}
                 <div className="mt-10 border-t border-slate-200 pt-10">
                   <h2 className="text-lg font-medium text-slate-900 dark:text-white">
@@ -377,6 +375,7 @@ k
               </div>
 
               <div className="mt-10 lg:mt-0">
+                <QRCodeComponent />
                 <h2 className="text-lg font-medium text-slate-900 dark:text-slate-100">
                   {formatMessage({ id: 'order_summary' })}
                 </h2>

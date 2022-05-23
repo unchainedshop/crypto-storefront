@@ -18,7 +18,7 @@ const EditableField = ({
           'block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-slate-300 dark:text-slate-800 dark:shadow-white sm:text-sm',
           {
             'border-red-300 focus:border-red-300 focus:outline-none focus:ring-red-500':
-              errors[name],
+              errors?.name,
           },
         )}
         name={name}
@@ -40,7 +40,7 @@ const EditableField = ({
         'block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-slate-300 dark:text-slate-800 dark:shadow-white sm:text-sm',
         {
           'border-red-300 focus:border-red-300 focus:outline-none focus:ring-red-500':
-            errors[name],
+            errors?.name,
         },
       )}
       type={type}
