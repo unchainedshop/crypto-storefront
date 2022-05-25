@@ -4,6 +4,7 @@ import { useIntl } from 'react-intl';
 
 import Link from 'next/link';
 import Image from 'next/image';
+import classNames from 'classnames';
 import useAssortments from '../modules/assortment/hooks/useAssortments';
 import LoadingItem from '../modules/common/components/LoadingItem';
 import MetaTags from '../modules/common/components/MetaTags';
@@ -14,6 +15,39 @@ import getMediaUrl from '../modules/common/utils/getMediaUrl';
 const {
   publicRuntimeConfig: { theme },
 } = getConfig();
+
+const someList = [
+  {
+    media:
+      'https://tailwindui.com/img/ecommerce-images/home-page-03-featured-category.jpg',
+    row: 2,
+    hasClass: false,
+  },
+  {
+    media:
+      'https://tailwindui.com/img/ecommerce-images/home-page-03-category-01.jpg',
+    row: 1,
+    hasClass: true,
+  },
+  {
+    media:
+      'https://tailwindui.com/img/ecommerce-images/home-page-03-category-02.jpg',
+    row: 1,
+    hasClass: true,
+  },
+  {
+    media:
+      'https://tailwindui.com/img/ecommerce-images/home-page-03-category-02.jpg',
+    row: 1,
+    hasClass: true,
+  },
+  {
+    media:
+      'https://tailwindui.com/img/ecommerce-images/home-page-03-category-02.jpg',
+    row: 1,
+    hasClass: true,
+  },
+];
 
 const Home = () => {
   const { assortments, loading } = useAssortments();
@@ -27,6 +61,10 @@ const Home = () => {
       setCurrentUrl('');
     };
   }, []);
+
+  const newAssortments = assortments.slice(0, 5);
+
+  console.log(newAssortments);
 
   return (
     <>
@@ -63,43 +101,63 @@ const Home = () => {
               </div>
 
               <div className="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:grid-rows-3 sm:gap-x-6 lg:gap-8">
-                <div className="group aspect-w-2 aspect-h-1 relative overflow-hidden rounded-lg sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2">
-                  <Image
-                    src={
-                      getMediaUrl(assortments[0]?.media) ||
-                      'https://tailwindui.com/img/ecommerce-images/home-page-03-featured-category.jpg'
-                    }
-                    alt={
-                      assortments[0]?.texts.description ||
-                      assortments[0]?.texts.title
-                    }
-                    layout="fill"
-                    objectFit="contain"
-                    objectPosition="center"
-                    placeholder="blur"
-                    blurDataURL="/placeholder.png"
-                  />
+                {newAssortments?.map((assortment, index) => (
                   <div
-                    aria-hidden="true"
-                    className="bg-gradient-to-b from-transparent to-black opacity-50"
-                  />
-                  <div className="flex items-end p-6">
-                    <div>
-                      <h3 className="font-semibold text-white">
-                        <Link href={`shop/${assortments[1]?.texts?.slug}`}>
-                          <a>
-                            <span className="absolute inset-0" />
-                            {assortments[0]?.texts?.title}
-                          </a>
-                        </Link>
-                      </h3>
-                      <p aria-hidden="true" className="mt-1 text-sm text-white">
-                        {assortments[0]?.texts?.subtitle}
-                      </p>
+                    key={assortment?._id}
+                    className={classNames(
+                      'group aspect-w-2 aspect-h-1 relative overflow-hidden rounded-lg',
+                      {
+                        'sm:aspect-w-1 sm:aspect-h-1 sm:row-span-2':
+                          someList[index]?.row === 2,
+                        // 'sm:aspect-none sm:h-full': someList[index]?.row === 1,
+                      },
+                    )}
+                  >
+                    <Image
+                      src={
+                        getMediaUrl(assortment?.media) || someList[index]?.media
+                      }
+                      alt={
+                        assortment.texts.description || assortment.texts.title
+                      }
+                      layout="fill"
+                      objectFit="cover"
+                      objectPosition="center"
+                      placeholder="blur"
+                      blurDataURL="/placeholder.png"
+                      className={classNames(
+                        'object-cover object-center group-hover:opacity-75',
+                        {
+                          'sm:absolute sm:inset-0 sm:h-full sm:w-full':
+                            someList[index]?.hasClass,
+                        },
+                      )}
+                    />
+                    <div
+                      aria-hidden="true"
+                      className="bg-gradient-to-b from-transparent to-black opacity-50"
+                    />
+                    <div className="flex items-end p-6">
+                      <div>
+                        <h3 className="font-semibold text-white">
+                          <Link href={`shop/${assortment?.texts?.slug}`}>
+                            <a>
+                              <span className="absolute inset-0" />
+                              {assortment?.texts?.title}
+                            </a>
+                          </Link>
+                        </h3>
+                        <p
+                          aria-hidden="true"
+                          className="mt-1 text-sm text-white"
+                        >
+                          {assortment?.texts?.subtitle}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="group aspect-w-2 aspect-h-1 relative overflow-hidden rounded-lg sm:aspect-none sm:relative sm:h-full">
+                ))}
+                {/* <div className="group aspect-w-2 aspect-h-1 relative overflow-hidden rounded-lg sm:aspect-none sm:relative sm:h-full">
                   <Image
                     src={
                       getMediaUrl(assortments[1]?.media) ||
@@ -140,7 +198,7 @@ const Home = () => {
                   <Image
                     src={
                       getMediaUrl(assortments[2]?.media) ||
-                      ' https://tailwindui.com/img/ecommerce-images/home-page-03-category-02.jpg'
+                      'https://tailwindui.com/img/ecommerce-images/home-page-03-category-02.jpg'
                     }
                     alt={
                       assortments[2]?.texts.description ||
@@ -175,7 +233,7 @@ const Home = () => {
                   <Image
                     src={
                       getMediaUrl(assortments[3]?.media) ||
-                      ' https://tailwindui.com/img/ecommerce-images/home-page-03-category-02.jpg'
+                      'https://tailwindui.com/img/ecommerce-images/home-page-03-category-02.jpg'
                     }
                     alt={
                       assortments[3]?.texts?.description ||
@@ -244,7 +302,7 @@ const Home = () => {
                       </p>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
 
               <div className="mt-6 sm:hidden">

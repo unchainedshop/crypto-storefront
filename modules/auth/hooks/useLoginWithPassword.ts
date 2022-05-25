@@ -25,7 +25,7 @@ const LoginWithPasswordMutation = gql`
 const useLoginWithPassword = () => {
   const client = useApolloClient();
   const intl = useIntl();
-  const [loginWithPasswordMutation, { error }] = useMutation(
+  const [loginWithPasswordMutation, { error, loading }] = useMutation(
     LoginWithPasswordMutation,
     {
       update(cache, result) {
@@ -51,6 +51,7 @@ const useLoginWithPassword = () => {
 
   return {
     loginWithPassword,
+    loading,
     error,
   };
 };
