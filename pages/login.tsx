@@ -2,9 +2,7 @@ import { useIntl } from 'react-intl';
 
 import Image from 'next/image';
 import getConfig from 'next/config';
-import Header from '../modules/layout/components/Header';
 import LoginForm from '../modules/auth/components/LoginForm';
-import Footer from '../modules/layout/components/Footer';
 import MetaTags from '../modules/common/components/MetaTags';
 import useRedirect from '../modules/auth/hooks/useRedirect';
 
@@ -20,7 +18,6 @@ const LogIn = () => {
       <MetaTags
         title={formatMessage({ id: 'log_in', defaultMessage: 'Log In' })}
       />
-      <Header />
       <div className="flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <div className="relative mx-auto h-10 w-36 rounded">
@@ -46,7 +43,6 @@ const LogIn = () => {
 
         <LoginForm />
       </div>
-      <Footer />
     </>
   );
 };

@@ -10,8 +10,6 @@ import BityPayment from '../modules/checkout/components/BityPayment';
 import DatatransPayment from '../modules/checkout/components/DatatransPayment';
 import WireTransferPayment from '../modules/checkout/components/WireTransferPayment';
 
-import Header from '../modules/layout/components/Header';
-import Footer from '../modules/layout/components/Footer';
 import ManageCart from '../modules/cart/components/ManageCart';
 import DeliveryAddressEditable from '../modules/checkout/components/DeliveryAddressEditable';
 import BillingAddressEditable from '../modules/checkout/components/BillingAddressEditable';
@@ -97,9 +95,8 @@ const Review = () => {
   return (
     <>
       <MetaTags title={formatMessage({ id: 'order_review' })} />
-      <Header />
       <div className="bg-slate-50 dark:bg-slate-600">
-        <div className="mx-auto max-w-full px-4 pt-16 pb-24 sm:px-12 lg:px-16">
+        <div className="max-w-full pt-16 pb-24">
           <h2 className="sr-only">
             {formatMessage({ id: 'checkout', defaultMessage: 'Checkout' })}
           </h2>
@@ -385,7 +382,6 @@ const Review = () => {
           </DatatransStatusGate>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

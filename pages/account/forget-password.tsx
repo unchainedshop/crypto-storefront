@@ -6,8 +6,6 @@ import { LockClosedIcon } from '@heroicons/react/solid';
 import useForgotPassword from '../../modules/auth/hooks/useForgotPassword';
 import LoadingItem from '../../modules/common/components/LoadingItem';
 import MetaTags from '../../modules/common/components/MetaTags';
-import Footer from '../../modules/layout/components/Footer';
-import Header from '../../modules/layout/components/Header';
 
 const PasswordForget = () => {
   const { register, handleSubmit } = useForm();
@@ -22,17 +20,16 @@ const PasswordForget = () => {
   return (
     <>
       <MetaTags title={formatMessage({ id: 'forgot_password' })} />
-      <Header />
-      <div className="">
+      <div>
         {loading && <LoadingItem />}
         {emailSent && <div className="text-center"> {emailSent} </div>}
         {!loading && !emailSent && (
           <div className="mx-auto w-full sm:max-w-md md:max-w-lg lg:max-w-xl">
             <div className="mx-auto">
               <div>
-                <LockClosedIcon className="mx-auto h-24 w-24 text-lime-600" />
+                <LockClosedIcon className="mx-auto h-24 w-24 text-slate-900" />
               </div>
-              <h1 className="text-center text-6xl font-bold text-slate-700 dark:text-slate-300">
+              <h1 className="text-center text-6xl font-bold text-slate-900">
                 {formatMessage({ id: 'forgot_password' })}
               </h1>
               <p className="mt-4 text-center text-lg font-medium text-slate-600 dark:text-slate-400">
@@ -63,7 +60,7 @@ const PasswordForget = () => {
                 </div>
                 <div className="mt-4 flex justify-end">
                   <button
-                    className="inline-flex items-center rounded-md border border-slate-300 bg-lime-600 px-4 py-2 text-sm font-medium text-slate-100 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    className="inline-flex items-center rounded-md border border-slate-300 bg-slate-900 px-4 py-2 text-sm font-medium text-slate-100 shadow-sm hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     type="submit"
                   >
                     {formatMessage({ id: 'request_new_password' })}
@@ -74,7 +71,6 @@ const PasswordForget = () => {
           </div>
         )}
       </div>
-      <Footer />
     </>
   );
 };

@@ -8,8 +8,6 @@ import { MinusSmIcon, PlusSmIcon, StarIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';
 import { useForm } from 'react-hook-form';
 import useProductDetail from '../../modules/products/hooks/useProductDetail';
-import Header from '../../modules/layout/components/Header';
-import Footer from '../../modules/layout/components/Footer';
 import renderPrice from '../../modules/common/utils/renderPrice';
 import LoadingItem from '../../modules/common/components/LoadingItem';
 import MetaTags from '../../modules/common/components/MetaTags';
@@ -80,13 +78,12 @@ const Detail = () => {
         url={currentUrl}
         description={product?.texts?.description}
       />
-      <Header />
       {loading ? (
         <LoadingItem />
       ) : (
-        <main className="mx-auto mt-2 max-w-full px-4 pb-16 sm:px-6 sm:pb-24 lg:px-8">
+        <div className="mt-2 pl-1 pb-16 sm:pb-24">
           <div className="lg:grid lg:auto-rows-min lg:grid-cols-12 lg:gap-x-8">
-            <div className="max-w-full px-4 lg:col-span-12 lg:col-start-1">
+            <div className="max-w-full lg:col-span-12 lg:col-start-1">
               <AssortmentBreadcrumbs
                 paths={productPath}
                 currentAssortment={product?.texts}
@@ -96,6 +93,7 @@ const Detail = () => {
             <div className="mt-8 lg:col-span-7 lg:col-start-1 lg:row-span-3 lg:mt-0">
               <ImageGallery
                 lazyLoad
+                showThumbnails
                 onErrorImageURL="/static/img/sun-glass-placeholder.jpeg"
                 useBrowserFullscreen
                 items={getMediaUrls(product).map((image) => ({
@@ -427,9 +425,8 @@ const Detail = () => {
               </section>
             )}
           </div>
-        </main>
+        </div>
       )}
-      <Footer />
     </>
   );
 };

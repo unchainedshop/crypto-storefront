@@ -10,8 +10,6 @@ import classNames from 'classnames';
 import { useState } from 'react';
 import useUser from '../../modules/auth/hooks/useUser';
 import MetaTags from '../../modules/common/components/MetaTags';
-import Footer from '../../modules/layout/components/Footer';
-import Header from '../../modules/layout/components/Header';
 import useRedirect from '../../modules/auth/hooks/useRedirect';
 import Address from '../../modules/common/components/Address';
 import General from '../../modules/common/components/General';
@@ -46,12 +44,10 @@ const Account = () => {
           formatMessage({ id: 'account', defaultMessage: 'Account' })
         }
       />
-      <Header />
-
-      <main className="max-w-full bg-slate-100 pb-10 dark:bg-slate-600 lg:py-12 lg:px-8">
+      <div className="max-w-full bg-slate-100 pb-10 dark:bg-slate-600 lg:py-12 lg:px-8">
         <div className="lg:grid lg:grid-cols-12 lg:gap-x-5">
-          <aside className="py-6 px-2 sm:px-6 lg:col-span-3 lg:py-0 lg:px-0">
-            <nav className="space-y-1">
+          <aside className="h-fit py-6 px-2 sm:px-6 lg:sticky lg:top-24 lg:col-span-3 lg:py-0 lg:px-0">
+            <nav className="space-y-1 lg:sticky lg:top-24">
               {subNavigation.map((item, index) => (
                 <a
                   onClick={() => seCurrentTab(index)}
@@ -168,8 +164,7 @@ const Account = () => {
             </section>
           )}
         </div>
-      </main>
-      <Footer />
+      </div>
     </>
   );
 };

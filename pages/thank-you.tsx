@@ -3,8 +3,6 @@ import { useIntl } from 'react-intl';
 import { QRCode } from 'react-qr-svg';
 
 import useOrderDetail from '../modules/orders/hooks/useOrderDetail';
-import Header from '../modules/layout/components/Header';
-import Footer from '../modules/layout/components/Footer';
 import MetaTags from '../modules/common/components/MetaTags';
 
 const ThankYou = () => {
@@ -22,29 +20,26 @@ const ThankYou = () => {
         title={intl.formatMessage({ id: 'thank_you' })}
         description={intl.formatMessage({ id: 'thank_you_description' })}
       />
-      <Header />
-      <div className="container mt-5">
-        <div className="row">
-          <div className="col-md-8 offset-md-2">
+      <div className="mt-5">
+        <div className="mx-4 flex flex-wrap">
+          <div className="relative w-full px-4 md:ml-[16.666667%] md:max-w-2/3 md:flex-6">
             <h1>{intl.formatMessage({ id: 'thank_you_header' })}</h1>
             {order && (
               <>
                 <p>{intl.formatMessage({ id: 'thank_you_description' })}</p>
                 <h4>
                   {intl.formatMessage({ id: 'thank_you_order_number' })}
-                  {'  '}
                   {order.orderNumber}
                 </h4>
                 <p>
                   {intl.formatMessage({ id: 'thank_you_order_date' })}
-                  {'  '}
                   {intl.formatDate(order.created)}
                 </p>
                 {order?.payment?.provider?.interface?._id ===
                   'shop.unchained.payment.bity' && (
                   <div>
                     <p>
-                      Please send <b>{order.meta.bityOrder.input.amount}</b>{' '}
+                      Please send <b>{order.meta.bityOrder.input.amount}</b>
                       {order.meta.bityOrder.input.currency} to
                     </p>
                     <QRCode
@@ -55,7 +50,7 @@ const ThankYou = () => {
                       value={
                         order.meta.bityOrder.payment_details.crypto_address
                       }
-                      className="d-block mb-4"
+                      className="mb-4 block"
                     />
                     <small>
                       Bitcon Destination Address:{' '}
@@ -82,7 +77,7 @@ const ThankYou = () => {
                         >
                           here to check when the order is confirmed
                         </a>
-                      </b>{' '}
+                      </b>
                     </p>
                   </div>
                 )}
@@ -91,8 +86,6 @@ const ThankYou = () => {
           </div>
         </div>
       </div>
-
-      <Footer />
     </>
   );
 };
