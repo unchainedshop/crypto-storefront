@@ -13,6 +13,7 @@ import { CartContext } from '../../cart/CartContext';
 import DesktopNavigation from '../../assortment/components/DesktopNavigation';
 import MobileNavigation from '../../assortment/components/MobileNavigation';
 import ThemeToggle from '../../common/components/ThemeToggle';
+import defaultNextImageLoader from '../../common/utils/getDefaultNextImageLoader';
 
 const {
   publicRuntimeConfig: { theme },
@@ -86,6 +87,7 @@ const Header = () => {
                   placeholder="blur"
                   blurDataURL="/placeholder.png"
                   className="rounded"
+                  loader={defaultNextImageLoader}
                 />
               </a>
             </Link>
@@ -124,6 +126,7 @@ const Header = () => {
                     placeholder="blur"
                     blurDataURL="/placeholder.png"
                     className="rounded"
+                    loader={defaultNextImageLoader}
                   />
                 </a>
               </Link>

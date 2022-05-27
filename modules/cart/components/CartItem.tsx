@@ -8,6 +8,7 @@ import getMediaUrl from '../../common/utils/getMediaUrl';
 import renderPrice from '../../common/utils/renderPrice';
 import useRemoveCartItem from '../hooks/useRemoveCartItem';
 import useUpdateCartItemMutation from '../hooks/useUpdateCartItem';
+import defaultNextImageLoader from '../../common/utils/getDefaultNextImageLoader';
 
 const CartItem = ({ _id, quantity, product, total }) => {
   const { updateCartItem } = useUpdateCartItemMutation();
@@ -60,6 +61,7 @@ const CartItem = ({ _id, quantity, product, total }) => {
           layout="fill"
           objectFit="contain"
           quality={100}
+          loader={defaultNextImageLoader}
         />
       </div>
 

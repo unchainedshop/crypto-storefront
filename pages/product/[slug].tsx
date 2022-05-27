@@ -44,7 +44,10 @@ const Detail = () => {
   const [selectedSize, setSelectedSize] = useState(0);
 
   const onSubmit = (data) => {
-    updateCartItem({ itemId: product?._id, quantity: data.quantity });
+    updateCartItem({
+      itemId: product?._id,
+      quantity: parseInt(data.quantity || '1', 10),
+    });
   };
 
   const productPath = getAssortmentPath(paths);

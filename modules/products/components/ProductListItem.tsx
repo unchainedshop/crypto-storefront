@@ -9,6 +9,7 @@ import useUser from '../../auth/hooks/useUser';
 import useConditionalAddCartProduct from '../../cart/hooks/useConditionalAddCartProduct';
 import useAddBookmark from '../../common/hooks/useAddBookmark';
 import useRemoveBookmark from '../../common/hooks/useRemoveBookmark';
+import defaultNextImageLoader from '../../common/utils/getDefaultNextImageLoader';
 import getMediaUrl from '../../common/utils/getMediaUrl';
 
 const ProductListItem = ({ product }) => {
@@ -54,6 +55,7 @@ const ProductListItem = ({ product }) => {
                   quality={100}
                   layout="responsive"
                   objectFit="contain"
+                  loader={defaultNextImageLoader}
                 />
               </div>
             </a>

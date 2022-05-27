@@ -8,6 +8,7 @@ import useConditionalAddCartProduct from '../modules/cart/hooks/useConditionalAd
 import LoadingItem from '../modules/common/components/LoadingItem';
 import MetaTags from '../modules/common/components/MetaTags';
 import useRemoveBookmark from '../modules/common/hooks/useRemoveBookmark';
+import defaultNextImageLoader from '../modules/common/utils/getDefaultNextImageLoader';
 import getMediaUrl from '../modules/common/utils/getMediaUrl';
 
 const bookmarks = () => {
@@ -72,6 +73,7 @@ const bookmarks = () => {
                                   quality={100}
                                   layout="responsive"
                                   objectFit="contain"
+                                  loader={defaultNextImageLoader}
                                 />
                               </div>
                             </a>

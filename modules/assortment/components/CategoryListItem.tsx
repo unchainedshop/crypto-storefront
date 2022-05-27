@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import defaultNextImageLoader from '../../common/utils/getDefaultNextImageLoader';
 
 import getMediaUrl from '../../common/utils/getMediaUrl';
 
@@ -23,6 +24,7 @@ const CategoryListItem = ({ category }) => {
             objectFit="cover"
             objectPosition="center"
             className="h-full w-full"
+            loader={defaultNextImageLoader}
           />
         </div>
         <h3 className="mt-4 text-base font-semibold text-slate-900 dark:text-slate-100">

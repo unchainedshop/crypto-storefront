@@ -9,6 +9,7 @@ import classNames from 'classnames';
 import { toast } from 'react-toastify';
 import COUNTRIES from '../../common/data/countries-list';
 import useCreateUser from '../hooks/useCreateUser';
+import defaultNextImageLoader from '../../common/utils/getDefaultNextImageLoader';
 
 const {
   publicRuntimeConfig: { theme },
@@ -597,6 +598,7 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
               placeholder="blur"
               blurDataURL="/placeholder.png"
               className="z-0 rounded-lg"
+              loader={defaultNextImageLoader}
             />
           </span>
         </div>
@@ -613,6 +615,7 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
             placeholder="blur"
             blurDataURL="/placeholder.png"
             className="mx-auto rounded"
+            loader={defaultNextImageLoader}
           />
         </span>
         <div className="absolute top-1/2 left-0 w-full">

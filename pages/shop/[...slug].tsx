@@ -11,6 +11,7 @@ import MetaTags from '../../modules/common/components/MetaTags';
 import useCategoriesTree from '../../modules/assortment/hooks/useCategoriesTree';
 import LoadingItem from '../../modules/common/components/LoadingItem';
 import getMediaUrl from '../../modules/common/utils/getMediaUrl';
+import defaultNextImageLoader from '../../modules/common/utils/getDefaultNextImageLoader';
 
 const CategoryDetail = () => {
   const router = useRouter();
@@ -90,6 +91,7 @@ const CategoryDetail = () => {
                 quality={100}
                 width="706px"
                 height="235px"
+                loader={defaultNextImageLoader}
               />
             )}
 

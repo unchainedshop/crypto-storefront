@@ -10,6 +10,7 @@ import LoadingItem from '../modules/common/components/LoadingItem';
 import MetaTags from '../modules/common/components/MetaTags';
 import getMediaUrl from '../modules/common/utils/getMediaUrl';
 import { catagories } from '../modules/common/data/miscellaneous';
+import defaultNextImageLoader from '../modules/common/utils/getDefaultNextImageLoader';
 
 const {
   publicRuntimeConfig: { theme },
@@ -43,6 +44,7 @@ const Home = () => {
             blurDataURL="/placeholder.png"
             className="mx-auto mb-4 block rounded-lg"
             alt={formatMessage({ id: 'hero', defaultMessage: 'Hero' })}
+            loader={defaultNextImageLoader}
           />
         </div>
 
@@ -102,6 +104,7 @@ const Home = () => {
                               catagories[index]?.hasClass,
                           },
                         )}
+                        loader={defaultNextImageLoader}
                       />
                       <div
                         aria-hidden="true"

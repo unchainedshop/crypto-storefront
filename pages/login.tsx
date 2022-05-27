@@ -5,6 +5,7 @@ import getConfig from 'next/config';
 import LoginForm from '../modules/auth/components/LoginForm';
 import MetaTags from '../modules/common/components/MetaTags';
 import useRedirect from '../modules/auth/hooks/useRedirect';
+import defaultNextImageLoader from '../modules/common/utils/getDefaultNextImageLoader';
 
 const {
   publicRuntimeConfig: { theme },
@@ -31,6 +32,7 @@ const LogIn = () => {
               placeholder="blur"
               blurDataURL="/placeholder.png"
               className="rounded"
+              loader={defaultNextImageLoader}
             />
           </div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-slate-900 dark:text-slate-100">

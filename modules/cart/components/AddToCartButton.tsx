@@ -34,7 +34,10 @@ const AddToCartButton = ({ productId }) => {
     const currentQuantity: number = cartEntry.quantity - 1;
 
     if (currentQuantity > 0) {
-      updateCartItem({ itemId: cartEntry._id, quantity: currentQuantity });
+      updateCartItem({
+        itemId: cartEntry._id,
+        quantity: currentQuantity,
+      });
     } else {
       removeCartItem({ itemId: cartEntry._id });
     }

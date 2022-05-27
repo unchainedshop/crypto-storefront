@@ -49,17 +49,7 @@ module.exports = {
     theme,
     localizations,
   },
-  images: {
-    domains: [
-      'localhost',
-      'tailwindui.com',
-      'images.unsplash.com',
-      extractDomain(FRONTEND_URL),
-      extractDomain(GRAPHQL_ENDPOINT),
-      extractDomain(UNCHAINED_ENDPOINT),
-    ].filter(Boolean),
-    sizes: [320, 480, 820, 1200, 1600],
-  },
+
   i18n: {
     locales: Object.keys(theme.locales),
     defaultLocale: Object.keys(theme.locales)[0],
