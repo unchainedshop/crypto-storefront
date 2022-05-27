@@ -1,16 +1,19 @@
-import { useMutation, useApolloClient, gql } from '@apollo/client';
-import { useIntl } from 'react-intl';
+import { useMutation, gql } from '@apollo/client';
 
 import CurrentUserFragment from '../fragments/CurrentUserFragment';
-import { UserQuery } from './useUser';
 
 const LoginWithPasswordMutation = gql`
   mutation LoginWithPassword(
     $email: String!
-    $password: String!
+    $plainPassword: String
+    $password: HashedPasswordInput
     $forceLocale: String
   ) {
-    loginWithPassword(email: $email, plainPassword: $password) {
+    loginWithPassword(
+      email: $email
+      plainPassword: $plainPassword
+      password: $password
+    ) {
       id
       token
       tokenExpires
@@ -21,38 +24,36 @@ const LoginWithPasswordMutation = gql`
   }
   ${CurrentUserFragment}
 `;
-
-const useLoginWithPassword = () => {
-  const client = useApolloClient();
-  const intl = useIntl();
-  const [loginWithPasswordMutation, { error }] = useMutation(
+const useLoginWithPassword = (): any => {
+  const [logInWithPasswordMutation, { error }] = useMutation(
     LoginWithPasswordMutation,
     {
-      update(cache, result) {
-        const newUser = result?.data?.loginWithPassword?.user;
-
-        if (newUser) {
-          cache.writeQuery({
-            query: UserQuery,
-            data: { me: newUser },
-          });
-        }
-      },
+      errorPolicy: 'all',
     },
   );
 
-  const loginWithPassword = async ({ email, password }) => {
-    const result = await loginWithPasswordMutation({
-      variables: { email, password, forceLocale: intl.locale },
+  const logInWithPassword = async ({
+    username = '',
+    email,
+    password,
+  }): Promise<any> => {
+    const normalizedEmail = email?.trim();
+
+    const variables = {
+      username,
+      email: normalizedEmail,
+      plainPassword: password,
+      password: null,
+    };
+
+    return logInWithPasswordMutation({
+      variables,
     });
-    await client.resetStore();
-    return result;
   };
 
   return {
-    loginWithPassword,
+    logInWithPassword,
     error,
   };
 };
-
 export default useLoginWithPassword;
