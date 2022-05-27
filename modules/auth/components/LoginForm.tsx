@@ -8,11 +8,12 @@ import LoadingItem from '../../common/components/LoadingItem';
 
 import useLoginWithPassword from '../hooks/useLoginWithPassword';
 import useUser from '../hooks/useUser';
+import { storeLoginToken } from '../utils/store';
 
 const LoginForm = ({ onLogin = null }) => {
   const { register, handleSubmit, errors, setError } = useForm();
   const { formatMessage } = useIntl();
-  const { loginWithPassword, error } = useLoginWithPassword();
+  const { logInWithPassword, error } = useLoginWithPassword();
   const hasErrors = Object.keys(errors).length > 0;
   const { loading } = useUser();
 
@@ -30,7 +31,13 @@ const LoginForm = ({ onLogin = null }) => {
 
   const onSubmit = async ({ email, password }) => {
     try {
-      await loginWithPassword({ email, password });
+      const { data } = await logInWithPassword({
+        email,
+        password,
+      });
+
+      const { id, token, tokenExpires } = data?.loginWithPassword || {};
+      await storeLoginToken(id, token, new Date(tokenExpires));
       onLogin?.();
       toast.success('Login is successfully');
     } catch (err) {

@@ -8,14 +8,24 @@ import {
   ShoppingCartIcon,
   UserCircleIcon,
 } from '@heroicons/react/outline';
+import { useRouter } from 'next/router';
 import OrderButton from '../../orders/components/UserOrderButton';
 import { CartContext } from '../../cart/CartContext';
 import useUser from '../hooks/useUser';
+import { useApollo } from '../../apollo/apolloClient';
+import logOut from '../hooks/logOut';
 
 const LoginCart = () => {
   const { user } = useUser();
   const { formatMessage } = useIntl();
   const context = useContext(CartContext);
+  const router = useRouter();
+  const apollo = useApollo({ locale: router.locale });
+
+  const onLogout = async () => {
+    await logOut(apollo);
+    router.push('/login');
+  };
 
   return user ? (
     <div className="flex items-center gap-x-3">
@@ -82,14 +92,18 @@ const LoginCart = () => {
               </span>
             </a>
           </Link>
-          <Link href="/logout">
-            <a className="flex items-center gap-x-3">
-              <LogoutIcon className="inline-flex h-6 w-6 select-none items-center justify-center dark:text-white" />
-              <span className="hidden md:block">
-                {formatMessage({ id: 'log_out', defaultMessage: 'Log Out' })}
-              </span>
-            </a>
-          </Link>
+
+          <a
+            className="flex items-center gap-x-3"
+            onClick={async () => {
+              await onLogout();
+            }}
+          >
+            <LogoutIcon className="inline-flex h-6 w-6 select-none items-center justify-center dark:text-white" />
+            <span className="hidden md:block">
+              {formatMessage({ id: 'log_out', defaultMessage: 'Log Out' })}
+            </span>
+          </a>
         </>
       ) : (
         ' '

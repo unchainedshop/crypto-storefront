@@ -2,10 +2,7 @@ import { CollectionIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
 import { useIntl } from 'react-intl';
 
-import useUserOrderOrderList from '../hooks/useUserOrderList';
-
 const OrderButton = () => {
-  const { orders } = useUserOrderOrderList();
   const { formatMessage } = useIntl();
   // if (orders.length === 0) return null;
 
