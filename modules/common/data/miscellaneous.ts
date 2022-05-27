@@ -802,3 +802,36 @@ export const borderColor = (color, hue) => {
 export const getColor = (type, color, hue) => {
   return `${ColorLookupTable[color][type][hue]}`;
 };
+
+export const catagories = [
+  {
+    media:
+      'https://tailwindui.com/img/ecommerce-images/home-page-03-featured-category.jpg',
+    row: 2,
+    hasClass: false,
+  },
+  {
+    media:
+      'https://tailwindui.com/img/ecommerce-images/home-page-03-category-01.jpg',
+    row: 1,
+    hasClass: true,
+  },
+  {
+    media:
+      'https://tailwindui.com/img/ecommerce-images/home-page-03-category-02.jpg',
+    row: 1,
+    hasClass: true,
+  },
+  {
+    media:
+      'https://tailwindui.com/img/ecommerce-images/home-page-03-category-01.jpg',
+    row: 1,
+    hasClass: true,
+  },
+  {
+    media:
+      'https://tailwindui.com/img/ecommerce-images/home-page-03-category-02.jpg',
+    row: 1,
+    hasClass: true,
+  },
+];

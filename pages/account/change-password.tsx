@@ -8,8 +8,6 @@ import { useIntl } from 'react-intl';
 import useChangePassword from '../../modules/auth/hooks/useChangePassword';
 import LoadingItem from '../../modules/common/components/LoadingItem';
 import MetaTags from '../../modules/common/components/MetaTags';
-import Footer from '../../modules/layout/components/Footer';
-import Header from '../../modules/layout/components/Header';
 
 const ChangePassword = () => {
   const { register, handleSubmit, errors, watch, setError } = useForm();
@@ -46,7 +44,6 @@ const ChangePassword = () => {
           defaultMessage: 'Update Password',
         })}
       />
-      <Header />
       <div className="bg-slate-100 dark:bg-slate-600">
         {loading ? (
           <LoadingItem />
@@ -142,7 +139,6 @@ const ChangePassword = () => {
           </div>
         )}
       </div>
-      <Footer />
     </>
   );
 };

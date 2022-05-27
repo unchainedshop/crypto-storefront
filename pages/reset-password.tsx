@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -5,12 +6,10 @@ import { useIntl } from 'react-intl';
 
 import useResetPassword from '../modules/auth/hooks/useResetPassword';
 import MetaTags from '../modules/common/components/MetaTags';
-import Footer from '../modules/layout/components/Footer';
-import Header from '../modules/layout/components/Header';
 
 const PasswordReset = () => {
   const router = useRouter();
-  const intl = useIntl();
+  const { formatMessage } = useIntl();
   const { token } = router.query;
   const { register, handleSubmit, errors, watch } = useForm();
   const [error, setError] = useState([]);
@@ -32,66 +31,94 @@ const PasswordReset = () => {
 
   return (
     <>
-      <MetaTags title={intl.formatMessage({ id: 'reset_password' })} />
-      <Header />
-      <div className="container">
-        <div className="row">
-          <div className="col-md-8 offset-md-2">
-            <h1>reset Password</h1>
-            <form className="form" onSubmit={handleSubmit(onSubmit)}>
-              <div
-                className={`col-md-6 mb-3 ${
-                  errors.password2 ? 'form-error' : ''
-                }`}
+      <MetaTags title={formatMessage({ id: 'reset_password' })} />
+      <div className="mx-auto mt-5 w-full p-10 sm:max-w-md md:max-w-lg lg:max-w-xl">
+        <div className="rounded-lg border bg-white p-4 shadow-sm dark:bg-slate-500">
+          <h1 className="mt-6 text-center text-3xl font-extrabold text-slate-900 dark:text-slate-100">
+            {formatMessage({
+              id: 'reset_password',
+              defaultMessage: 'Reset password',
+            })}
+          </h1>
+          <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+            <div>
+              <label
+                htmlFor="newPassword"
+                className="block text-sm font-medium text-slate-700 dark:text-slate-300"
               >
-                <label className="form-label">
-                  {intl.formatMessage({ id: 'new_password' })}
-                </label>
+                {formatMessage({ id: 'new_password' })}
+              </label>
+              <div className="my-1">
                 <input
-                  className="form-control"
+                  type="password"
+                  id="newPassword"
                   name="newPassword"
-                  type="password"
+                  autoComplete="new-password"
                   ref={register({ required: true })}
+                  className={classNames(
+                    'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm',
+                    {
+                      'border-red-300 focus:border-red-500 focus:outline-none focus:ring-red-500':
+                        errors.newPassword,
+                    },
+                  )}
                 />
+                {errors.newPassword && (
+                  <p className="text-sm text-red-600">
+                    {errors.newPassword?.message}
+                  </p>
+                )}
               </div>
-              <div
-                className={`col-md-6 mb-3 ${
-                  errors.password2 ? 'form-error' : ''
-                }`}
+            </div>
+            <div>
+              <label
+                htmlFor="password2"
+                className="block text-sm font-medium text-slate-700 dark:text-slate-300"
               >
-                <label className="form-label">
-                  {intl.formatMessage({ id: 'repeat_password' })}
-                </label>
+                {formatMessage({ id: 'repeat_password' })}
+              </label>
+              <div className="my-1">
                 <input
-                  className="form-control"
-                  name="password2"
                   type="password"
+                  id="password2"
+                  name="password2"
+                  autoComplete="new-password"
                   ref={register({
                     validate: (value) =>
                       value === password.current ||
                       'The passwords do not match',
                   })}
+                  className={classNames(
+                    'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm',
+                    {
+                      'border-red-300 focus:border-red-500 focus:outline-none focus:ring-red-500':
+                        errors.password2,
+                    },
+                  )}
                 />
-                {errors.password2 && <p>{errors.password2.message}</p>}
               </div>
-              {error && (
-                <ul className="form-error">
-                  {error.map((e) => (
-                    <li className="error-message">{e.message}</li>
-                  ))}
-                </ul>
+              {errors.password2 && (
+                <p className="text-sm text-red-600">
+                  {errors.password2.message}
+                </p>
               )}
-              <button
-                className="button button--primary button--big mt-3"
-                type="submit"
-              >
-                {intl.formatMessage({ id: 'reset_password' })}
-              </button>
-            </form>
-          </div>
+            </div>
+            {error && (
+              <ul className="form-error">
+                {error.map((e) => (
+                  <li className="text-sm text-red-600">{e.message}</li>
+                ))}
+              </ul>
+            )}
+            <button
+              type="submit"
+              className="flex w-full justify-center rounded-md border border-transparent bg-slate-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
+            >
+              {formatMessage({ id: 'reset_password' })}
+            </button>
+          </form>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

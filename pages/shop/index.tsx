@@ -5,8 +5,6 @@ import CategoryListItem from '../../modules/assortment/components/CategoryListIt
 import useAssortments from '../../modules/assortment/hooks/useAssortments';
 import LoadingItem from '../../modules/common/components/LoadingItem';
 import MetaTags from '../../modules/common/components/MetaTags';
-import Footer from '../../modules/layout/components/Footer';
-import Header from '../../modules/layout/components/Header';
 
 const Categories = () => {
   const { assortments, loading } = useAssortments();
@@ -26,13 +24,12 @@ const Categories = () => {
         })}
         url={currentUrl}
       />
-      <Header />
-      <main className="relative mx-auto w-full bg-white dark:bg-slate-600">
+      <div className="relative w-full bg-white dark:bg-slate-600">
         {loading ? (
           <LoadingItem />
         ) : (
           <section aria-labelledby="favorites-heading">
-            <div className="mx-10 max-w-full px-4 pt-16 sm:px-6 sm:pt-24 lg:px-8">
+            <div className="max-w-full pl-4 pt-16 sm:pl-6 sm:pt-24 lg:pl-8">
               <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 dark:text-slate-100">
                 {formatMessage({
                   id: 'shop',
@@ -54,8 +51,7 @@ const Categories = () => {
             </div>
           </section>
         )}
-      </main>
-      <Footer />
+      </div>
     </>
   );
 };

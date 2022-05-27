@@ -111,15 +111,15 @@ const Footer = () => {
   return (
     <footer
       aria-labelledby="footer-heading"
-      className="bg-white dark:bg-slate-600"
+      className="container mx-auto bg-white dark:bg-slate-600"
     >
       <h2 id="footer-heading" className="sr-only">
         {formatMessage({ id: 'footer', defaultMessage: 'Footer' })}
       </h2>
 
-      <div className="mx-auto max-w-full">
+      <div className="max-w-full px-1">
         <div className="pt-16">
-          <div className="mx-16 border-t border-gray-200">
+          <div className="border-t border-gray-200">
             <div className="mt-8 flex max-w-full space-x-6">
               {footerNavigation.social.map((item) => (
                 <a

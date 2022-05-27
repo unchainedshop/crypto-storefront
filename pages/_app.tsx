@@ -12,6 +12,7 @@ import IntlWrapper from '../modules/i18n/components/IntlWrapper';
 import { CartContext } from '../modules/cart/CartContext';
 
 import { useApollo } from '../modules/apollo/apolloClient';
+import Layout from '../modules/layout/components/Layout';
 
 const {
   publicRuntimeConfig: { localizations },
@@ -44,7 +45,9 @@ const UnchainedApp = ({ Component, pageProps, router }) => {
       >
         <CartContext.Provider value={cartContext}>
           <ToastContainer position="top-center" autoClose={3000} newestOnTop />
-          <Component {...pageProps} />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
         </CartContext.Provider>
       </IntlWrapper>
     </ApolloProvider>

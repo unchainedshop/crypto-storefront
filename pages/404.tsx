@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'next/link';
 import { useIntl } from 'react-intl';
 
-import Header from '../modules/layout/components/Header';
-import Footer from '../modules/layout/components/Footer';
 import MetaTags from '../modules/common/components/MetaTags';
 
 const NotFound = ({ page = '' }) => {
@@ -11,7 +9,6 @@ const NotFound = ({ page = '' }) => {
   return (
     <>
       <MetaTags title="404: Not Found" />
-      <Header />
       <div className="text-danger container p-4 text-center md:p-5">
         <div className="mb-6 lg:p-12">
           <h1 className="font-dax-ot-regular font-[bolder]">
@@ -30,7 +27,6 @@ const NotFound = ({ page = '' }) => {
         </div>
         <div />
       </div>
-      <Footer />
     </>
   );
 };
