@@ -1,10 +1,28 @@
 import { useIntl } from 'react-intl';
+import { toast } from 'react-toastify';
+import useCheckoutCartMutation from '../../checkout/hooks/useCheckoutCart';
 
 import renderPrice from '../../common/utils/renderPrice';
 import CartItem from './CartItem';
 
 const ManageCart = ({ user }) => {
   const { formatMessage } = useIntl();
+  const { checkoutCart } = useCheckoutCartMutation();
+
+  const handleOnClick = async () => {
+    try {
+      await checkoutCart({
+        orderId: user?.cart?._id,
+        orderContext: {},
+        paymentContext: {},
+        deliveryContext: {},
+      });
+      toast.success('Checkout successfully');
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error.message);
+    }
+  };
 
   return (
     <div className="text-slate-700 dark:text-slate-300">
@@ -61,6 +79,7 @@ const ManageCart = ({ user }) => {
         <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
           <button
             type="submit"
+            onClick={handleOnClick}
             className="w-full rounded-md border border-transparent bg-indigo-600 py-3 px-4 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
           >
             {formatMessage({

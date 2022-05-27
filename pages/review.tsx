@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { RadioGroup } from '@headlessui/react';
 import { CheckCircleIcon } from '@heroicons/react/solid';
+import classNames from 'classnames';
 import useUser from '../modules/auth/hooks/useUser';
 import useSetOrderPaymentProvider from '../modules/orders/hooks/setPaymentOrderProvider';
 import DatatransStatusGate from '../modules/checkout/components/DatatransStatusGate';
@@ -18,6 +19,7 @@ import useUpdateCart from '../modules/checkout/hooks/useUpdateCart';
 import MetaTags from '../modules/common/components/MetaTags';
 import LoadingItem from '../modules/common/components/LoadingItem';
 import QRCodeComponent from '../modules/checkout/components/QRCodeComponent';
+import useSignForCheckout from '../modules/checkout/hooks/useSignForCheckout';
 
 const Review = () => {
   const { user, loading } = useUser();
@@ -27,6 +29,11 @@ const Review = () => {
   const { setOrderPaymentProvider } = useSetOrderPaymentProvider();
   const { updateOrderDeliveryAddress } = useUpdateOrderDeliveryShipping();
   const { updateCart } = useUpdateCart();
+  const { signForCheckout } = useSignForCheckout();
+  const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(
+    user?.cart?.supportedDeliveryProviders[0],
+  );
+  const [contractAddress, setContractAddress] = useState('');
 
   useEffect(() => {
     if (!loading && user?.cart && !user.cart.contact?.emailAddress) {
@@ -48,9 +55,31 @@ const Review = () => {
     });
   };
 
+  const signOrderPayment = async () => {
+    let contraAddress = '';
+    if (user?.cart?.paymentInfo?.provider?.type === 'GENERIC') {
+      try {
+        const response = await signForCheckout({
+          orderPaymentId: user?.cart?.paymentInfo?._id,
+          transactionContext: {},
+        });
+        const data = JSON.parse(response);
+
+        data.forEach((d) => {
+          contraAddress = d.address;
+        });
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log(error.message);
+      }
+    }
+
+    return contraAddress;
+  };
+
   const selectPayment = async (providerId) => {
     await setOrderPaymentProvider({
-      orderId: user.cart._id,
+      orderId: user?.cart?._id,
       paymentProviderId: providerId,
     });
   };
@@ -82,13 +111,15 @@ const Review = () => {
     }
   };
 
-  function classNames(...classes) {
-    return classes.filter(Boolean).join(' ');
-  }
+  useEffect(() => {
+    const updateContractAddress = async () => {
+      setContractAddress(await signOrderPayment());
+    };
 
-  const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(
-    user?.cart?.supportedDeliveryProviders[0],
-  );
+    // if (user?.cart?.paymentInfo?.provider?.type === 'GENERIC') {
+    updateContractAddress();
+    // }
+  }, [user?.cart?.paymentInfo?._id]);
 
   if (loading) return <LoadingItem />;
 
@@ -110,6 +141,7 @@ const Review = () => {
                   </h2>
                   <DeliveryAddressEditable user={user} />
                 </div>
+
                 {/* Delivery Method */}
                 <div className="mt-10 border-t border-slate-200 pt-10">
                   <RadioGroup
@@ -131,13 +163,12 @@ const Review = () => {
                             value={deliveryMethod}
                             className={({ checked, active }) =>
                               classNames(
-                                checked
-                                  ? 'border-transparent'
-                                  : 'border-slate-300',
-                                active
-                                  ? 'ring-2 ring-indigo-500 dark:ring-indigo-800'
-                                  : '',
-                                'relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none dark:bg-slate-500',
+                                'border-slate-300,relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none dark:bg-slate-500',
+                                {
+                                  'border-transparent': checked,
+                                  'ring-2 ring-indigo-500 dark:ring-indigo-800':
+                                    active,
+                                },
                               )
                             }
                           >
@@ -173,11 +204,11 @@ const Review = () => {
                                 ) : null}
                                 <div
                                   className={classNames(
-                                    active ? 'border' : 'border-2',
-                                    checked
-                                      ? 'border-indigo-500'
-                                      : 'border-transparent',
-                                    'pointer-events-none absolute -inset-px rounded-lg',
+                                    'pointer-events-none absolute -inset-px rounded-lg border-2 border-transparent',
+                                    {
+                                      border: active,
+                                      'border-indigo-500': checked,
+                                    },
                                   )}
                                   aria-hidden="true"
                                 />
@@ -189,6 +220,7 @@ const Review = () => {
                     </div>
                   </RadioGroup>
                 </div>
+
                 {/* Billing Address */}
                 <div className="mt-10 border-t border-slate-200 pt-10">
                   <h4 className="mt-5 text-slate-900 dark:text-white">
@@ -214,6 +246,7 @@ const Review = () => {
                   </div>
                   <BillingAddressEditable user={user} />
                 </div>
+
                 {/* Payment */}
                 <div className="mt-10 border-t border-slate-200 pt-10">
                   <h2 className="text-lg font-medium text-slate-900 dark:text-white">
@@ -265,6 +298,7 @@ const Review = () => {
                     </div>
                   </fieldset>
 
+                  {/* Wire transfer */}
                   <div className="mt-4">
                     {user?.cart?.paymentInfo?.provider?.interface?._id ===
                     'shop.unchained.invoice' ? (
@@ -289,6 +323,7 @@ const Review = () => {
                     )}
                   </div>
 
+                  {/* Card payment */}
                   <div className="mt-6 grid grid-cols-4 gap-y-6 gap-x-4">
                     <div className="col-span-4">
                       <label
@@ -372,7 +407,7 @@ const Review = () => {
               </div>
 
               <div className="mt-10 lg:mt-0">
-                <QRCodeComponent />
+                <QRCodeComponent contractAddress={contractAddress} />
                 <h2 className="text-lg font-medium text-slate-900 dark:text-slate-100">
                   {formatMessage({ id: 'order_summary' })}
                 </h2>
