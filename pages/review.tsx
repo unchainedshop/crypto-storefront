@@ -247,9 +247,9 @@ const Review = () => {
                                 paymentMethod._id ===
                                 user?.cart?.paymentInfo?.provider?._id
                               }
-                              onChange={(e) => {
+                              onChange={async (e) => {
                                 e.preventDefault();
-                                selectPayment(paymentMethod._id);
+                                await selectPayment(paymentMethod._id);
                               }}
                             />
 

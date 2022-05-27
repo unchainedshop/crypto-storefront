@@ -37,6 +37,7 @@ const LoginForm = ({ onLogin = null }) => {
       });
 
       const { id, token, tokenExpires } = data?.loginWithPassword || {};
+
       await storeLoginToken(id, token, new Date(tokenExpires));
       onLogin?.();
       toast.success('Login is successfully');
