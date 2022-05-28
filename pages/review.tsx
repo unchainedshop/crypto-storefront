@@ -31,7 +31,10 @@ const Review = () => {
   const { updateCart } = useUpdateCart();
   const { signForCheckout } = useSignForCheckout();
   const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(
-    user?.cart?.supportedDeliveryProviders[0],
+    user?.cart?.deliveryInfo?.provider?._id,
+  );
+  const [selectedPaymentProvider, setSelectedPaymentProvider] = useState(
+    user?.cart?.paymentInfo?.provider?._id,
   );
   const [contractAddress, setContractAddress] = useState('');
 
@@ -116,10 +119,8 @@ const Review = () => {
       setContractAddress(await signOrderPayment());
     };
 
-    // if (user?.cart?.paymentInfo?.provider?.type === 'GENERIC') {
     updateContractAddress();
-    // }
-  }, [user?.cart?.paymentInfo?._id]);
+  }, [selectedPaymentProvider]);
 
   if (loading) return <LoadingItem />;
 
@@ -127,7 +128,7 @@ const Review = () => {
     <>
       <MetaTags title={formatMessage({ id: 'order_review' })} />
       <div className="bg-slate-50 dark:bg-slate-600">
-        <div className="max-w-full pt-16 pb-24">
+        <div className="max-w-full px-4 pt-16 pb-24">
           <h2 className="sr-only">
             {formatMessage({ id: 'checkout', defaultMessage: 'Checkout' })}
           </h2>
@@ -160,10 +161,10 @@ const Review = () => {
                         (deliveryMethod) => (
                           <RadioGroup.Option
                             key={deliveryMethod._id}
-                            value={deliveryMethod}
+                            value={deliveryMethod._id}
                             className={({ checked, active }) =>
                               classNames(
-                                'border-slate-300,relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none dark:bg-slate-500',
+                                'relative flex cursor-pointer rounded-lg border border-slate-300 bg-white p-4 shadow-sm focus:outline-none dark:bg-slate-500',
                                 {
                                   'border-transparent': checked,
                                   'ring-2 ring-indigo-500 dark:ring-indigo-800':
@@ -174,25 +175,29 @@ const Review = () => {
                           >
                             {({ checked, active }) => (
                               <>
+                                {console.log(deliveryMethod)}
                                 <div className="flex flex-1">
                                   <div className="flex flex-col">
                                     <RadioGroup.Label
                                       as="span"
                                       className="block text-sm font-medium text-slate-900 dark:text-white"
                                     >
-                                      {deliveryMethod.type}
+                                      {deliveryMethod?.interface?.label}&nbsp;
+                                      {deliveryMethod?.interface?.version}
                                     </RadioGroup.Label>
                                     <RadioGroup.Description
                                       as="span"
                                       className="mt-1 flex items-center text-sm text-slate-500 dark:text-slate-100"
                                     >
-                                      {deliveryMethod.turnaround}
+                                      {deliveryMethod?.type}
                                     </RadioGroup.Description>
                                     <RadioGroup.Description
                                       as="span"
                                       className="mt-6 text-sm font-medium text-slate-900 dark:text-white"
                                     >
-                                      {deliveryMethod.price}
+                                      {deliveryMethod?.simulatedPrice?.currency}
+                                      &nbsp;
+                                      {deliveryMethod?.simulatedPrice?.amount}
                                     </RadioGroup.Description>
                                   </div>
                                 </div>
@@ -248,7 +253,7 @@ const Review = () => {
                 </div>
 
                 {/* Payment */}
-                <div className="mt-10 border-t border-slate-200 pt-10">
+                <div className="mt-10 border-y border-slate-200 py-10">
                   <h2 className="text-lg font-medium text-slate-900 dark:text-white">
                     {formatMessage({
                       id: 'payment',
@@ -282,6 +287,9 @@ const Review = () => {
                               }
                               onChange={async (e) => {
                                 e.preventDefault();
+                                if (paymentMethod.type === 'GENERIC') {
+                                  setSelectedPaymentProvider(paymentMethod._id);
+                                }
                                 await selectPayment(paymentMethod._id);
                               }}
                             />
@@ -290,7 +298,9 @@ const Review = () => {
                               htmlFor={paymentMethod._id}
                               className="ml-3 block text-sm font-medium text-slate-700 dark:text-slate-200"
                             >
-                              {paymentMethod?.interface?._id}
+                              {paymentMethod?.interface?.label
+                                ? `${paymentMethod?.interface?.label} ${paymentMethod?.interface?.version}`
+                                : paymentMethod?.interface?._id}
                             </label>
                           </div>
                         ),
@@ -324,84 +334,94 @@ const Review = () => {
                   </div>
 
                   {/* Card payment */}
-                  <div className="mt-6 grid grid-cols-4 gap-y-6 gap-x-4">
-                    <div className="col-span-4">
-                      <label
-                        htmlFor="card-number"
-                        className="block text-sm font-medium text-slate-700 dark:text-slate-300"
-                      >
-                        {formatMessage({
-                          id: 'card',
-                          defaultMessage: 'Card Number',
-                        })}
-                      </label>
-                      <div className="mt-1">
-                        <input
-                          type="text"
-                          id="card-number"
-                          name="card-number"
-                          autoComplete="cc-number"
-                          className="block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-slate-300 dark:shadow-white sm:text-sm"
-                        />
-                      </div>
-                    </div>
+                  <div className="mt-4">
+                    {user?.cart?.paymentInfo?.provider?.type === 'CARD' ? (
+                      <div className="grid grid-cols-4 gap-y-6 gap-x-4">
+                        <div className="col-span-4">
+                          <label
+                            htmlFor="card-number"
+                            className="block text-sm font-medium text-slate-700 dark:text-slate-300"
+                          >
+                            {formatMessage({
+                              id: 'card',
+                              defaultMessage: 'Card Number',
+                            })}
+                          </label>
+                          <div className="mt-1">
+                            <input
+                              type="text"
+                              id="card-number"
+                              name="card-number"
+                              autoComplete="cc-number"
+                              className="block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-slate-300 dark:shadow-white sm:text-sm"
+                            />
+                          </div>
+                        </div>
 
-                    <div className="col-span-4">
-                      <label
-                        htmlFor="name-on-card"
-                        className="block text-sm font-medium text-slate-700 dark:text-slate-300"
-                      >
-                        Name on card
-                      </label>
-                      <div className="mt-1">
-                        <input
-                          type="text"
-                          id="name-on-card"
-                          name="name-on-card"
-                          autoComplete="cc-name"
-                          className="block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-slate-300 dark:shadow-white sm:text-sm"
-                        />
-                      </div>
-                    </div>
+                        <div className="col-span-4">
+                          <label
+                            htmlFor="name-on-card"
+                            className="block text-sm font-medium text-slate-700 dark:text-slate-300"
+                          >
+                            {formatMessage({
+                              id: 'name_on_card',
+                              defaultMessage: 'Name on card',
+                            })}
+                          </label>
+                          <div className="mt-1">
+                            <input
+                              type="text"
+                              id="name-on-card"
+                              name="name-on-card"
+                              autoComplete="cc-name"
+                              className="block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-slate-300 dark:shadow-white sm:text-sm"
+                            />
+                          </div>
+                        </div>
 
-                    <div className="col-span-3">
-                      <label
-                        htmlFor="expiration-date"
-                        className="block text-sm font-medium text-slate-700 dark:text-slate-300"
-                      >
-                        {formatMessage({
-                          id: 'expiration_date',
-                          defaultMessage: 'Expiration date (MM/YY)',
-                        })}
-                      </label>
-                      <div className="mt-1">
-                        <input
-                          type="text"
-                          name="expiration-date"
-                          id="expiration-date"
-                          autoComplete="cc-exp"
-                          className="block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-slate-300 dark:shadow-white sm:text-sm"
-                        />
-                      </div>
-                    </div>
+                        <div className="col-span-3">
+                          <label
+                            htmlFor="expiration-date"
+                            className="block text-sm font-medium text-slate-700 dark:text-slate-300"
+                          >
+                            {formatMessage({
+                              id: 'expiration_date',
+                              defaultMessage: 'Expiration date (MM/YY)',
+                            })}
+                          </label>
+                          <div className="mt-1">
+                            <input
+                              type="text"
+                              name="expiration-date"
+                              id="expiration-date"
+                              autoComplete="cc-exp"
+                              className="block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-slate-300 dark:shadow-white sm:text-sm"
+                            />
+                          </div>
+                        </div>
 
-                    <div>
-                      <label
-                        htmlFor="cvc"
-                        className="block text-sm font-medium text-slate-700 dark:text-slate-300"
-                      >
-                        {formatMessage({ id: 'cvc', defaultMessage: 'CVC' })}
-                      </label>
-                      <div className="mt-1">
-                        <input
-                          type="text"
-                          name="cvc"
-                          id="cvc"
-                          autoComplete="csc"
-                          className="block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-slate-300 dark:shadow-white sm:text-sm"
-                        />
+                        <div>
+                          <label
+                            htmlFor="cvc"
+                            className="block text-sm font-medium text-slate-700 dark:text-slate-300"
+                          >
+                            {formatMessage({
+                              id: 'cvc',
+                              defaultMessage: 'CVC',
+                            })}
+                          </label>
+                          <div className="mt-1">
+                            <input
+                              type="text"
+                              name="cvc"
+                              id="cvc"
+                              autoComplete="csc"
+                              className="block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-slate-300 dark:shadow-white sm:text-sm"
+                            />
+                          </div>
+                        </div>
                       </div>
-                    </div>
+                    ) : null}
                   </div>
                 </div>
               </div>
