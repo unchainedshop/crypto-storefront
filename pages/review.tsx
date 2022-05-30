@@ -34,9 +34,6 @@ const Review = () => {
   const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(
     user?.cart?.deliveryInfo?.provider?._id,
   );
-  const [selectedPaymentProvider, setSelectedPaymentProvider] = useState(
-    user?.cart?.paymentInfo?.provider?._id,
-  );
   const [contractAddress, setContractAddress] = useState('');
 
   useEffect(() => {
@@ -61,6 +58,7 @@ const Review = () => {
 
   const signOrderPayment = async () => {
     let contraAddress = '';
+
     if (user?.cart?.paymentInfo?.provider?.type === 'GENERIC') {
       try {
         const response = await signForCheckout({
@@ -119,9 +117,8 @@ const Review = () => {
     const updateContractAddress = async () => {
       setContractAddress(await signOrderPayment());
     };
-
     updateContractAddress();
-  }, [selectedPaymentProvider]);
+  }, [user?.cart?.paymentInfo?.provider?._id]);
 
   if (loading) return <LoadingItem />;
 
@@ -291,11 +288,6 @@ const Review = () => {
                                 }
                                 onChange={async () => {
                                   // e.preventDefault();
-                                  if (paymentMethod.type === 'GENERIC') {
-                                    setSelectedPaymentProvider(
-                                      paymentMethod._id,
-                                    );
-                                  }
                                   await selectPayment(paymentMethod._id);
                                 }}
                               />

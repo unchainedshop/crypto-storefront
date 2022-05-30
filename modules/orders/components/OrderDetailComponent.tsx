@@ -1,11 +1,12 @@
 import { useIntl } from 'react-intl';
-
 import Link from 'next/link';
 import { PaperClipIcon } from '@heroicons/react/solid';
+
 import renderPrice from '../../common/utils/renderPrice';
 import useFormatDateTime from '../../common/utils/useFormatDateTime';
-
 import useUser from '../../auth/hooks/useUser';
+import QRCodeComponent from '../../checkout/components/QRCodeComponent';
+import useSignForCheckout from '../../checkout/hooks/useSignForCheckout';
 
 function getFlagEmoji(countryCode) {
   const codePoints = countryCode
@@ -18,8 +19,32 @@ function getFlagEmoji(countryCode) {
 const OrderDetailComponent = ({ order }) => {
   const { formatMessage } = useIntl();
   const { formatDateTime } = useFormatDateTime();
+  const { signForCheckout } = useSignForCheckout();
 
   const { user } = useUser();
+
+  const signOrderPayment = async () => {
+    let contraAddress = '';
+
+    if (user?.cart?.paymentInfo?.provider?.type === 'GENERIC') {
+      try {
+        const response = await signForCheckout({
+          orderPaymentId: user?.cart?.paymentInfo?._id,
+          transactionContext: {},
+        });
+        const data = JSON.parse(response);
+
+        data.forEach((d) => {
+          contraAddress = d.address;
+        });
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log(error.message);
+      }
+    }
+
+    return contraAddress;
+  };
 
   return (
     <div className="bg-slate-50 dark:bg-slate-600">
@@ -262,19 +287,28 @@ const OrderDetailComponent = ({ order }) => {
                     defaultMessage: 'Payment information',
                   })}
                 </dt>
-                <dd className="-ml-4 -mt-1 flex flex-wrap">
-                  <div className="ml-4 mt-4 flex-shrink-0">
-                    <p className="sr-only">Visa</p>
-                  </div>
-                  <div className="ml-4 mt-4">
-                    <p className="text-slate-900 dark:text-slate-100">
-                      Ending with 4242
-                    </p>
-                    <p className="text-slate-600 dark:text-slate-300">
-                      Expires 02 / 24
-                    </p>
-                  </div>
-                </dd>
+                {order?.status === 'OPEN' || order?.status === 'PENDING' ? (
+                  <QRCodeComponent
+                    contractAddress={() => signOrderPayment()}
+                    user={user}
+                    currencyClassName="text-left my-0"
+                    className="mx-0 my-2"
+                  />
+                ) : (
+                  <dd className="-ml-4 -mt-1 flex flex-wrap">
+                    <div className="ml-4 mt-4 flex-shrink-0">
+                      <p className="sr-only">Visa</p>
+                    </div>
+                    <div className="ml-4 mt-4">
+                      <p className="text-slate-900 dark:text-slate-100">
+                        Ending with 4242
+                      </p>
+                      <p className="text-slate-600 dark:text-slate-300">
+                        Expires 02 / 24
+                      </p>
+                    </div>
+                  </dd>
+                )}
               </div>
             </dl>
 

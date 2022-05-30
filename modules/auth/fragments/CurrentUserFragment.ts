@@ -106,6 +106,10 @@ const CurrentUserFragment = gql`
         amount
         currency
       }
+      currency {
+        _id
+        isoCode
+      }
       supportedPaymentProviders {
         _id
         type
