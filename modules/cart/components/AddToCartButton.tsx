@@ -69,12 +69,16 @@ const AddToCartButton = ({ productId }) => {
           <MinusSmIcon className="h-6 w-6" />
         </button>
 
-        <button type="button" className="mx-auto" onClick={addToCart}>
+        <button
+          type="button"
+          className="mx-auto flex items-center"
+          onClick={addToCart}
+        >
           <input
             name="quantity"
             ref={register}
             type="number"
-            className="add-to-cart-counter form-control"
+            className="rounded border border-slate-300 p-1 text-center placeholder:font-bold placeholder:opacity-100 dark:bg-slate-500 dark:text-slate-100"
             min="1"
             max="100000"
             onChange={handleNumberInput}

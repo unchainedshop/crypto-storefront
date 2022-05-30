@@ -19,6 +19,7 @@ const OrderItemFragment = gql`
         vendor
         labels
         brand
+        slug
       }
     }
     quantity

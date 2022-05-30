@@ -1,13 +1,16 @@
 import { useIntl } from 'react-intl';
 import Link from 'next/link';
-import { PaperClipIcon } from '@heroicons/react/solid';
+import { CheckCircleIcon, PaperClipIcon } from '@heroicons/react/solid';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import renderPrice from '../../common/utils/renderPrice';
 import useFormatDateTime from '../../common/utils/useFormatDateTime';
 import useUser from '../../auth/hooks/useUser';
 import QRCodeComponent from '../../checkout/components/QRCodeComponent';
 import useSignForCheckout from '../../checkout/hooks/useSignForCheckout';
+import getMediaUrl from '../../common/utils/getMediaUrl';
+import defaultNextImageLoader from '../../common/utils/getDefaultNextImageLoader';
 
 function getFlagEmoji(countryCode) {
   const codePoints = countryCode
@@ -43,9 +46,11 @@ const OrderDetailComponent = ({ order }) => {
     updateContractAddress();
   }, [order?.payment?._id]);
 
+  console.log(order);
+
   return (
     <div className="bg-slate-50 dark:bg-slate-600">
-      <div className="mx-auto max-w-full pt-16 sm:py-24 sm:px-6 lg:max-w-full lg:px-8">
+      <div className="mx-auto max-w-full px-4 pt-16 sm:py-24 sm:px-6 lg:max-w-full lg:px-8">
         <div className="space-y-2 px-4 sm:flex sm:items-baseline sm:justify-between sm:space-y-0 sm:px-0">
           <div className="flex sm:items-baseline sm:space-x-4">
             <h1 className="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100 sm:text-3xl">
@@ -98,37 +103,46 @@ const OrderDetailComponent = ({ order }) => {
             })}
           </h2>
 
-          <div className="mt-6 flex w-full gap-8 divide-y divide-slate-200 border border-slate-200 p-6 text-sm font-medium text-slate-500 sm:flex sm:flex-wrap sm:rounded-lg">
+          <div className="mt-6 grid grid-cols-1 gap-8 divide-y divide-slate-200 border-slate-200 text-sm font-medium text-slate-500 md:grid-cols-2 lg:grid-cols-3">
             {order?.items?.map((item) => (
-              <div
+              <Link
                 key={item._id}
-                className="flex flex-auto space-x-6 border-t border-b border-slate-200 bg-white shadow-sm dark:bg-slate-600 dark:shadow-slate-100 sm:rounded-lg sm:border"
+                href={`/product/${item?.product?.texts?.slug}`}
               >
-                <div className="flex-auto p-4 lg:flex">
-                  <div className="sm:flex lg:w-5/6">
-                    <div className="w-full flex-shrink-0 overflow-hidden rounded-lg sm:h-40 sm:w-40">
-                      <img
-                        src={item?.product?.media?.file?.url}
-                        alt={item?.product?.texts?.title}
-                        className="h-full w-full flex-none rounded-md bg-slate-100 object-fill object-center dark:bg-slate-500"
-                      />
+                <a className="flex w-full rounded-lg border border-t border-b border-slate-200 bg-white shadow-sm dark:bg-slate-600 dark:shadow-slate-100 md:px-0">
+                  <div className="flex w-full justify-between p-4">
+                    <div className="flex">
+                      <div className="relative h-40 w-40 overflow-hidden rounded-lg">
+                        <Image
+                          src={`${
+                            getMediaUrl(item?.product) ||
+                            '/static/img/sun-glass-placeholder.jpeg'
+                          }`}
+                          alt={item?.product?.texts?.title}
+                          layout="fill"
+                          objectFit="contain"
+                          loader={defaultNextImageLoader}
+                          className="h-full w-full flex-none rounded-md bg-slate-100 object-fill object-center dark:bg-slate-500"
+                        />
+                      </div>
+                      <div className="ml-4 max-w-1/2">
+                        <h3 className="text-lg font-medium text-slate-900 dark:text-slate-100">
+                          {item?.product?.texts?.title}
+                        </h3>
+                        <p className="text-slate-400">
+                          {item?.product?.texts?.subtitle}
+                        </p>
+                        <p className="text-slate-900 dark:text-slate-100">
+                          {item?.product?.texts?.description}
+                        </p>
+                      </div>
                     </div>
-
-                    <div className="ml-4 flex-auto">
-                      <h3 className="text-slate-900 dark:text-slate-100">
-                        <Link href={`/product/${item?.product?.texts?.slug}`}>
-                          <a>{item?.product?.texts?.title}</a>
-                        </Link>
-                      </h3>
-                      <p>{item?.product?.texts?.subtitle}</p>
-                      <p>{item?.product?.texts?.description}</p>
-                    </div>
+                    <p className="text-right font-medium text-slate-900 dark:text-slate-100">
+                      {renderPrice(item.total)}
+                    </p>
                   </div>
-                  <p className="text-right font-medium text-slate-900 dark:text-slate-100 lg:flex-auto">
-                    {renderPrice(item.total)}
-                  </p>
-                </div>
-              </div>
+                </a>
+              </Link>
             ))}
           </div>
         </div>
@@ -162,7 +176,7 @@ const OrderDetailComponent = ({ order }) => {
                     {user?.profile?.address?.addressLine2}
                   </span>
                   <span className="mb-2 block">
-                    {user?.profile?.address?.city}&#44;&nbsp;
+                    {user?.profile?.address?.city}&nbsp;&nbsp;
                     {getFlagEmoji(user?.profile?.address?.countryCode)}&nbsp;
                     {user?.profile?.address?.countryCode}
                   </span>
@@ -176,20 +190,50 @@ const OrderDetailComponent = ({ order }) => {
                     defaultMessage: 'Delivery Information',
                   })}
                 </dt>
-                <dd className="-ml-4 -mt-1 flex flex-wrap">
-                  <div className="ml-4 mt-4 flex-shrink-0">
-                    <span>{order?.provider?.type}</span>
-                    <p className="sr-only">Visa</p>
+                <dd className="-ml-4 -mt-1">
+                  <div className="ml-4 mt-4">
+                    <p className="text-lg font-bold text-slate-900 dark:text-white">
+                      {order?.delivery?.provider?.interface?.label}&nbsp;&nbsp;
+                      {order?.delivery?.provider?.interface?.version}
+                    </p>
+                  </div>
+                  <div className="ml-4 mt-2">
+                    <span className="text-lg font-normal">
+                      {order?.delivery?.provider?.type}
+                    </span>
+                    <span className="mx-2 rounded-full border bg-indigo-100 px-2 py-1 text-sm font-thin text-indigo-600">
+                      {order?.delivery?.status}
+                    </span>
                   </div>
                   <div className="ml-4 mt-4">
-                    <p className="text-slate-900">Ending with 4242</p>
-                    <p className="text-slate-600">Expires 02 / 24</p>
+                    <p>{renderPrice(order?.delivery?.fee)}</p>
+                  </div>
+                  <div className="ml-4 mt-4">
+                    <p className="text-slate-600">
+                      {order?.delivery?.delivered ? (
+                        <>
+                          <CheckCircleIcon
+                            className="h-5 w-5 text-green-500"
+                            aria-hidden="true"
+                          />
+                          <span className="mx-2">
+                            {formatMessage({
+                              id: 'delivered_on',
+                              defaultMessage: 'Delivered on',
+                            })}
+                          </span>
+                          <time dateTime={order?.delivery}>
+                            {formatDateTime(order?.delivery?.delivered)}
+                          </time>
+                        </>
+                      ) : null}
+                    </p>
                   </div>
                 </dd>
               </div>
             </dl>
 
-            {false && (
+            {order?.documents && (
               <dl className="mt-8 text-sm lg:col-span-5 lg:mt-0">
                 <div className="flex items-center justify-between pb-4">
                   <dt className="font-medium text-slate-900 dark:text-slate-100">
@@ -261,16 +305,16 @@ const OrderDetailComponent = ({ order }) => {
                     {order?.billingAddress?.lastName}
                   </span>
                   <span className="block">
-                    {order?.billingAddress?.postalCode}&#44;&nbsp;
+                    {order?.billingAddress?.postalCode}&nbsp;
                     {order?.billingAddress?.addressLine}
                   </span>
                   <span className="block">
-                    {order?.billingAddress?.postalCode}&#44;&nbsp;
+                    {order?.billingAddress?.postalCode}&nbsp;
                     {order?.billingAddress?.addressLine2}
                   </span>
                   {order?.billingAddress?.countryCode && (
                     <span className="block">
-                      {user?.profile?.address?.city}&#44;&nbsp;
+                      {user?.profile?.address?.city}&nbsp;
                       {/* {getFlagEmoji(order?.billingAddress?.countryCode)}&nbsp; */}
                       {order?.billingAddress?.countryCode}
                     </span>
@@ -293,16 +337,51 @@ const OrderDetailComponent = ({ order }) => {
                     />
                   ))
                 ) : (
-                  <dd className="-ml-4 -mt-1 flex flex-wrap">
-                    <div className="ml-4 mt-4 flex-shrink-0">
-                      <p className="sr-only">Visa</p>
+                  <dd className="-ml-4 -mt-1">
+                    <div className="ml-4 mt-4">
+                      <p className="sr-only">
+                        {order?.payment?.provider?.interface?.label}
+                      </p>
+                    </div>
+                    <div className="ml-4 mt-4">
+                      <p className="text-lg font-bold text-slate-900 dark:text-white">
+                        {order?.payment?.provider?.interface?.label}
+                        &nbsp;&nbsp;
+                        {order?.payment?.provider?.interface?.version}
+                      </p>
                     </div>
                     <div className="ml-4 mt-4">
                       <p className="text-slate-900 dark:text-slate-100">
-                        Ending with 4242
+                        <span>{order?.payment?.provider?.type}</span>
+                        <span className="mx-2 rounded-full border bg-indigo-100 px-2 py-1 text-sm font-thin text-indigo-600">
+                          {order?.delivery?.status}
+                        </span>
                       </p>
+                    </div>
+                    <div className="ml-4 mt-4">
                       <p className="text-slate-600 dark:text-slate-300">
-                        Expires 02 / 24
+                        {renderPrice(order?.payment?.fee)}
+                      </p>
+                    </div>
+                    <div className="ml-4 mt-4">
+                      <p>
+                        {order?.payment?.paid ? (
+                          <>
+                            <CheckCircleIcon
+                              className="h-5 w-5 text-green-500"
+                              aria-hidden="true"
+                            />
+                            <span className="mx-2">
+                              {formatMessage({
+                                id: 'paid_on',
+                                defaultMessage: 'paid on',
+                              })}
+                            </span>
+                            <time dateTime={order?.paid}>
+                              {formatDateTime(order?.payment?.paid)}
+                            </time>
+                          </>
+                        ) : null}
                       </p>
                     </div>
                   </dd>

@@ -16,6 +16,11 @@ const OrderFragment = gql`
       provider {
         _id
         type
+        interface {
+          _id
+          label
+          version
+        }
         simulatedPrice(currency: $currency) {
           amount
           currency
@@ -58,6 +63,8 @@ const OrderFragment = gql`
         type
         interface {
           _id
+          label
+          version
         }
       }
     }
