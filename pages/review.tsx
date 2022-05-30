@@ -34,7 +34,7 @@ const Review = () => {
   const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(
     user?.cart?.deliveryInfo?.provider?._id,
   );
-  const [contractAddress, setContractAddress] = useState(null);
+  const [contractAddress, setContractAddress] = useState([]);
 
   useEffect(() => {
     if (!loading && user?.cart && !user.cart.contact?.emailAddress) {
@@ -62,7 +62,7 @@ const Review = () => {
         orderPaymentId: user?.cart?.paymentInfo?._id,
         transactionContext: {},
       });
-      return JSON.parse(response || []);
+      return JSON.parse(response || '[]');
     }
 
     return [];
