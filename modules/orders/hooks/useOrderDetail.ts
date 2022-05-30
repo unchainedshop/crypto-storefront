@@ -1,10 +1,11 @@
 import { useQuery, gql } from '@apollo/client';
+import useCurrencyContext from '../../common/utils/useCurrencyContext';
 
 import OrderFragment from '../fragments/OrderFragment';
 import OrderItemFragment from '../fragments/OrderItemFragment';
 
 const OrderDetailQuery = gql`
-  query OrderDetailQuery($orderId: ID!) {
+  query OrderDetailQuery($orderId: ID!, $currency: String) {
     order(orderId: $orderId) {
       ...OrderFragment
       items {
@@ -17,8 +18,9 @@ const OrderDetailQuery = gql`
 `;
 
 const useOrderDetail = ({ orderId }) => {
+  const { selectedCurrency } = useCurrencyContext();
   const { data, loading, error, ...rest } = useQuery(OrderDetailQuery, {
-    variables: { orderId },
+    variables: { orderId, currency: selectedCurrency },
     notifyOnNetworkStatusChange: true,
     fetchPolicy: 'no-cache',
     ssr: false,
