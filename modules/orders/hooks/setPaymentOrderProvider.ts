@@ -34,6 +34,7 @@ const useSetOrderPaymentProviderMutation = () => {
   const setOrderPaymentProvider = async ({ orderId, paymentProviderId }) => {
     await setOrderPaymentProviderMutation({
       variables: { orderId, paymentProviderId },
+      refetchQueries: ['user'],
     });
   };
 

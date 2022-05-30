@@ -33,7 +33,7 @@ const DatatransPayment = ({ cart, setBillingSameAsDelivery }) => {
       type="button"
       role="link"
       disabled={isPaymentButtonDisabled}
-      className="button button--primary button--big"
+      className="mt-3 inline-flex items-center rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-slate-700 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
       onClick={async () => {
         setPaymentButtonDisabled(true);
         await checkout(cart);

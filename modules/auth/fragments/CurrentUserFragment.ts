@@ -71,6 +71,8 @@ const CurrentUserFragment = gql`
           type
           interface {
             _id
+            label
+            version
           }
         }
         ... on OrderPaymentGeneric {
@@ -91,6 +93,9 @@ const CurrentUserFragment = gql`
       }
       deliveryInfo: delivery {
         _id
+        provider {
+          _id
+        }
         ... on OrderDeliveryShipping {
           address {
             ...AddressFragment
@@ -101,16 +106,32 @@ const CurrentUserFragment = gql`
         amount
         currency
       }
+      currency {
+        _id
+        isoCode
+      }
       supportedPaymentProviders {
         _id
         type
         interface {
           _id
+          label
+          version
         }
       }
       supportedDeliveryProviders {
         _id
         type
+        interface {
+          _id
+          label
+          version
+        }
+        simulatedPrice {
+          _id
+          amount
+          currency
+        }
       }
     }
   }
