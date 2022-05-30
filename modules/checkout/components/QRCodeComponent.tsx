@@ -3,17 +3,16 @@ import QRCode from 'react-qr-code';
 import { toast } from 'react-toastify';
 
 const QRCodeComponent = ({
-  contractAddress,
-  user,
+  paymentAddress,
   className = '',
   currencyClassName = '',
 }) => {
   const copyToClipboard = () => {
     try {
       if ('clipboard' in navigator) {
-        navigator.clipboard.writeText(contractAddress);
+        navigator.clipboard.writeText(paymentAddress.address);
       }
-      document.execCommand('copy', true, contractAddress);
+      document.execCommand('copy', true, paymentAddress.address);
       toast.success('Copied to clipboard', {
         position: 'top-right',
         autoClose: 3000,
@@ -29,7 +28,7 @@ const QRCodeComponent = ({
     }
   };
 
-  return contractAddress ? (
+  return paymentAddress ? (
     <div className="relative w-full">
       <div
         className={classNames(
@@ -37,7 +36,7 @@ const QRCodeComponent = ({
           currencyClassName,
         )}
       >
-        {user?.cart?.currency?.isoCode}
+        {paymentAddress.currency}
       </div>
       <div
         onClick={copyToClipboard}
@@ -47,7 +46,10 @@ const QRCodeComponent = ({
         )}
       >
         <div className="rounded-lg border bg-white p-4 drop-shadow-lg">
-          <QRCode value={contractAddress} title="Contract for checkout" />
+          <QRCode
+            value={paymentAddress.address}
+            title="Contract for checkout"
+          />
         </div>
       </div>
     </div>

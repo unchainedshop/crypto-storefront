@@ -34,7 +34,7 @@ const Review = () => {
   const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(
     user?.cart?.deliveryInfo?.provider?._id,
   );
-  const [contractAddress, setContractAddress] = useState('');
+  const [contractAddress, setContractAddress] = useState(null);
 
   useEffect(() => {
     if (!loading && user?.cart && !user.cart.contact?.emailAddress) {
@@ -57,26 +57,15 @@ const Review = () => {
   };
 
   const signOrderPayment = async () => {
-    let contraAddress = '';
-
     if (user?.cart?.paymentInfo?.provider?.type === 'GENERIC') {
-      try {
-        const response = await signForCheckout({
-          orderPaymentId: user?.cart?.paymentInfo?._id,
-          transactionContext: {},
-        });
-        const data = JSON.parse(response);
-
-        data.forEach((d) => {
-          contraAddress = d.address;
-        });
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.log(error.message);
-      }
+      const response = await signForCheckout({
+        orderPaymentId: user?.cart?.paymentInfo?._id,
+        transactionContext: {},
+      });
+      return JSON.parse(response || []);
     }
 
-    return contraAddress;
+    return [];
   };
 
   const selectPayment = async (providerId) => {
@@ -425,10 +414,10 @@ const Review = () => {
                 </div>
 
                 <div className="mt-10 lg:mt-0">
-                  <QRCodeComponent
-                    contractAddress={contractAddress}
-                    user={user}
-                  />
+                  {contractAddress?.map((address) => (
+                    <QRCodeComponent paymentAddress={address} />
+                  ))}
+
                   <h2 className="text-lg font-medium text-slate-900 dark:text-slate-100">
                     {formatMessage({ id: 'order_summary' })}
                   </h2>
