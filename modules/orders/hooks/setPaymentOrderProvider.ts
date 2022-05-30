@@ -32,7 +32,6 @@ const useSetOrderPaymentProviderMutation = () => {
   );
 
   const setOrderPaymentProvider = async ({ orderId, paymentProviderId }) => {
-    console.log(orderId, paymentProviderId);
     await setOrderPaymentProviderMutation({
       variables: { orderId, paymentProviderId },
     });

@@ -1,0 +1,524 @@
+{
+  "404_sorry": {
+  },
+  "505_sorry": {
+    "defaultMessage": "Sorry"
+  },
+  "Delivery_status": {
+    "defaultMessage": "Delivery status"
+  },
+  "InWqys": {
+    "defaultMessage": "Optional"
+  },
+  "Products purchased": {
+    "defaultMessage": "products_purchased"
+  },
+  "Tax": {
+    "defaultMessage": "Taxable"
+  },
+  "about": {
+    "defaultMessage": "About"
+  },
+  "about_detail": {
+    "defaultMessage": "About Detail"
+  },
+  "account": {
+    "defaultMessage": "Account"
+  },
+  "add_email": {
+    "defaultMessage": "Add Email"
+  },
+  "add_review": {
+    "defaultMessage": "Add your comment"
+  },
+  "add_to_cart": {
+  },
+  "address": {
+    "defaultMessage": "Address"
+  },
+  "address2_optional": {
+    "defaultMessage": "Optional"
+  },
+  "address_2": {
+    "defaultMessage": "Address 2"
+  },
+  "all_reviews": {
+  },
+  "back_to_home": {
+    "defaultMessage": "Back to Home"
+  },
+  "back_to_website": {
+  },
+  "billing_address": {
+    "defaultMessage": "Billing address"
+  },
+  "billing_summary": {
+    "defaultMessage": "Billing Summary"
+  },
+  "bookmarks": {
+    "defaultMessage": "Bookmarks"
+  },
+  "browse_all_category": {
+    "defaultMessage": "Browse all categories"
+  },
+  "browse_all_category_mobile": {
+    "defaultMessage": "Browse all categories"
+  },
+  "cancel": {
+    "defaultMessage": "Cancel"
+  },
+  "card": {
+    "defaultMessage": "Card Number"
+  },
+  "cart": {
+    "defaultMessage": "Cart"
+  },
+  "change_password": {
+    "defaultMessage": "Change Password"
+  },
+  "change_username": {
+    "defaultMessage": "Change username"
+  },
+  "checkout": {
+    "defaultMessage": "Checkout"
+  },
+  "choose_language": {
+  },
+  "city": {
+    "defaultMessage": "City"
+  },
+  "close": {
+  },
+  "company": {
+    "defaultMessage": "Company"
+  },
+  "conditions": {
+  },
+  "confirm": {
+    "defaultMessage": "Confirm order"
+  },
+  "confirm_order": {
+  },
+  "confirm_purchase": {
+  },
+  "confirmation_sent": {
+  },
+  "continue_shopping": {
+  },
+  "country": {
+    "defaultMessage": "Country"
+  },
+  "create_account": {
+    "defaultMessage": "Create account for free"
+  },
+  "create_an_account": {
+    "defaultMessage": "Create an account"
+  },
+  "current_password": {
+  },
+  "customer_service": {
+    "defaultMessage": "Customer Service"
+  },
+  "customers_also_purchased": {
+    "defaultMessage": "Customers also purchased"
+  },
+  "cvc": {
+    "defaultMessage": "CVC"
+  },
+  "delivery_address": {
+    "defaultMessage": "Delivery address"
+  },
+  "delivery_information": {
+    "defaultMessage": "Delivery Information"
+  },
+  "delivery_method": {
+    "defaultMessage": "Delivery method"
+  },
+  "delivery_status": {
+    "defaultMessage": "Delivery status"
+  },
+  "delivery_summary": {
+    "defaultMessage": "Delivery Summary"
+  },
+  "description": {
+    "defaultMessage": "Description"
+  },
+  "document": {
+    "defaultMessage": "Document"
+  },
+  "download": {
+    "defaultMessage": "Download"
+  },
+  "email": {
+    "defaultMessage": "Email"
+  },
+  "email_exists": {
+    "defaultMessage": "Email exists"
+  },
+  "email_exists_please_login": {
+  },
+  "email_sign_up": {
+    "defaultMessage": "Or continue with"
+  },
+  "email_verified_success": {
+  },
+  "email_verifying": {
+  },
+  "error": {
+    "defaultMessage": ", Try again later"
+  },
+  "error_address": {
+    "defaultMessage": "Address is required"
+  },
+  "error_addressLine": {
+    "defaultMessage": "Address is required"
+  },
+  "error_city": {
+    "defaultMessage": "City is required"
+  },
+  "error_email": {
+    "defaultMessage": "Email is required"
+  },
+  "error_firstName": {
+    "defaultMessage": "First Name is required"
+  },
+  "error_lastName": {
+    "defaultMessage": "Last Name is required"
+  },
+  "error_password": {
+    "defaultMessage": "Password is required"
+  },
+  "error_postalCode": {
+    "defaultMessage": "Postal code is required"
+  },
+  "error_telNumber": {
+    "defaultMessage": "Telephone number is required"
+  },
+  "expiration_date": {
+    "defaultMessage": "Expiration date (MM/YY)"
+  },
+  "facebook": {
+    "defaultMessage": "Sign up with Facebook"
+  },
+  "first_name": {
+  },
+  "footer": {
+    "defaultMessage": "Footer"
+  },
+  "for_order": {
+    "defaultMessage": "for order"
+  },
+  "forget_message": {
+    "defaultMessage": "Enter your email address"
+  },
+  "forgot_password": {
+    "defaultMessage": "Forgot your password?"
+  },
+  "full_name": {
+    "defaultMessage": "Full Name"
+  },
+  "github": {
+    "defaultMessage": "Sign up with GitHub"
+  },
+  "guest": {
+    "defaultMessage": "Guest"
+  },
+  "hero": {
+    "defaultMessage": "Hero"
+  },
+  "home": {
+    "defaultMessage": "Home"
+  },
+  "i_have_read_term": {
+    "defaultMessage": "I have read term"
+  },
+  "imprint": {
+  },
+  "in_cart": {
+  },
+  "invalid_email_password": {
+    "defaultMessage": "Invalid password"
+  },
+  "invoice": {
+    "defaultMessage": "View invoice"
+  },
+  "invoice_mobile": {
+    "defaultMessage": "View invoice"
+  },
+  "items_in_cart": {
+    "defaultMessage": "Items in your cart"
+  },
+  "last_name": {
+  },
+  "legal": {
+    "defaultMessage": "Legal"
+  },
+  "load_more": {
+    "defaultMessage": "Load More"
+  },
+  "loading": {
+  },
+  "log_in": {
+    "defaultMessage": "Log In"
+  },
+  "log_out": {
+    "defaultMessage": "Log Out"
+  },
+  "manage_orders": {
+    "defaultMessage": "Check the status of recent orders, manage returns, and download invoices."
+  },
+  "menu": {
+    "defaultMessage": "Menu"
+  },
+  "my_orders": {
+    "defaultMessage": "My Orders"
+  },
+  "new_here": {
+    "defaultMessage": "New here"
+  },
+  "new_here_message": {
+    "defaultMessage": "New here message"
+  },
+  "new_password": {
+  },
+  "no": {
+    "defaultMessage": "No"
+  },
+  "no_product_in_cart": {
+  },
+  "no_username_set": {
+    "defaultMessage": "No username set"
+  },
+  "number_of_orders": {
+    "defaultMessage": "Number Of Orders"
+  },
+  "old_password_not_correct": {
+  },
+  "on": {
+    "defaultMessage": "on"
+  },
+  "optional": {
+  },
+  "order": {
+  },
+  "order_date": {
+    "defaultMessage": "Order date"
+  },
+  "order_history": {
+    "defaultMessage": "Order History"
+  },
+  "order_num": {
+    "defaultMessage": "Order #"
+  },
+  "order_number": {
+    "defaultMessage": "Order number"
+  },
+  "order_placed": {
+    "defaultMessage": "Order placed"
+  },
+  "order_review": {
+  },
+  "order_status": {
+    "defaultMessage": "Order status"
+  },
+  "order_summary": {
+  },
+  "order_total": {
+    "defaultMessage": "Order total"
+  },
+  "password": {
+  },
+  "password_not_match": {
+    "defaultMessage": "Password not match"
+  },
+  "pay_now": {
+  },
+  "payment": {
+    "defaultMessage": "Payment"
+  },
+  "payment_information": {
+    "defaultMessage": "Payment information"
+  },
+  "payment_status": {
+    "defaultMessage": "Payment_status"
+  },
+  "payment_type": {
+    "defaultMessage": "Payment type"
+  },
+  "placeholder": {
+    "defaultMessage": "Share your thought about the product"
+  },
+  "placeholder_title": {
+    "defaultMessage": "Title"
+  },
+  "please_select": {
+  },
+  "postal_code": {
+    "defaultMessage": "Postal Code"
+  },
+  "privacy": {
+  },
+  "product_categories": {
+    "defaultMessage": "Product Categories"
+  },
+  "products": {
+    "defaultMessage": "Products"
+  },
+  "quantity": {
+    "defaultMessage": "Quantity"
+  },
+  "rating_starts": {
+    "defaultMessage": "out of 5 stars"
+  },
+  "recent_orders": {
+    "defaultMessage": "Recent orders"
+  },
+  "recent_reviews": {
+    "defaultMessage": "Recent Reviews"
+  },
+  "region": {
+    "defaultMessage": "Region"
+  },
+  "region_optional": {
+    "defaultMessage": "Optional"
+  },
+  "register": {
+    "defaultMessage": "Register"
+  },
+  "remove": {
+    "defaultMessage": "Remove"
+  },
+  "repeat_password": {
+    "defaultMessage": "Repeat Password"
+  },
+  "request_new_password": {
+  },
+  "resend": {
+    "defaultMessage": "ReSend"
+  },
+  "reset_password": {
+    "defaultMessage": "Reset password"
+  },
+  "reviews": {
+    "defaultMessage": "reviews"
+  },
+  "right": {
+    "defaultMessage": "All Rights Reserved"
+  },
+  "same_as_delivery": {
+  },
+  "save": {
+    "defaultMessage": "Save"
+  },
+  "save_address": {
+    "defaultMessage": "Save"
+  },
+  "search": {
+    "defaultMessage": "Search"
+  },
+  "shipping": {
+    "defaultMessage": "Shipping"
+  },
+  "shop": {
+  },
+  "shop_by_category": {
+    "defaultMessage": "Shop by Category"
+  },
+  "shop_description": {
+    "defaultMessage": "Each season, we collaborate with world-class designers to create a collection inspired by the natural world."
+  },
+  "shop_logo": {
+    "defaultMessage": "Shop logo"
+  },
+  "shop_logo_mobile": {
+    "defaultMessage": "Shop logo"
+  },
+  "show_all": {
+  },
+  "sign_in": {
+    "defaultMessage": "Sign in"
+  },
+  "sign_up": {
+    "defaultMessage": "Sign Up"
+  },
+  "sign_up_with": {
+    "defaultMessage": "Sign up with"
+  },
+  "star_review": {
+    "defaultMessage": "Select a star review"
+  },
+  "status": {
+    "defaultMessage": "Status"
+  },
+  "subtotal": {
+    "defaultMessage": "Subtotal"
+  },
+  "subtotal_vat": {
+    "defaultMessage": "Subtotal(vat included) 7.7%"
+  },
+  "taxes": {
+    "defaultMessage": "Taxes"
+  },
+  "telephone": {
+    "defaultMessage": "Telephone"
+  },
+  "thank_you": {
+  },
+  "thank_you_description": {
+  },
+  "thank_you_header": {
+  },
+  "thank_you_order_date": {
+  },
+  "thank_you_order_number": {
+  },
+  "title": {
+    "defaultMessage": "Title"
+  },
+  "to_checkout": {
+  },
+  "to_order_review": {
+    "defaultMessage": "To Order Rbutton--primaryeview"
+  },
+  "top_notification": {
+    "defaultMessage": "Top Notification"
+  },
+  "total": {
+    "defaultMessage": "Total"
+  },
+  "total_amount": {
+    "defaultMessage": "Total amount"
+  },
+  "twitter": {
+    "defaultMessage": "Sign up with Twitter"
+  },
+  "unknown_error": {
+    "defaultMessage": "An unknown error occurred."
+  },
+  "update_address": {
+  },
+  "update_password": {
+    "defaultMessage": "Update Password"
+  },
+  "username": {
+    "defaultMessage": "username"
+  },
+  "view_invoice": {
+    "defaultMessage": "View Invoice"
+  },
+  "welcome": {
+    "defaultMessage": "Welcome"
+  },
+  "welcome_back": {
+    "defaultMessage": "Welcome back"
+  },
+  "welcome_back_message": {
+    "defaultMessage": "Welcome back message"
+  },
+  "write_review": {
+    "defaultMessage": "Write a review"
+  },
+  "yes": {
+    "defaultMessage": "Yes"
+  }
+}

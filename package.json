@@ -42,6 +42,7 @@
     "deepmerge": "^4.2.2"
   },
   "devDependencies": {
+    "@formatjs/cli": "^5.0.1",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/forms": "^0.5.1",
     "@tailwindcss/typography": "^0.5.2",
@@ -70,6 +71,7 @@
     "dev:local": "UNCHAINED_ENDPOINT=http://localhost:4010/graphql next dev",
     "dev": "next dev",
     "format": "npm run lint -- --fix",
+    "extract-translation": "formatjs extract  '(pages|modules)/**/*.{ts,tsx,jsx}' --out-file lang/en.json --id-interpolation-pattern '[sha512:contenthash:base64:6]' ",
     "lint": "eslint --fix --ext .ts,.tsx,.js,.jsx modules pages",
     "test": "npm run lint && npm run typecheck",
     "typecheck": "tsc --noEmit",

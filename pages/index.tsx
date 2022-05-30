@@ -31,7 +31,10 @@ const Home = () => {
 
   return (
     <>
-      <MetaTags title={formatMessage({ id: 'home' })} url={currentUrl} />
+      <MetaTags
+        title={formatMessage({ id: 'home', defaultMessage: 'Home' })}
+        url={currentUrl}
+      />
       <div className="w-full bg-white px-4 dark:bg-slate-600 sm:px-0">
         <div className="relative h-[442px] w-full">
           <Image
