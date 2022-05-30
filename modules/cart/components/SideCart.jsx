@@ -63,7 +63,7 @@ const SideCart = ({ isOpen }) => {
         <>
           <div
             className={classNames(
-              'fixed top-0 -right-80 z-50 flex h-full w-[300px] flex-col overflow-y-auto bg-white bg-opacity-100 px-1 opacity-100 shadow-md transition dark:bg-slate-600 dark:opacity-100 lg:-right-[450px] lg:w-[400px]',
+              'fixed top-0 -right-80 z-50 flex h-full w-[300px] flex-col overflow-y-auto bg-white px-1 opacity-100 shadow-md transition dark:bg-slate-600 dark:opacity-100 lg:-right-[450px] lg:w-[400px]',
               {
                 'right-0 lg:right-0': isOpen,
               },
@@ -128,7 +128,7 @@ const SideCart = ({ isOpen }) => {
                 }`}
               >
                 <a
-                  className="h over:text-indigo-500 my-4 w-full text-sm font-semibold uppercase text-indigo-600 dark:text-indigo-400"
+                  className="over:text-indigo-500 my-4 w-full text-sm font-semibold uppercase text-indigo-600 dark:text-indigo-400"
                   onClick={() => context.toggleCart(false)}
                 >
                   {intl.formatMessage({ id: 'continue_shopping' })}

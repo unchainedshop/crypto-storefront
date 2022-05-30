@@ -175,7 +175,6 @@ const Review = () => {
                           >
                             {({ checked, active }) => (
                               <>
-                                {console.log(deliveryMethod)}
                                 <div className="flex flex-1">
                                   <div className="flex flex-col">
                                     <RadioGroup.Label
@@ -281,12 +280,12 @@ const Review = () => {
                               type="radio"
                               className="h-4 w-4 border-slate-300 text-indigo-600 focus:ring-indigo-500"
                               value={paymentMethod._id}
-                              checked={
+                              defaultChecked={
                                 paymentMethod._id ===
                                 user?.cart?.paymentInfo?.provider?._id
                               }
-                              onChange={async (e) => {
-                                e.preventDefault();
+                              onChange={async () => {
+                                // e.preventDefault();
                                 if (paymentMethod.type === 'GENERIC') {
                                   setSelectedPaymentProvider(paymentMethod._id);
                                 }

@@ -25,7 +25,7 @@ const LogIn = () => {
             <Image
               src={theme.assets.logo}
               alt={formatMessage({
-                id: 'shop_logo',
+                id: 'shop_logo_login',
                 defaultMessage: 'Shop logo',
               })}
               layout="fill"

@@ -606,7 +606,7 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
           <Image
             src={theme.assets.logo}
             alt={formatMessage({
-              id: 'shop_logo',
+              id: 'shop_logo_sign_up',
               defaultMessage: 'Shop logo',
             })}
             layout="fixed"
