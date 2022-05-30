@@ -1,4 +1,5 @@
 import { useMutation, gql } from '@apollo/client';
+import useCurrencyContext from '../../common/utils/useCurrencyContext';
 
 import CurrentUserFragment from '../fragments/CurrentUserFragment';
 
@@ -8,6 +9,7 @@ const LoginWithPasswordMutation = gql`
     $plainPassword: String
     $password: HashedPasswordInput
     $forceLocale: String
+    $currency: String
   ) {
     loginWithPassword(
       email: $email
@@ -25,6 +27,7 @@ const LoginWithPasswordMutation = gql`
   ${CurrentUserFragment}
 `;
 const useLoginWithPassword = (): any => {
+  const { selectedCurrency } = useCurrencyContext();
   const [logInWithPasswordMutation, { error }] = useMutation(
     LoginWithPasswordMutation,
     {
@@ -44,6 +47,7 @@ const useLoginWithPassword = (): any => {
       email: normalizedEmail,
       plainPassword: password,
       password: null,
+      currency: selectedCurrency,
     };
 
     return logInWithPasswordMutation({

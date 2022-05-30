@@ -25,7 +25,7 @@ const ProductFragment = gql`
       review
     }
     ... on SimpleProduct {
-      simulatedPrice {
+      simulatedPrice(currency: $currency) {
         _id
         isTaxable
         isNetPrice
