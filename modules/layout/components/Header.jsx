@@ -14,6 +14,8 @@ import DesktopNavigation from '../../assortment/components/DesktopNavigation';
 import MobileNavigation from '../../assortment/components/MobileNavigation';
 import ThemeToggle from '../../common/components/ThemeToggle';
 import defaultNextImageLoader from '../../common/utils/getDefaultNextImageLoader';
+import CurrencySelector from '../../common/components/CurrencySelector';
+import useCurrencyContext from '../../common/utils/useCurrencyContext';
 
 const {
   publicRuntimeConfig: { theme },
@@ -24,6 +26,7 @@ const Header = () => {
   const router = useRouter();
   const [isNavOpen, setNavOpenState] = useState(false);
   const { formatMessage } = useIntl();
+  const { selectedCurrency, changeCurrency } = useCurrencyContext();
 
   const setNavOpen = (isOpen) => {
     setNavOpenState(isOpen);
@@ -94,6 +97,10 @@ const Header = () => {
           </div>
           <div className="ml-auto mr-4 flex">
             <LoginCart />
+            <CurrencySelector
+              onChange={(e) => changeCurrency(e.target.value)}
+              selectedCurrency={selectedCurrency}
+            />
           </div>
           <ThemeToggle />
         </div>
@@ -131,8 +138,13 @@ const Header = () => {
                 </a>
               </Link>
             </div>
+
             <div className="ml-auto mr-3 flex">
               <LoginCart />
+              <CurrencySelector
+                onChange={(e) => changeCurrency(e.target.value)}
+                selectedCurrency={selectedCurrency}
+              />
             </div>
             <ThemeToggle />
           </div>

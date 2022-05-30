@@ -4,9 +4,7 @@ import { useEffect, useState } from 'react';
 import ImageGallery from 'react-image-gallery';
 import { useIntl } from 'react-intl';
 
-import { MinusSmIcon, PlusSmIcon, StarIcon } from '@heroicons/react/solid';
-import classNames from 'classnames';
-import { useForm } from 'react-hook-form';
+import { StarIcon } from '@heroicons/react/solid';
 import useProductDetail from '../../modules/products/hooks/useProductDetail';
 import renderPrice from '../../modules/common/utils/renderPrice';
 import LoadingItem from '../../modules/common/components/LoadingItem';
@@ -19,8 +17,6 @@ import NotFound from '../404';
 import ProductReview from '../../modules/products/components/ProductReview';
 import useProductReviews from '../../modules/products/hooks/useProductReviews';
 import ProductListItem from '../../modules/products/components/ProductListItem';
-import { bgColor } from '../../modules/common/data/miscellaneous';
-import useUpdateCartItem from '../../modules/cart/hooks/useUpdateCartItem';
 import useUser from '../../modules/auth/hooks/useUser';
 import AddToCartButton from '../../modules/cart/components/AddToCartButton';
 
@@ -33,23 +29,9 @@ const Detail = () => {
   });
   const { user } = useUser();
 
-  const { handleSubmit, register } = useForm();
   const { productReviews, loading: reviewLoading } = useProductReviews({
     productId: product?._id,
   });
-
-  const { updateCartItem } = useUpdateCartItem();
-
-  const [selectedColor, setSelectedColor] = useState(0);
-  const [quantity, setQuantity] = useState(1);
-  const [selectedSize, setSelectedSize] = useState(0);
-
-  const onSubmit = (data) => {
-    updateCartItem({
-      itemId: product?._id,
-      quantity: parseInt(data.quantity || '1', 10),
-    });
-  };
 
   const productPath = getAssortmentPath(paths);
   useEffect(() => {

@@ -31,7 +31,12 @@ const PasswordReset = () => {
 
   return (
     <>
-      <MetaTags title={formatMessage({ id: 'reset_password' })} />
+      <MetaTags
+        title={formatMessage({
+          id: 'reset_password',
+          defaultMessage: 'Reset password',
+        })}
+      />
       <div className="mx-auto mt-5 w-full p-10 sm:max-w-md md:max-w-lg lg:max-w-xl">
         <div className="rounded-lg border bg-white p-4 shadow-sm dark:bg-slate-500">
           <h1 className="mt-6 text-center text-3xl font-extrabold text-slate-900 dark:text-slate-100">
@@ -75,7 +80,10 @@ const PasswordReset = () => {
                 htmlFor="password2"
                 className="block text-sm font-medium text-slate-700 dark:text-slate-300"
               >
-                {formatMessage({ id: 'repeat_password' })}
+                {formatMessage({
+                  id: 'repeat_password',
+                  defaultMessage: 'Repeat Password',
+                })}
               </label>
               <div className="my-1">
                 <input
@@ -114,7 +122,10 @@ const PasswordReset = () => {
               type="submit"
               className="flex w-full justify-center rounded-md border border-transparent bg-slate-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
             >
-              {formatMessage({ id: 'reset_password' })}
+              {formatMessage({
+                id: 'reset_password',
+                defaultMessage: 'Reset password',
+              })}
             </button>
           </form>
         </div>

@@ -456,7 +456,7 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
 
                 <div className="md:col-span-4">
                   <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
-                    {formatMessage({ id: 'email' })}
+                    {formatMessage({ id: 'email', defaultMessage: 'Email' })}
                   </label>
                   <input
                     type="email"
@@ -533,7 +533,10 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                     htmlFor="password2"
                     className="block text-sm font-medium text-slate-700 dark:text-slate-300"
                   >
-                    {formatMessage({ id: 'repeat_password' })}
+                    {formatMessage({
+                      id: 'repeat_password',
+                      defaultMessage: 'Repeat Password',
+                    })}
                   </label>
                   <input
                     type="password"
