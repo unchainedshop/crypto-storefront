@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useIntl } from 'react-intl';
 import { toast } from 'react-toastify';
 import useCheckoutCartMutation from '../../checkout/hooks/useCheckoutCart';
@@ -8,6 +9,7 @@ import CartItem from './CartItem';
 const ManageCart = ({ user }) => {
   const { formatMessage } = useIntl();
   const { checkoutCart } = useCheckoutCartMutation();
+  const { push } = useRouter();
 
   const handleOnClick = async () => {
     try {
@@ -18,6 +20,7 @@ const ManageCart = ({ user }) => {
         deliveryContext: {},
       });
       toast.success('Checkout successfully');
+      push('/shop');
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error.message);
