@@ -43,7 +43,7 @@ const PasswordForget = () => {
                   htmlFor="email"
                   className="block text-sm font-medium text-slate-700 dark:text-slate-300"
                 >
-                  {formatMessage({ id: 'email' })}
+                  {formatMessage({ id: 'email', defaultMessage: 'Email' })}
                 </label>
                 <div className="mt-1">
                   <input

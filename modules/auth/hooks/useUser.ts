@@ -1,10 +1,11 @@
 import { useQuery, gql } from '@apollo/client';
 import { useIntl } from 'react-intl';
+import useCurrencyContext from '../../common/utils/useCurrencyContext';
 
 import CurrentUserFragment from '../fragments/CurrentUserFragment';
 
 export const UserQuery = gql`
-  query user($forceLocale: String) {
+  query user($forceLocale: String, $currency: String) {
     me {
       ...CurrentUserFragment
     }
@@ -14,9 +15,11 @@ export const UserQuery = gql`
 
 const useUser = () => {
   const intl = useIntl();
+  const { selectedCurrency } = useCurrencyContext();
   const { data, loading, error, refetch } = useQuery(UserQuery, {
     variables: {
       forceLocale: intl.locale,
+      currency: selectedCurrency,
     },
   });
 

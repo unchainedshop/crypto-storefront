@@ -1,5 +1,6 @@
 import { useMutation, useApolloClient, gql } from '@apollo/client';
 import { useIntl } from 'react-intl';
+import useCurrencyContext from '../../common/utils/useCurrencyContext';
 
 import CurrentUserFragment from '../fragments/CurrentUserFragment';
 import { UserQuery } from './useUser';
@@ -10,6 +11,7 @@ const CreateUserMutation = gql`
     $password: String!
     $profile: UserProfileInput
     $forceLocale: String
+    $currency: String
   ) {
     createUser(email: $email, plainPassword: $password, profile: $profile) {
       id
@@ -24,6 +26,7 @@ const CreateUserMutation = gql`
 `;
 
 const useCreateUser = () => {
+  const { selectedCurrency } = useCurrencyContext();
   const intl = useIntl();
   const client = useApolloClient();
   const [createUserMutation, { error, loading }] = useMutation(
@@ -49,6 +52,7 @@ const useCreateUser = () => {
         password,
         profile,
         forceLocale: intl.locale,
+        currency: selectedCurrency,
       },
     });
     await client.resetStore();

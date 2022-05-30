@@ -19,6 +19,7 @@
     "apollo-upload-client": "^16.0.0",
     "classnames": "^2.3.1",
     "cookie": "^0.5.0",
+    "deepmerge": "^4.2.2",
     "dotenv-extended": "^2.9.0",
     "fast-memoize": "^2.5.2",
     "geoip-country": "^4.0.72",
@@ -31,6 +32,7 @@
     "next": "^12.1.6",
     "next-with-apollo": "^5.1.0",
     "npm": "^8.0.0",
+    "prop-types": "^15.8.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^6.15.8",
@@ -38,10 +40,10 @@
     "react-intl": "^5.20.2",
     "react-qr-code": "^2.0.7",
     "react-qr-svg": "^2.4.0",
-    "react-toastify": "^7.0.4",
-    "deepmerge": "^4.2.2"
+    "react-toastify": "^7.0.4"
   },
   "devDependencies": {
+    "@formatjs/cli": "^5.0.1",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/forms": "^0.5.1",
     "@tailwindcss/typography": "^0.5.2",
@@ -70,6 +72,7 @@
     "dev:local": "UNCHAINED_ENDPOINT=http://localhost:4010/graphql next dev",
     "dev": "next dev",
     "format": "npm run lint -- --fix",
+    "extract-translation": "formatjs extract  '(pages|modules)/**/*.{ts,tsx,jsx}' --out-file lang/en.json --id-interpolation-pattern '[sha512:contenthash:base64:6]' ",
     "lint": "eslint --fix --ext .ts,.tsx,.js,.jsx modules pages",
     "test": "npm run lint && npm run typecheck",
     "typecheck": "tsc --noEmit",

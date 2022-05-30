@@ -16,7 +16,7 @@ const OrderFragment = gql`
       provider {
         _id
         type
-        simulatedPrice {
+        simulatedPrice(currency: $currency) {
           amount
           currency
         }
@@ -39,7 +39,7 @@ const OrderFragment = gql`
     supportedDeliveryProviders {
       _id
       type
-      simulatedPrice {
+      simulatedPrice(currency: $currency) {
         amount
         currency
       }

@@ -133,7 +133,7 @@ const DeliveryAddressEditable = ({ user }) => {
     },
     {
       name: 'emailAddress',
-      translation: formatMessage({ id: 'email' }),
+      translation: formatMessage({ id: 'email', defaultMessage: 'Email' }),
       type: 'email',
       validator: {
         required: 'Email must be provided.',
