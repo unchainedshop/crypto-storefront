@@ -1,9 +1,10 @@
 import { useQuery, gql } from '@apollo/client';
+import useCurrencyContext from '../../common/utils/useCurrencyContext';
 
 import OrderFragment from '../fragments/OrderFragment';
 
 const UserOrderListQuery = gql`
-  {
+  query UserOrders($currency: String) {
     me {
       _id
       orders {
@@ -15,7 +16,12 @@ const UserOrderListQuery = gql`
 `;
 
 const useOrderList = () => {
-  const { data, loading, error } = useQuery(UserOrderListQuery);
+  const { selectedCurrency } = useCurrencyContext();
+  const { data, loading, error } = useQuery(UserOrderListQuery, {
+    variables: {
+      currency: selectedCurrency,
+    },
+  });
 
   return {
     orders: data?.me?.orders || [],
