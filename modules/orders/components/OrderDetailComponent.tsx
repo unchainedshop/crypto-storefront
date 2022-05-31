@@ -1,9 +1,14 @@
 import { useIntl } from 'react-intl';
 import Link from 'next/link';
-import { CheckCircleIcon, PaperClipIcon } from '@heroicons/react/solid';
+import {
+  CheckCircleIcon,
+  ChevronDownIcon,
+  PaperClipIcon,
+} from '@heroicons/react/solid';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import classNames from 'classnames';
 import renderPrice from '../../common/utils/renderPrice';
 import useFormatDateTime from '../../common/utils/useFormatDateTime';
 import useUser from '../../auth/hooks/useUser';
@@ -20,11 +25,18 @@ function getFlagEmoji(countryCode) {
   return String.fromCodePoint(...(codePoints || []));
 }
 
+const addresss = [
+  { address: '0xFB818374Bd09B47A2338991E8E72731555F145A7', currency: 'ETH' },
+  { address: '0xFB818374Bd09B47A2338991E8E72731555F145A7', currency: 'EUR' },
+];
+
 const OrderDetailComponent = ({ order }) => {
   const { formatMessage } = useIntl();
   const { formatDateTime } = useFormatDateTime();
   const { signForCheckout } = useSignForCheckout();
   const [paymentAddress, setPaymentAddress] = useState([]);
+  const [accordion, setAccordion] = useState();
+
   const { user } = useUser();
   const signOrderPayment = async () => {
     if (order?.payment.provider?.type === 'GENERIC') {
@@ -45,8 +57,6 @@ const OrderDetailComponent = ({ order }) => {
     };
     updateContractAddress();
   }, [order?.payment?._id]);
-
-  console.log(order);
 
   return (
     <div className="bg-slate-50 dark:bg-slate-600">
@@ -159,13 +169,17 @@ const OrderDetailComponent = ({ order }) => {
           <div className="bg-slate-100 py-6 px-4 dark:bg-slate-500 sm:rounded-lg sm:px-6 lg:flex lg:gap-x-8 lg:px-8 lg:py-8">
             <dl className="grid grid-cols-2 gap-6 text-sm sm:grid-cols-2 md:gap-x-8 lg:w-7/12 lg:flex-auto">
               <div>
-                <dt className="font-medium text-slate-900 dark:text-slate-100">
+                <dt className="text-base font-medium text-slate-900 dark:text-slate-100">
                   {formatMessage({
                     id: 'delivery_address',
                     defaultMessage: 'Delivery address',
                   })}
                 </dt>
                 <dd className="mt-3 text-slate-500 dark:text-slate-300">
+                  <span className="block">
+                    {user?.profile?.address?.firstName}&nbsp;
+                    {user?.profile?.address?.lastName}
+                  </span>
                   <span className="mb-2 block">
                     {user?.profile?.address?.addressLine}
                   </span>
@@ -173,7 +187,7 @@ const OrderDetailComponent = ({ order }) => {
                     {user?.profile?.address?.addressLine2}
                   </span>
                   <span className="mb-2 block">
-                    {user?.profile?.address?.addressLine2}
+                    {user?.profile?.address?.postalCode}
                   </span>
                   <span className="mb-2 block">
                     {user?.profile?.address?.city}&nbsp;&nbsp;
@@ -184,7 +198,7 @@ const OrderDetailComponent = ({ order }) => {
               </div>
 
               <div>
-                <dt className="font-medium text-slate-900">
+                <dt className="text-lg font-medium text-slate-900">
                   {formatMessage({
                     id: 'delivery_information',
                     defaultMessage: 'Delivery Information',
@@ -192,21 +206,23 @@ const OrderDetailComponent = ({ order }) => {
                 </dt>
                 <dd className="-ml-4 -mt-1">
                   <div className="ml-4 mt-4">
-                    <p className="text-lg font-bold text-slate-900 dark:text-white">
+                    <span className="block text-slate-500 dark:text-slate-300">
                       {order?.delivery?.provider?.interface?.label}&nbsp;&nbsp;
                       {order?.delivery?.provider?.interface?.version}
-                    </p>
+                    </span>
                   </div>
-                  <div className="ml-4 mt-2">
-                    <span className="text-lg font-normal">
+                  <div className="ml-4 mt-4">
+                    <span className="text-slate-500 dark:text-slate-300">
                       {order?.delivery?.provider?.type}
                     </span>
-                    <span className="mx-2 rounded-full border bg-indigo-100 px-2 py-1 text-sm font-thin text-indigo-600">
+                    <span className="mx-2 inline-flex items-center rounded-full bg-green-100 px-3 py-0.5 text-sm font-medium text-green-800">
                       {order?.delivery?.status}
                     </span>
                   </div>
                   <div className="ml-4 mt-4">
-                    <p>{renderPrice(order?.delivery?.fee)}</p>
+                    <span className="block text-slate-500 dark:text-slate-300">
+                      {renderPrice(order?.delivery?.fee)}
+                    </span>
                   </div>
                   <div className="ml-4 mt-4">
                     <p className="text-slate-600">
@@ -244,8 +260,8 @@ const OrderDetailComponent = ({ order }) => {
                   </dt>
                 </div>
                 <div>
-                  <dd className="mt-1 text-sm text-gray-900 dark:text-slate-100">
-                    <ul className="divide-y divide-gray-200 rounded-md border border-gray-200">
+                  <dd className="mt-1 text-sm text-slate-900 dark:text-slate-100">
+                    <ul className="divide-y divide-slate-200 rounded-md border border-slate-200">
                       {order?.documents?.map((document) => (
                         <li
                           key={document._id}
@@ -253,7 +269,7 @@ const OrderDetailComponent = ({ order }) => {
                         >
                           <div className="flex w-0 flex-1 items-center">
                             <PaperClipIcon
-                              className="h-5 w-5 flex-shrink-0 text-gray-400"
+                              className="h-5 w-5 flex-shrink-0 text-slate-400"
                               aria-hidden="true"
                             />
                             <span className="ml-2 w-0 flex-1 truncate">
@@ -293,7 +309,7 @@ const OrderDetailComponent = ({ order }) => {
           <div className="bg-slate-100 py-6 px-4 dark:bg-slate-600 sm:rounded-lg sm:px-6 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:px-8 lg:py-8">
             <dl className="grid grid-cols-2 gap-6 text-sm sm:grid-cols-2 md:gap-x-8 lg:col-span-7">
               <div>
-                <dt className="font-medium text-slate-900 dark:text-slate-100">
+                <dt className="text-lg font-medium text-slate-900 dark:text-slate-100">
                   {formatMessage({
                     id: 'billing_address',
                     defaultMessage: 'Billing address',
@@ -305,36 +321,78 @@ const OrderDetailComponent = ({ order }) => {
                     {order?.billingAddress?.lastName}
                   </span>
                   <span className="block">
-                    {order?.billingAddress?.postalCode}&nbsp;
                     {order?.billingAddress?.addressLine}
                   </span>
                   <span className="block">
-                    {order?.billingAddress?.postalCode}&nbsp;
                     {order?.billingAddress?.addressLine2}
+                    {order?.billingAddress?.postalCode}&nbsp;
                   </span>
                   {order?.billingAddress?.countryCode && (
                     <span className="block">
                       {user?.profile?.address?.city}&nbsp;
-                      {/* {getFlagEmoji(order?.billingAddress?.countryCode)}&nbsp; */}
+                      {getFlagEmoji(order?.billingAddress?.countryCode)}&nbsp;
                       {order?.billingAddress?.countryCode}
                     </span>
                   )}
                 </dd>
               </div>
               <div>
-                <dt className="font-medium text-slate-900 dark:text-slate-100">
+                <dt className="text-lg font-medium text-slate-900 dark:text-slate-100">
                   {formatMessage({
                     id: 'payment_information',
                     defaultMessage: 'Payment information',
                   })}
                 </dt>
                 {order?.status === 'OPEN' || order?.status === 'PENDING' ? (
-                  paymentAddress.map((address) => (
-                    <QRCodeComponent
-                      paymentAddress={address}
-                      currencyClassName="text-left my-0"
-                      className="mx-0 my-2"
-                    />
+                  addresss.map((address, index) => (
+                    <div
+                      key={address.currency}
+                      className="mt-6 space-y-6 divide-y divide-slate-200"
+                    >
+                      <div className="pt-6">
+                        <div className="text-lg">
+                          <button
+                            type="button"
+                            data-index={index}
+                            className="flex w-full items-start justify-between text-left text-slate-400"
+                            aria-controls="faq-0"
+                            aria-expanded="false"
+                            // onClick={onClick}
+                            // onClick={() => {
+                            //   setAccordion(accordion.map((acc, i)=>{
+                            //     if(i===index)
+                            //   }));
+                            // }}
+                          >
+                            <span className="font-medium text-slate-900">
+                              {address?.currency}
+                            </span>
+                            <span className="ml-6 flex h-7 items-center">
+                              <ChevronDownIcon
+                                className={classNames(
+                                  'h-6 w-6 -rotate-180 transform',
+                                  // { 'rotate-0': open },
+                                )}
+                              />
+                            </span>
+                          </button>
+                        </div>
+                        <div
+                          className={classNames('mt-2 hidden pr-12', {
+                            // hidden: !open,
+                          })}
+                          id="faq-0"
+                        >
+                          <QRCodeComponent
+                            paymentAddress={address}
+                            currencyClassName="text-left my-0 hidden"
+                            className="mx-0 my-2"
+                          />
+                        </div>
+                      </div>
+
+                      {/* <!-- More questions... --> */}
+                    </div>
                   ))
                 ) : (
                   <dd className="-ml-4 -mt-1">
@@ -344,17 +402,17 @@ const OrderDetailComponent = ({ order }) => {
                       </p>
                     </div>
                     <div className="ml-4 mt-4">
-                      <p className="text-lg font-bold text-slate-900 dark:text-white">
+                      <p className="text-slate-500 dark:text-slate-300">
                         {order?.payment?.provider?.interface?.label}
                         &nbsp;&nbsp;
                         {order?.payment?.provider?.interface?.version}
                       </p>
                     </div>
                     <div className="ml-4 mt-4">
-                      <p className="text-slate-900 dark:text-slate-100">
+                      <p className="text-slate-500 dark:text-slate-300">
                         <span>{order?.payment?.provider?.type}</span>
-                        <span className="mx-2 rounded-full border bg-indigo-100 px-2 py-1 text-sm font-thin text-indigo-600">
-                          {order?.delivery?.status}
+                        <span className="mx-2 inline-flex items-center rounded-full bg-green-100 px-3 py-0.5 text-sm font-medium text-green-800">
+                          {order?.payment?.status}
                         </span>
                       </p>
                     </div>
@@ -417,7 +475,7 @@ const OrderDetailComponent = ({ order }) => {
                   {formatMessage({ id: 'Tax', defaultMessage: 'Taxable' })}
                 </dt>
                 <dd className="font-medium text-slate-900 dark:text-slate-100">
-                  {order?.isTaxable}
+                  {order?.total?.isTaxable ? 'Yes' : 'No'}
                 </dd>
               </div>
               <div className="flex items-center justify-between pt-4">

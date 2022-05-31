@@ -28,6 +28,7 @@ const QRCodeComponent = ({
     }
   };
 
+  console.log(paymentAddress);
   return paymentAddress ? (
     <div className="relative w-full">
       <div

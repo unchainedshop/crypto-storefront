@@ -8,7 +8,7 @@ const AddressFragment = gql`
     addressLine
     postalCode
     city
-    addressLine
+    addressLine2
     countryCode
     regionCode
   }

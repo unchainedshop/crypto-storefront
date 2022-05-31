@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import AddressFragment from '../../common/fragments/AddressFragment';
 
 const OrderFragment = gql`
   fragment OrderFragment on Order {
@@ -10,6 +11,9 @@ const OrderFragment = gql`
     country {
       flagEmoji
       name
+    }
+    billingAddress {
+      ...AddressFragment
     }
     delivery {
       _id
@@ -34,6 +38,7 @@ const OrderFragment = gql`
     }
     orderNumber
     total {
+      isTaxable
       amount
       currency
     }
@@ -69,6 +74,7 @@ const OrderFragment = gql`
       }
     }
   }
+  ${AddressFragment}
 `;
 
 export default OrderFragment;
