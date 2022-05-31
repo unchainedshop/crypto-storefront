@@ -111,6 +111,9 @@
   "create_account": {
     "defaultMessage": "Create account for free"
   },
+  "create_account_and_shop": {
+    "defaultMessage": "Create an account and enjoy shopping"
+  },
   "create_an_account": {
     "defaultMessage": "Create an account"
   },
@@ -201,6 +204,7 @@
     "defaultMessage": "Sign up with Facebook"
   },
   "first_name": {
+    "defaultMessage": "First name"
   },
   "footer": {
     "defaultMessage": "Footer"
@@ -235,6 +239,7 @@
   "imprint": {
   },
   "in_cart": {
+    "defaultMessage": "In cart"
   },
   "invalid_email_password": {
     "defaultMessage": "Invalid password"
@@ -249,6 +254,7 @@
     "defaultMessage": "Items in your cart"
   },
   "last_name": {
+    "defaultMessage": "Last name"
   },
   "legal": {
     "defaultMessage": "Legal"
@@ -271,7 +277,10 @@
     "defaultMessage": "Menu"
   },
   "my_orders": {
-    "defaultMessage": "My Orders"
+    "defaultMessage": "My orders"
+  },
+  "name_on_card": {
+    "defaultMessage": "Name on card"
   },
   "new_here": {
     "defaultMessage": "New here"
@@ -283,6 +292,12 @@
   },
   "no": {
     "defaultMessage": "No"
+  },
+  "no_data_message": {
+    "defaultMessage": "<p>No&nbsp;<span> {message} available</span> </p>"
+  },
+  "no_item_in_cart": {
+    "defaultMessage": "item in cart"
   },
   "no_product_in_cart": {
   },
@@ -298,6 +313,7 @@
     "defaultMessage": "on"
   },
   "optional": {
+    "defaultMessage": "Optional"
   },
   "order": {
   },
@@ -327,6 +343,7 @@
     "defaultMessage": "Order total"
   },
   "password": {
+    "defaultMessage": "Password"
   },
   "password_not_match": {
     "defaultMessage": "Password not match"
@@ -340,7 +357,7 @@
     "defaultMessage": "Payment information"
   },
   "payment_status": {
-    "defaultMessage": "Payment_status"
+    "defaultMessage": "Payment status"
   },
   "payment_type": {
     "defaultMessage": "Payment type"
@@ -354,7 +371,7 @@
   "please_select": {
   },
   "postal_code": {
-    "defaultMessage": "Postal Code"
+    "defaultMessage": "Postal code"
   },
   "privacy": {
   },
@@ -400,7 +417,10 @@
     "defaultMessage": "Reset password"
   },
   "reviews": {
-    "defaultMessage": "reviews"
+    "defaultMessage": "Reviews"
+  },
+  "reviews_starts_range": {
+    "defaultMessage": "out of 5 stars"
   },
   "right": {
     "defaultMessage": "All Rights Reserved"
@@ -420,9 +440,13 @@
     "defaultMessage": "Shipping"
   },
   "shop": {
+    "defaultMessage": "Shop"
   },
   "shop_by_category": {
     "defaultMessage": "Shop by Category"
+  },
+  "shop_by_collection": {
+    "defaultMessage": "Shop by Collection"
   },
   "shop_description": {
     "defaultMessage": "Each season, we collaborate with world-class designers to create a collection inspired by the natural world."
@@ -430,7 +454,13 @@
   "shop_logo": {
     "defaultMessage": "Shop logo"
   },
+  "shop_logo_login": {
+    "defaultMessage": "Shop logo"
+  },
   "shop_logo_mobile": {
+    "defaultMessage": "Shop logo"
+  },
+  "shop_logo_sign_up": {
     "defaultMessage": "Shop logo"
   },
   "show_all": {
@@ -439,7 +469,7 @@
     "defaultMessage": "Sign in"
   },
   "sign_up": {
-    "defaultMessage": "Sign Up"
+    "defaultMessage": "Sign up"
   },
   "sign_up_with": {
     "defaultMessage": "Sign up with"
@@ -476,6 +506,7 @@
     "defaultMessage": "Title"
   },
   "to_checkout": {
+    "defaultMessage": "To checkout"
   },
   "to_order_review": {
     "defaultMessage": "To Order Rbutton--primaryeview"

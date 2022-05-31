@@ -19,7 +19,12 @@ const PasswordForget = () => {
 
   return (
     <>
-      <MetaTags title={formatMessage({ id: 'forgot_password' })} />
+      <MetaTags
+        title={formatMessage({
+          id: 'forgot_password',
+          defaultMessage: 'Forgot your password?',
+        })}
+      />
       <div>
         {loading && <LoadingItem />}
         {emailSent && <div className="text-center"> {emailSent} </div>}
@@ -30,7 +35,10 @@ const PasswordForget = () => {
                 <LockClosedIcon className="mx-auto h-24 w-24 text-slate-900" />
               </div>
               <h1 className="text-center text-6xl font-bold text-slate-900">
-                {formatMessage({ id: 'forgot_password' })}
+                {formatMessage({
+                  id: 'forgot_password',
+                  defaultMessage: 'Forgot your password?',
+                })}
               </h1>
               <p className="mt-4 text-center text-lg font-medium text-slate-600 dark:text-slate-400">
                 {formatMessage({

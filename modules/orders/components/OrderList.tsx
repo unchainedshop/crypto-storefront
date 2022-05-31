@@ -73,7 +73,7 @@ const OrderList = ({ orders, queryString, setQueryString }) => {
                     <dt className="font-medium text-slate-900 dark:text-slate-100">
                       {formatMessage({
                         id: 'order_date',
-                        defaultMessage: 'Order Date',
+                        defaultMessage: 'Order date',
                       })}
                     </dt>
                   </div>
@@ -161,7 +161,7 @@ const OrderList = ({ orders, queryString, setQueryString }) => {
                       <dt className="font-medium text-slate-900 dark:text-slate-100 sm:hidden">
                         {formatMessage({
                           id: 'payment_status',
-                          defaultMessage: 'Payment_status',
+                          defaultMessage: 'Payment status',
                         })}
                       </dt>
                       <dd className="sm:mt-1">{order?.payment?.status}</dd>

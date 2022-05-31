@@ -176,7 +176,7 @@ const SignUp = () => {
                 <label className="mb-2 block font-bold leading-tight text-color-dark">
                   {formatMessage({
                     id: 'first_name',
-                    defaultMessage: 'First Name',
+                    defaultMessage: 'First name',
                   })}
                 </label>
                 <input
@@ -193,7 +193,7 @@ const SignUp = () => {
                 <label className="mb-2 block font-bold leading-tight text-color-dark">
                   {formatMessage({
                     id: 'last_name',
-                    defaultMessage: 'Last Name',
+                    defaultMessage: 'Last name',
                   })}
                 </label>
                 <input
@@ -269,7 +269,7 @@ const SignUp = () => {
                 }`}
               >
                 <label className="mb-2 block font-bold leading-tight text-color-dark">
-                  {formatMessage({ id: 'city', city: 'City' })}
+                  {formatMessage({ id: 'city', defaultMessage: 'City' })}
                 </label>
                 <input
                   className={`block w-full rounded border border-solid border-light-black bg-white bg-clip-padding py-[0.375] px-3 text-base text-color-dark transition focus:border-light-blue focus:shadow-0 focus:outline-0 ${

@@ -10,7 +10,9 @@ const SignUp = () => {
 
   return (
     <>
-      <MetaTags title={intl.formatMessage({ id: 'sign_up' })} />
+      <MetaTags
+        title={intl.formatMessage({ id: 'sign_up', defaultMessage: 'Sign up' })}
+      />
       <SignUpForm />
     </>
   );

@@ -53,7 +53,7 @@ const SideCart = ({ isOpen }) => {
                   onClick={() => context.toggleCart(false)}
                   className="cursor-pointer font-normal underline"
                 >
-                  {intl.formatMessage({ id: 'shop' })}
+                  {intl.formatMessage({ id: 'shop', defaultMessage: 'Shop' })}
                 </a>
               </Link>
             </p>
@@ -81,7 +81,10 @@ const SideCart = ({ isOpen }) => {
                 </button>
               </div>
               <h3 className="m-0 block p-4 text-center text-lg">
-                {intl.formatMessage({ id: 'in_cart' })}
+                {intl.formatMessage({
+                  id: 'in_cart',
+                  defaultMessage: 'In cart',
+                })}
               </h3>
             </div>
             <div className="px-2">
@@ -94,7 +97,11 @@ const SideCart = ({ isOpen }) => {
                       className="cursor-pointer font-normal underline"
                       href="#"
                     >
-                      {intl.formatMessage({ id: 'shop' })}.
+                      {intl.formatMessage({
+                        id: 'shop',
+                        defaultMessage: 'Shop',
+                      })}
+                      .
                     </a>
                   </Link>
                 </p>
@@ -108,7 +115,10 @@ const SideCart = ({ isOpen }) => {
               <div className="my-0 mb-4 border-t border-b-0 border-solid py-4">
                 <div className="flex flex-wrap items-center justify-between">
                   <div className="mr-2">
-                    {intl.formatMessage({ id: 'subtotal' })}{' '}
+                    {intl.formatMessage({
+                      id: 'subtotal',
+                      defaultMessage: 'Subtotal',
+                    })}{' '}
                   </div>
                   <div>{renderPrice(subtotal)}</div>
                 </div>
@@ -119,7 +129,10 @@ const SideCart = ({ isOpen }) => {
                   className="mb-4 block w-full rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-base font-medium uppercase text-white shadow-sm hover:bg-indigo-700 hover:text-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
                   onClick={() => context.toggleCart(false)}
                 >
-                  {intl.formatMessage({ id: 'to_checkout' })}
+                  {intl.formatMessage({
+                    id: 'to_checkout',
+                    defaultMessage: 'To checkout',
+                  })}
                 </a>
               </Link>
               <Link

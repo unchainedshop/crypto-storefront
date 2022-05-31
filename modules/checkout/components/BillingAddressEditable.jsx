@@ -47,13 +47,19 @@ const BillingAddressEditable = ({ user }) => {
   const addressFields = [
     {
       name: 'firstName',
-      translation: formatMessage({ id: 'first_name' }),
+      translation: formatMessage({
+        id: 'first_name',
+        defaultMessage: 'First name',
+      }),
       type: 'text',
       required: true,
     },
     {
       name: 'lastName',
-      translation: formatMessage({ id: 'last_name' }),
+      translation: formatMessage({
+        id: 'last_name',
+        defaultMessage: 'Last name',
+      }),
       type: 'text',
       required: true,
     },
@@ -61,31 +67,35 @@ const BillingAddressEditable = ({ user }) => {
       name: 'company',
       translation: `${formatMessage({
         id: 'company',
-      })} ${formatMessage({ id: 'optional' })} `,
+        defaultMessage: 'Company',
+      })} ${formatMessage({ id: 'optional', defaultMessage: 'Optional' })} `,
       type: 'text',
       required: false,
     },
     {
       name: 'addressLine',
-      translation: formatMessage({ id: 'address' }),
+      translation: formatMessage({ id: 'address', defaultMessage: 'Address' }),
       type: 'text',
       required: true,
     },
     {
       name: 'postalCode',
-      translation: formatMessage({ id: 'postal_code' }),
+      translation: formatMessage({
+        id: 'postal_code',
+        defaultMessage: 'Postal code',
+      }),
       type: 'text',
       required: true,
     },
     {
       name: 'city',
-      translation: formatMessage({ id: 'city' }),
+      translation: formatMessage({ id: 'city', defaultMessage: 'City' }),
       type: 'text',
       required: true,
     },
     {
       name: 'countryCode',
-      translation: formatMessage({ id: 'country' }),
+      translation: formatMessage({ id: 'country', defaultMessage: 'Country' }),
       type: 'country',
       required: true,
     },
@@ -120,7 +130,7 @@ const BillingAddressEditable = ({ user }) => {
             className="mt-3 mb-5 inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             type="submit"
           >
-            {formatMessage({ id: 'save' })}
+            {formatMessage({ id: 'save', defaultMessage: 'Save' })}
           </button>
         </form>
       )}

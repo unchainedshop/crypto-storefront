@@ -52,7 +52,7 @@ const UpdateProfileForm = ({ user, onSuccess, onCancel }) => {
             <label className="form-label">
               {formatMessage({
                 id: 'first_name',
-                defaultMessage: 'First Name',
+                defaultMessage: 'First name',
               })}
             </label>
             <input
@@ -66,7 +66,7 @@ const UpdateProfileForm = ({ user, onSuccess, onCancel }) => {
             className={`col-md-6 mb-3 ${errors.lastName ? 'form-error' : ''}`}
           >
             <label className="form-label">
-              {formatMessage({ id: 'last_name', defaultMessage: 'Last Name' })}
+              {formatMessage({ id: 'last_name', defaultMessage: 'Last name' })}
             </label>
             <input
               className={`form-control ${errors.lastName && 'form-error'}`}
@@ -110,7 +110,7 @@ const UpdateProfileForm = ({ user, onSuccess, onCancel }) => {
             <label className="form-label">
               {formatMessage({
                 id: 'postal_code',
-                defaultMessage: 'Postal Code',
+                defaultMessage: 'Postal code',
               })}
             </label>
             <input

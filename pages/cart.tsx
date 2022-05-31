@@ -27,8 +27,8 @@ const Cart = () => {
                 <Link href={{ pathname: '/review' }}>
                   <a className="button button--primary uppercase md:py-3.5 md:px-5">
                     {formatMessage({
-                      id: 'to_checkout',
-                      defaultMessage: 'Check out',
+                      id: 'checkout',
+                      defaultMessage: 'Checkout',
                     })}
                   </a>
                 </Link>

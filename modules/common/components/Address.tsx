@@ -181,7 +181,7 @@ const Address = ({ user }) => {
                   <div className="mb-1">
                     {formatMessage({
                       id: 'postal_code',
-                      defaultMessage: 'Postal Code',
+                      defaultMessage: 'Postal code',
                     })}
                   </div>
                   {updateProfile ? (

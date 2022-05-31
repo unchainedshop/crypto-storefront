@@ -126,7 +126,10 @@ const Review = () => {
                   {/* Delivery address */}
                   <div>
                     <h2 className="text-lg font-medium text-slate-900 dark:text-white">
-                      {formatMessage({ id: 'delivery_address' })}
+                      {formatMessage({
+                        id: 'delivery_address',
+                        defaultMessage: 'Delivery address',
+                      })}
                     </h2>
                     <DeliveryAddressEditable user={user} />
                   </div>
@@ -219,7 +222,10 @@ const Review = () => {
                   {/* Billing Address */}
                   <div className="mt-10 border-t border-slate-200 pt-10">
                     <h4 className="mt-5 text-slate-900 dark:text-white">
-                      {formatMessage({ id: 'billing_address' })}
+                      {formatMessage({
+                        id: 'billing_address',
+                        defaultMessage: 'Billing address',
+                      })}
                     </h4>
 
                     <div className="my-3 flex items-start">

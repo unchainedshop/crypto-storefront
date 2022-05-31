@@ -216,7 +216,10 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                     htmlFor="firstName"
                     className="block text-sm font-medium text-slate-700 dark:text-slate-300"
                   >
-                    {formatMessage({ id: 'first_name' })}
+                    {formatMessage({
+                      id: 'first_name',
+                      defaultMessage: 'First name',
+                    })}
                   </label>
                   <div className="mt-1">
                     <input
@@ -248,7 +251,10 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                     htmlFor="lastName"
                     className="inline-block text-sm font-medium text-slate-700 dark:text-slate-300"
                   >
-                    {formatMessage({ id: 'last_name' })}
+                    {formatMessage({
+                      id: 'last_name',
+                      defaultMessage: 'Last name',
+                    })}
                   </label>
                   <input
                     type="text"
@@ -278,7 +284,10 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                     htmlFor="addressLine"
                     className="block text-sm font-medium text-slate-700 dark:text-slate-300"
                   >
-                    {formatMessage({ id: 'address' })}
+                    {formatMessage({
+                      id: 'address',
+                      defaultMessage: 'Address',
+                    })}
                   </label>
                   <input
                     type="text"
@@ -308,8 +317,15 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                     htmlFor="company"
                     className="block text-sm font-medium text-slate-700 dark:text-slate-300"
                   >
-                    {formatMessage({ id: 'company' })} {'  '}{' '}
-                    {formatMessage({ id: 'optional' })}
+                    {formatMessage({
+                      id: 'company',
+                      defaultMessage: 'Company',
+                    })}{' '}
+                    {'  '}{' '}
+                    {formatMessage({
+                      id: 'optional',
+                      defaultMessage: 'Optional',
+                    })}
                   </label>
                   <input
                     type="text"
@@ -325,7 +341,10 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                     htmlFor="postalCode"
                     className="block text-sm font-medium text-slate-700 dark:text-slate-300"
                   >
-                    {formatMessage({ id: 'postal_code' })}
+                    {formatMessage({
+                      id: 'postal_code',
+                      defaultMessage: 'Postal code',
+                    })}
                   </label>
                   <input
                     type="text"
@@ -355,7 +374,10 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                     htmlFor="telNumber"
                     className="block text-sm font-medium text-slate-700 dark:text-slate-300"
                   >
-                    {formatMessage({ id: 'telephone' })}
+                    {formatMessage({
+                      id: 'telephone',
+                      defaultMessage: 'Telephone',
+                    })}
                   </label>
                   <input
                     type="tel"
@@ -385,7 +407,7 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                     htmlFor="city"
                     className="block text-sm font-medium text-slate-700 dark:text-slate-300"
                   >
-                    {formatMessage({ id: 'city' })}
+                    {formatMessage({ id: 'city', defaultMessage: 'City' })}
                   </label>
                   <input
                     type="text"
@@ -414,8 +436,11 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                     htmlFor="regionCode"
                     className="block text-sm font-medium text-slate-700 dark:text-slate-300"
                   >
-                    {formatMessage({ id: 'region' })}{' '}
-                    {formatMessage({ id: 'optional' })}
+                    {formatMessage({ id: 'region', defaultMessage: 'Region' })}{' '}
+                    {formatMessage({
+                      id: 'optional',
+                      defaultMessage: 'Optional',
+                    })}
                   </label>
                   <input
                     type="text"
@@ -437,7 +462,10 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                     htmlFor="countryCode"
                     className="block text-sm font-medium text-slate-700 dark:text-slate-300"
                   >
-                    {formatMessage({ id: 'country' })}
+                    {formatMessage({
+                      id: 'country',
+                      defaultMessage: 'Country',
+                    })}
                   </label>
                   <select
                     id="countryCode"
@@ -491,7 +519,10 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                     htmlFor="password"
                     className="block text-sm font-medium text-slate-700 dark:text-slate-300"
                   >
-                    {formatMessage({ id: 'password' })}
+                    {formatMessage({
+                      id: 'password',
+                      defaultMessage: 'Password',
+                    })}
                   </label>
                   <input
                     type="password"
@@ -624,8 +655,8 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
         <div className="absolute top-1/2 left-0 w-full">
           <h1 className="mx-auto w-2/3 text-center text-6xl font-bold text-slate-700 dark:text-slate-300">
             {formatMessage({
-              id: 'title',
-              defaultMessage: 'create an account and enjoy shopping',
+              id: 'create_account_and_shop',
+              defaultMessage: 'Create an account and enjoy shopping',
             })}
           </h1>
         </div>

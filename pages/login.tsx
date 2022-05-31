@@ -38,7 +38,7 @@ const LogIn = () => {
           <h2 className="mt-6 text-center text-3xl font-extrabold text-slate-900 dark:text-slate-100">
             {formatMessage({
               id: 'sign_in',
-              defaultMessage: 'Sign in to your account',
+              defaultMessage: 'Sign in',
             })}
           </h2>
         </div>

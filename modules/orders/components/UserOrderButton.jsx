@@ -11,7 +11,7 @@ const OrderButton = () => {
       <a className="flex items-center gap-x-2">
         <CollectionIcon className="h-6 w-6" />
         <span className="hidden md:block">
-          {formatMessage({ id: 'my_orders', defaultMessage: 'My Orders' })}
+          {formatMessage({ id: 'my_orders', defaultMessage: 'My orders' })}
         </span>
       </a>
     </Link>

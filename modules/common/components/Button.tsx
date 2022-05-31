@@ -1,12 +1,12 @@
 import classNames from 'classnames';
 
 const Button = ({
-  icon,
+  type,
+  icon = null,
   text = '',
   disabled = false,
-  type,
   className = '',
-  onClick,
+  onClick = () => {},
 }) => {
   return (
     <button

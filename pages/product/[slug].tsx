@@ -53,7 +53,7 @@ const Detail = () => {
   if (!product && !loading)
     return (
       <NotFound
-        page={formatMessage({ id: 'products', defaultMessage: 'products' })}
+        page={formatMessage({ id: 'products', defaultMessage: 'Products' })}
       />
     );
   return (
@@ -121,7 +121,7 @@ const Detail = () => {
                     {averageVote || ''}
                     <span className="sr-only">
                       {formatMessage({
-                        id: 'reviews',
+                        id: 'reviews_starts_range',
                         defaultMessage: ' out of 5 stars',
                       })}
                     </span>

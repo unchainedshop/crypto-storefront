@@ -32,7 +32,9 @@ const Order = () => {
 
   return (
     <>
-      <MetaTags title={formatMessage({ id: 'my_orders' })} />
+      <MetaTags
+        title={formatMessage({ id: 'my_orders', defaultMessage: 'My orders' })}
+      />
       {loading ? (
         <LoadingItem />
       ) : (

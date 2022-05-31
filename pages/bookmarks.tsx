@@ -137,7 +137,7 @@ const bookmarks = () => {
                             {bookmark.product?.reviews.length}{' '}
                             {formatMessage({
                               id: 'reviews',
-                              defaultMessage: 'reviews',
+                              defaultMessage: 'Reviews',
                             })}
                           </p>
                         </div>

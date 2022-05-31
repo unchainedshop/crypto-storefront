@@ -66,28 +66,34 @@ const DeliveryAddressEditable = ({ user }) => {
   const addressFields = [
     {
       name: 'firstName',
-      translation: formatMessage({ id: 'first_name' }),
+      translation: formatMessage({
+        id: 'first_name',
+        defaultMessage: 'First name',
+      }),
       type: 'text',
       validator: { required: 'First name must be provided.' },
       full: false,
     },
     {
       name: 'lastName',
-      translation: formatMessage({ id: 'last_name' }),
+      translation: formatMessage({
+        id: 'last_name',
+        defaultMessage: 'Last name',
+      }),
       type: 'text',
       validator: { required: 'First name must be provided.' },
       full: false,
     },
     {
       name: 'company',
-      translation: formatMessage({ id: 'company' }),
+      translation: formatMessage({ id: 'company', defaultMessage: 'Company' }),
       type: 'text',
       validator: false,
       full: true,
     },
     {
       name: 'addressLine',
-      translation: formatMessage({ id: 'address' }),
+      translation: formatMessage({ id: 'address', defaultMessage: 'Address' }),
       type: 'text',
       validator: { required: 'Address must be provided.' },
       full: false,
@@ -105,28 +111,34 @@ const DeliveryAddressEditable = ({ user }) => {
     },
     {
       name: 'postalCode',
-      translation: formatMessage({ id: 'postal_code' }),
+      translation: formatMessage({
+        id: 'postal_code',
+        defaultMessage: 'Postal code',
+      }),
       type: 'text',
       validator: { required: 'Postal code must be provided.' },
       full: false,
     },
     {
       name: 'city',
-      translation: formatMessage({ id: 'city' }),
+      translation: formatMessage({ id: 'city', defaultMessage: 'City' }),
       type: 'text',
       validator: { required: 'City must be provided.' },
       full: false,
     },
     {
       name: 'countryCode',
-      translation: formatMessage({ id: 'country' }),
+      translation: formatMessage({ id: 'country', defaultMessage: 'Country' }),
       type: 'country',
       validator: { required: 'Country code must be provided.' },
       full: false,
     },
     {
       name: 'telNumber',
-      translation: formatMessage({ id: 'telephone' }),
+      translation: formatMessage({
+        id: 'telephone',
+        defaultMessage: 'Telephone',
+      }),
       type: 'text',
       validator: { required: 'Telephone Number must be provided.' },
       full: false,
@@ -192,7 +204,7 @@ const DeliveryAddressEditable = ({ user }) => {
         className="mt-3 inline-flex items-center rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-slate-700 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 "
         type="submit"
       >
-        {formatMessage({ id: 'save' })}
+        {formatMessage({ id: 'save', defaultMessage: 'Save' })}
       </button>
     </form>
   );

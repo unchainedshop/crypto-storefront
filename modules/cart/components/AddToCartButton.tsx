@@ -81,7 +81,7 @@ const AddToCartButton = ({ productId }) => {
             onClick={(event) => event.stopPropagation()}
           />
           <span className="ml-1">
-            {formatMessage({ id: 'in_cart', defaultMessage: 'In Cart' })}
+            {formatMessage({ id: 'in_cart', defaultMessage: 'In cart' })}
           </span>
           <span className="icon icon--check ml-2">
             <svg

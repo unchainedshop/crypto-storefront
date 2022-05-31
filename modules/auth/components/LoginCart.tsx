@@ -69,7 +69,7 @@ const LoginCart = () => {
         <div className="ml-2 md:ml-4">
           <Link href="/sign-up">
             <a className="my-1 mr-4">
-              {formatMessage({ id: 'sign_up', defaultMessage: 'Sign Up' })}
+              {formatMessage({ id: 'sign_up', defaultMessage: 'Sign up' })}
             </a>
           </Link>
           <Link href="/login">
@@ -112,7 +112,7 @@ const LoginCart = () => {
   ) : (
     <div className="flex items-center gap-x-3">
       <Link href="/sign-up">
-        <a>{formatMessage({ id: 'sign_up', defaultMessage: 'Sign Up' })}</a>
+        <a>{formatMessage({ id: 'sign_up', defaultMessage: 'Sign up' })}</a>
       </Link>
       <Link href="/login">
         <a>{formatMessage({ id: 'log_in', defaultMessage: 'Log In' })}</a>
