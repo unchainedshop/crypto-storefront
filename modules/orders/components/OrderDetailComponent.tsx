@@ -1,13 +1,21 @@
 import { useIntl } from 'react-intl';
 import Link from 'next/link';
-import { PaperClipIcon } from '@heroicons/react/solid';
+import {
+  CheckCircleIcon,
+  ChevronDownIcon,
+  PaperClipIcon,
+} from '@heroicons/react/solid';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
+import classNames from 'classnames';
 import renderPrice from '../../common/utils/renderPrice';
 import useFormatDateTime from '../../common/utils/useFormatDateTime';
 import useUser from '../../auth/hooks/useUser';
 import QRCodeComponent from '../../checkout/components/QRCodeComponent';
 import useSignForCheckout from '../../checkout/hooks/useSignForCheckout';
+import getMediaUrl from '../../common/utils/getMediaUrl';
+import defaultNextImageLoader from '../../common/utils/getDefaultNextImageLoader';
 
 function getFlagEmoji(countryCode) {
   const codePoints = countryCode
@@ -17,11 +25,18 @@ function getFlagEmoji(countryCode) {
   return String.fromCodePoint(...(codePoints || []));
 }
 
+const addresss = [
+  { address: '0xFB818374Bd09B47A2338991E8E72731555F145A7', currency: 'ETH' },
+  { address: '0xFB818374Bd09B47A2338991E8E72731555F145A7', currency: 'EUR' },
+];
+
 const OrderDetailComponent = ({ order }) => {
   const { formatMessage } = useIntl();
   const { formatDateTime } = useFormatDateTime();
   const { signForCheckout } = useSignForCheckout();
   const [paymentAddress, setPaymentAddress] = useState([]);
+  const [accordion, setAccordion] = useState();
+
   const { user } = useUser();
   const signOrderPayment = async () => {
     if (order?.payment.provider?.type === 'GENERIC') {
@@ -45,7 +60,7 @@ const OrderDetailComponent = ({ order }) => {
 
   return (
     <div className="bg-slate-50 dark:bg-slate-600">
-      <div className="mx-auto max-w-full pt-16 sm:py-24 sm:px-6 lg:max-w-full lg:px-8">
+      <div className="mx-auto max-w-full px-4 pt-16 sm:py-24 sm:px-6 lg:max-w-full lg:px-8">
         <div className="space-y-2 px-4 sm:flex sm:items-baseline sm:justify-between sm:space-y-0 sm:px-0">
           <div className="flex sm:items-baseline sm:space-x-4">
             <h1 className="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100 sm:text-3xl">
@@ -98,37 +113,46 @@ const OrderDetailComponent = ({ order }) => {
             })}
           </h2>
 
-          <div className="mt-6 flex w-full gap-8 divide-y divide-slate-200 border border-slate-200 p-6 text-sm font-medium text-slate-500 sm:flex sm:flex-wrap sm:rounded-lg">
+          <div className="mt-6 grid grid-cols-1 gap-8 divide-y divide-slate-200 border-slate-200 text-sm font-medium text-slate-500 md:grid-cols-2 lg:grid-cols-3">
             {order?.items?.map((item) => (
-              <div
+              <Link
                 key={item._id}
-                className="flex flex-auto space-x-6 border-t border-b border-slate-200 bg-white shadow-sm dark:bg-slate-600 dark:shadow-slate-100 sm:rounded-lg sm:border"
+                href={`/product/${item?.product?.texts?.slug}`}
               >
-                <div className="flex-auto p-4 lg:flex">
-                  <div className="sm:flex lg:w-5/6">
-                    <div className="w-full flex-shrink-0 overflow-hidden rounded-lg sm:h-40 sm:w-40">
-                      <img
-                        src={item?.product?.media?.file?.url}
-                        alt={item?.product?.texts?.title}
-                        className="h-full w-full flex-none rounded-md bg-slate-100 object-fill object-center dark:bg-slate-500"
-                      />
+                <a className="flex w-full rounded-lg border border-t border-b border-slate-200 bg-white shadow-sm dark:bg-slate-600 dark:shadow-slate-100 md:px-0">
+                  <div className="flex w-full justify-between p-4">
+                    <div className="flex">
+                      <div className="relative h-40 w-40 overflow-hidden rounded-lg">
+                        <Image
+                          src={`${
+                            getMediaUrl(item?.product) ||
+                            '/static/img/sun-glass-placeholder.jpeg'
+                          }`}
+                          alt={item?.product?.texts?.title}
+                          layout="fill"
+                          objectFit="contain"
+                          loader={defaultNextImageLoader}
+                          className="h-full w-full flex-none rounded-md bg-slate-100 object-fill object-center dark:bg-slate-500"
+                        />
+                      </div>
+                      <div className="ml-4 max-w-1/2">
+                        <h3 className="text-lg font-medium text-slate-900 dark:text-slate-100">
+                          {item?.product?.texts?.title}
+                        </h3>
+                        <p className="text-slate-400">
+                          {item?.product?.texts?.subtitle}
+                        </p>
+                        <p className="text-slate-900 dark:text-slate-100">
+                          {item?.product?.texts?.description}
+                        </p>
+                      </div>
                     </div>
-
-                    <div className="ml-4 flex-auto">
-                      <h3 className="text-slate-900 dark:text-slate-100">
-                        <Link href={`/product/${item?.product?.texts?.slug}`}>
-                          <a>{item?.product?.texts?.title}</a>
-                        </Link>
-                      </h3>
-                      <p>{item?.product?.texts?.subtitle}</p>
-                      <p>{item?.product?.texts?.description}</p>
-                    </div>
+                    <p className="text-right font-medium text-slate-900 dark:text-slate-100">
+                      {renderPrice(item.total)}
+                    </p>
                   </div>
-                  <p className="text-right font-medium text-slate-900 dark:text-slate-100 lg:flex-auto">
-                    {renderPrice(item.total)}
-                  </p>
-                </div>
-              </div>
+                </a>
+              </Link>
             ))}
           </div>
         </div>
@@ -145,13 +169,17 @@ const OrderDetailComponent = ({ order }) => {
           <div className="bg-slate-100 py-6 px-4 dark:bg-slate-500 sm:rounded-lg sm:px-6 lg:flex lg:gap-x-8 lg:px-8 lg:py-8">
             <dl className="grid grid-cols-2 gap-6 text-sm sm:grid-cols-2 md:gap-x-8 lg:w-7/12 lg:flex-auto">
               <div>
-                <dt className="font-medium text-slate-900 dark:text-slate-100">
+                <dt className="text-base font-medium text-slate-900 dark:text-slate-100">
                   {formatMessage({
                     id: 'delivery_address',
                     defaultMessage: 'Delivery address',
                   })}
                 </dt>
                 <dd className="mt-3 text-slate-500 dark:text-slate-300">
+                  <span className="block">
+                    {user?.profile?.address?.firstName}&nbsp;
+                    {user?.profile?.address?.lastName}
+                  </span>
                   <span className="mb-2 block">
                     {user?.profile?.address?.addressLine}
                   </span>
@@ -159,10 +187,10 @@ const OrderDetailComponent = ({ order }) => {
                     {user?.profile?.address?.addressLine2}
                   </span>
                   <span className="mb-2 block">
-                    {user?.profile?.address?.addressLine2}
+                    {user?.profile?.address?.postalCode}
                   </span>
                   <span className="mb-2 block">
-                    {user?.profile?.address?.city}&#44;&nbsp;
+                    {user?.profile?.address?.city}&nbsp;&nbsp;
                     {getFlagEmoji(user?.profile?.address?.countryCode)}&nbsp;
                     {user?.profile?.address?.countryCode}
                   </span>
@@ -170,26 +198,58 @@ const OrderDetailComponent = ({ order }) => {
               </div>
 
               <div>
-                <dt className="font-medium text-slate-900">
+                <dt className="text-lg font-medium text-slate-900">
                   {formatMessage({
                     id: 'delivery_information',
                     defaultMessage: 'Delivery Information',
                   })}
                 </dt>
-                <dd className="-ml-4 -mt-1 flex flex-wrap">
-                  <div className="ml-4 mt-4 flex-shrink-0">
-                    <span>{order?.provider?.type}</span>
-                    <p className="sr-only">Visa</p>
+                <dd className="-ml-4 -mt-1">
+                  <div className="ml-4 mt-4">
+                    <span className="block text-slate-500 dark:text-slate-300">
+                      {order?.delivery?.provider?.interface?.label}&nbsp;&nbsp;
+                      {order?.delivery?.provider?.interface?.version}
+                    </span>
                   </div>
                   <div className="ml-4 mt-4">
-                    <p className="text-slate-900">Ending with 4242</p>
-                    <p className="text-slate-600">Expires 02 / 24</p>
+                    <span className="text-slate-500 dark:text-slate-300">
+                      {order?.delivery?.provider?.type}
+                    </span>
+                    <span className="mx-2 inline-flex items-center rounded-full bg-green-100 px-3 py-0.5 text-sm font-medium text-green-800">
+                      {order?.delivery?.status}
+                    </span>
+                  </div>
+                  <div className="ml-4 mt-4">
+                    <span className="block text-slate-500 dark:text-slate-300">
+                      {renderPrice(order?.delivery?.fee)}
+                    </span>
+                  </div>
+                  <div className="ml-4 mt-4">
+                    <p className="text-slate-600">
+                      {order?.delivery?.delivered ? (
+                        <>
+                          <CheckCircleIcon
+                            className="h-5 w-5 text-green-500"
+                            aria-hidden="true"
+                          />
+                          <span className="mx-2">
+                            {formatMessage({
+                              id: 'delivered_on',
+                              defaultMessage: 'Delivered on',
+                            })}
+                          </span>
+                          <time dateTime={order?.delivery}>
+                            {formatDateTime(order?.delivery?.delivered)}
+                          </time>
+                        </>
+                      ) : null}
+                    </p>
                   </div>
                 </dd>
               </div>
             </dl>
 
-            {false && (
+            {order?.documents && (
               <dl className="mt-8 text-sm lg:col-span-5 lg:mt-0">
                 <div className="flex items-center justify-between pb-4">
                   <dt className="font-medium text-slate-900 dark:text-slate-100">
@@ -200,8 +260,8 @@ const OrderDetailComponent = ({ order }) => {
                   </dt>
                 </div>
                 <div>
-                  <dd className="mt-1 text-sm text-gray-900 dark:text-slate-100">
-                    <ul className="divide-y divide-gray-200 rounded-md border border-gray-200">
+                  <dd className="mt-1 text-sm text-slate-900 dark:text-slate-100">
+                    <ul className="divide-y divide-slate-200 rounded-md border border-slate-200">
                       {order?.documents?.map((document) => (
                         <li
                           key={document._id}
@@ -209,7 +269,7 @@ const OrderDetailComponent = ({ order }) => {
                         >
                           <div className="flex w-0 flex-1 items-center">
                             <PaperClipIcon
-                              className="h-5 w-5 flex-shrink-0 text-gray-400"
+                              className="h-5 w-5 flex-shrink-0 text-slate-400"
                               aria-hidden="true"
                             />
                             <span className="ml-2 w-0 flex-1 truncate">
@@ -249,7 +309,7 @@ const OrderDetailComponent = ({ order }) => {
           <div className="bg-slate-100 py-6 px-4 dark:bg-slate-600 sm:rounded-lg sm:px-6 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:px-8 lg:py-8">
             <dl className="grid grid-cols-2 gap-6 text-sm sm:grid-cols-2 md:gap-x-8 lg:col-span-7">
               <div>
-                <dt className="font-medium text-slate-900 dark:text-slate-100">
+                <dt className="text-lg font-medium text-slate-900 dark:text-slate-100">
                   {formatMessage({
                     id: 'billing_address',
                     defaultMessage: 'Billing address',
@@ -261,48 +321,125 @@ const OrderDetailComponent = ({ order }) => {
                     {order?.billingAddress?.lastName}
                   </span>
                   <span className="block">
-                    {order?.billingAddress?.postalCode}&#44;&nbsp;
                     {order?.billingAddress?.addressLine}
                   </span>
                   <span className="block">
-                    {order?.billingAddress?.postalCode}&#44;&nbsp;
                     {order?.billingAddress?.addressLine2}
+                    {order?.billingAddress?.postalCode}&nbsp;
                   </span>
                   {order?.billingAddress?.countryCode && (
                     <span className="block">
-                      {user?.profile?.address?.city}&#44;&nbsp;
-                      {/* {getFlagEmoji(order?.billingAddress?.countryCode)}&nbsp; */}
+                      {user?.profile?.address?.city}&nbsp;
+                      {getFlagEmoji(order?.billingAddress?.countryCode)}&nbsp;
                       {order?.billingAddress?.countryCode}
                     </span>
                   )}
                 </dd>
               </div>
               <div>
-                <dt className="font-medium text-slate-900 dark:text-slate-100">
+                <dt className="text-lg font-medium text-slate-900 dark:text-slate-100">
                   {formatMessage({
                     id: 'payment_information',
                     defaultMessage: 'Payment information',
                   })}
                 </dt>
                 {order?.status === 'OPEN' || order?.status === 'PENDING' ? (
-                  paymentAddress.map((address) => (
-                    <QRCodeComponent
-                      paymentAddress={address}
-                      currencyClassName="text-left my-0"
-                      className="mx-0 my-2"
-                    />
+                  addresss.map((address, index) => (
+                    <div
+                      key={address.currency}
+                      className="mt-6 space-y-6 divide-y divide-slate-200"
+                    >
+                      <div className="pt-6">
+                        <div className="text-lg">
+                          <button
+                            type="button"
+                            data-index={index}
+                            className="flex w-full items-start justify-between text-left text-slate-400"
+                            aria-controls="faq-0"
+                            aria-expanded="false"
+                            // onClick={onClick}
+                            // onClick={() => {
+                            //   setAccordion(accordion.map((acc, i)=>{
+                            //     if(i===index)
+                            //   }));
+                            // }}
+                          >
+                            <span className="font-medium text-slate-900">
+                              {address?.currency}
+                            </span>
+                            <span className="ml-6 flex h-7 items-center">
+                              <ChevronDownIcon
+                                className={classNames(
+                                  'h-6 w-6 -rotate-180 transform',
+                                  // { 'rotate-0': open },
+                                )}
+                              />
+                            </span>
+                          </button>
+                        </div>
+                        <div
+                          className={classNames('mt-2 hidden pr-12', {
+                            // hidden: !open,
+                          })}
+                          id="faq-0"
+                        >
+                          <QRCodeComponent
+                            paymentAddress={address}
+                            currencyClassName="text-left my-0 hidden"
+                            className="mx-0 my-2"
+                          />
+                        </div>
+                      </div>
+
+                      {/* <!-- More questions... --> */}
+                    </div>
                   ))
                 ) : (
-                  <dd className="-ml-4 -mt-1 flex flex-wrap">
-                    <div className="ml-4 mt-4 flex-shrink-0">
-                      <p className="sr-only">Visa</p>
+                  <dd className="-ml-4 -mt-1">
+                    <div className="ml-4 mt-4">
+                      <p className="sr-only">
+                        {order?.payment?.provider?.interface?.label}
+                      </p>
                     </div>
                     <div className="ml-4 mt-4">
-                      <p className="text-slate-900 dark:text-slate-100">
-                        Ending with 4242
+                      <p className="text-slate-500 dark:text-slate-300">
+                        {order?.payment?.provider?.interface?.label}
+                        &nbsp;&nbsp;
+                        {order?.payment?.provider?.interface?.version}
                       </p>
+                    </div>
+                    <div className="ml-4 mt-4">
+                      <p className="text-slate-500 dark:text-slate-300">
+                        <span>{order?.payment?.provider?.type}</span>
+                        <span className="mx-2 inline-flex items-center rounded-full bg-green-100 px-3 py-0.5 text-sm font-medium text-green-800">
+                          {order?.payment?.status}
+                        </span>
+                      </p>
+                    </div>
+                    <div className="ml-4 mt-4">
                       <p className="text-slate-600 dark:text-slate-300">
-                        Expires 02 / 24
+                        {renderPrice(order?.payment?.fee)}
+                      </p>
+                    </div>
+                    <div className="ml-4 mt-4">
+                      <p>
+                        {order?.payment?.paid ? (
+                          <>
+                            <CheckCircleIcon
+                              className="h-5 w-5 text-green-500"
+                              aria-hidden="true"
+                            />
+                            <span className="mx-2">
+                              {formatMessage({
+                                id: 'paid_on',
+                                defaultMessage: 'paid on',
+                              })}
+                            </span>
+                            <time dateTime={order?.paid}>
+                              {formatDateTime(order?.payment?.paid)}
+                            </time>
+                          </>
+                        ) : null}
                       </p>
                     </div>
                   </dd>
@@ -338,7 +475,7 @@ const OrderDetailComponent = ({ order }) => {
                   {formatMessage({ id: 'Tax', defaultMessage: 'Taxable' })}
                 </dt>
                 <dd className="font-medium text-slate-900 dark:text-slate-100">
-                  {order?.isTaxable}
+                  {order?.total?.isTaxable ? 'Yes' : 'No'}
                 </dd>
               </div>
               <div className="flex items-center justify-between pt-4">

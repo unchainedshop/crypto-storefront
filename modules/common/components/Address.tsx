@@ -30,9 +30,14 @@ const Address = ({ user }) => {
       countryCode,
     } = form;
 
+    const { firstName, lastName, company } = profile?.address;
+
     const userProfile = {
       phoneMobile: telNumber,
       address: {
+        firstName,
+        lastName,
+        company,
         addressLine,
         addressLine2,
         postalCode,
@@ -321,24 +326,35 @@ const Address = ({ user }) => {
             </div>
             <div className="bg-slate-50 px-4 py-3 text-right dark:bg-slate-400 sm:px-6">
               {updateProfile ? (
+                <>
+                  <Button
+                    text={formatMessage({
+                      id: 'cancel',
+                      defaultMessage: 'Cancel',
+                    })}
+                    onClick={onProfileUpdateComplete}
+                    className="mx-4 inline-flex items-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  />
+                  <Button
+                    text={formatMessage({
+                      id: 'save',
+                      defaultMessage: 'save',
+                    })}
+                    type="submit"
+                    className="inline-flex justify-center rounded-md border border-transparent bg-slate-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"
+                  />
+                </>
+              ) : (
                 <Button
                   text={formatMessage({
-                    id: 'cancel',
-                    defaultMessage: 'Cancel',
+                    id: 'update',
+                    defaultMessage: 'update',
                   })}
-                  onClick={onProfileUpdateComplete}
-                  className="mx-4 inline-flex items-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  type="button"
+                  className="inline-flex justify-center rounded-md border border-transparent bg-slate-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"
+                  onClick={() => setUpdateProfile(true)}
                 />
-              ) : null}
-              <Button
-                text={formatMessage({
-                  id: 'update_address',
-                  defaultMessage: `${updateProfile ? 'save' : 'update'}`,
-                })}
-                type="submit"
-                className="inline-flex justify-center rounded-md border border-transparent bg-slate-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"
-                onClick={() => setUpdateProfile(true)}
-              />
+              )}
             </div>
           </div>
         </form>

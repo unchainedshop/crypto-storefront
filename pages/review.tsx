@@ -111,6 +111,8 @@ const Review = () => {
 
   if (loading) return <LoadingItem />;
 
+  console.log(user);
+
   return (
     <>
       <MetaTags title={formatMessage({ id: 'order_review' })} />
@@ -420,9 +422,11 @@ const Review = () => {
                 </div>
 
                 <div className="mt-10 lg:mt-0">
-                  {contractAddress?.map((address) => (
-                    <QRCodeComponent paymentAddress={address} />
-                  ))}
+                  <div className="flex">
+                    {contractAddress?.map((address) => (
+                      <QRCodeComponent paymentAddress={address} />
+                    ))}
+                  </div>
 
                   <h2 className="text-lg font-medium text-slate-900 dark:text-slate-100">
                     {formatMessage({ id: 'order_summary' })}

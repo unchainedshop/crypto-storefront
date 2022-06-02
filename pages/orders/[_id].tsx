@@ -14,10 +14,12 @@ const OrderDetail = () => {
   const { order, loading } = useOrderDetail({
     orderId: router.query?._id,
   });
+
   useRedirect({ to: '/login', matchGuests: true, matchAnonymous: true });
 
   if (!order && !loading)
     return <NotFound page={intl.formatMessage({ id: 'order' })} />;
+
   return (
     <>
       <MetaTags
