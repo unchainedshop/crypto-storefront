@@ -1,9 +1,9 @@
 import { useQuery, gql } from '@apollo/client';
 import { useIntl } from 'react-intl';
 
-import { ProductAssortmentPathFragment } from '../../assortment/fragments/AssortmentPath';
 import useCurrencyContext from '../../common/utils/useCurrencyContext';
 import ProductFragment from '../fragments/ProductFragment';
+import ProductReviewsFragment from '../fragments/ProductReviewsFragment';
 
 const ProductDetailQuery = gql`
   query ProductDetailQuery(
@@ -12,20 +12,21 @@ const ProductDetailQuery = gql`
     $currency: String
   ) {
     product(slug: $slug) {
-      assortmentPaths {
-        ...ProductAssortmentPathFragment
-      }
       ...ProductFragment
+      reviews {
+        ...ProductReviewsFragment
+      }
     }
   }
   ${ProductFragment}
-  ${ProductAssortmentPathFragment}
+  ${ProductReviewsFragment}
 `;
 
 const useProductDetail = ({ slug }) => {
   const intl = useIntl();
   const { selectedCurrency } = useCurrencyContext();
   const { data, loading, error } = useQuery(ProductDetailQuery, {
+    skip: !slug,
     variables: { slug, forceLocale: intl.locale, currency: selectedCurrency },
   });
 

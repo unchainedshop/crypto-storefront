@@ -15,7 +15,6 @@ import getMediaUrl from '../../modules/common/utils/getMediaUrl';
 import getMediaUrls from '../../modules/common/utils/getMediaUrls';
 import NotFound from '../404';
 import ProductReview from '../../modules/products/components/ProductReview';
-import useProductReviews from '../../modules/products/hooks/useProductReviews';
 import ProductListItem from '../../modules/products/components/ProductListItem';
 import useUser from '../../modules/auth/hooks/useUser';
 import AddToCartButton from '../../modules/cart/components/AddToCartButton';
@@ -24,14 +23,11 @@ const Detail = () => {
   const router = useRouter();
   const { formatMessage } = useIntl();
   const [currentUrl, setCurrentUrl] = useState('');
+  console.log(router.query);
   const { product, paths, loading } = useProductDetail({
     slug: router.query.slug,
   });
   const { user } = useUser();
-
-  const { productReviews, loading: reviewLoading } = useProductReviews({
-    productId: product?._id,
-  });
 
   const productPath = getAssortmentPath(paths);
   useEffect(() => {
@@ -177,15 +173,12 @@ const Detail = () => {
             </div>
 
             {/* Reviews */}
-            {user &&
-              (reviewLoading ? (
-                <LoadingItem />
-              ) : (
-                <ProductReview
-                  reviews={productReviews}
-                  productId={product?._id}
-                />
-              ))}
+            {user && (
+              <ProductReview
+                reviews={product?.reviews || []}
+                productId={product?._id}
+              />
+            )}
 
             {/* Bundle products */}
             {product?.bundleItems && (
