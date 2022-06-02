@@ -6,7 +6,7 @@ import {
   PaperClipIcon,
 } from '@heroicons/react/solid';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import classNames from 'classnames';
 import renderPrice from '../../common/utils/renderPrice';
@@ -34,8 +34,7 @@ const OrderDetailComponent = ({ order }) => {
   const { formatMessage } = useIntl();
   const { formatDateTime } = useFormatDateTime();
   const { signForCheckout } = useSignForCheckout();
-  const [paymentAddress, setPaymentAddress] = useState([]);
-  const [accordion, setAccordion] = useState();
+  const [setPaymentAddress] = useState([]);
 
   const { user } = useUser();
   const signOrderPayment = async () => {
