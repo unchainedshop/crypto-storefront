@@ -123,6 +123,7 @@ const ProductReview = ({ reviews, productId }) => {
           </div>
           <button
             type="submit"
+            disabled={!user}
             className="mx-8 mt-6 inline-flex items-center justify-center rounded-md border border-slate-300 bg-white py-2 px-8 text-sm font-medium text-slate-900 hover:bg-slate-50 dark:bg-slate-700 dark:text-slate-100"
           >
             {formatMessage({
@@ -211,7 +212,7 @@ const ProductReview = ({ reviews, productId }) => {
                         voteType: 'UPVOTE',
                       })
                     }
-                    disabled={review?.author?._id === user?._id}
+                    disabled={!user || review?.author?._id === user?._id}
                   >
                     <ThumbUpIcon className="h-7 w-7" />
                   </button>
@@ -225,7 +226,7 @@ const ProductReview = ({ reviews, productId }) => {
                         voteType: 'DOWNVOTE',
                       })
                     }
-                    disabled={review?.author?._id === user?._id}
+                    disabled={!user || review?.author?._id === user?._id}
                   >
                     <ThumbDownIcon className="h-7 w-7" />
                   </button>

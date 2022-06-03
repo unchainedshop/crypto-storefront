@@ -16,10 +16,7 @@ const ProductFragment = gql`
       created
       deleted
       updated
-      author {
-        _id
-        username
-      }
+
       rating
       title
       review

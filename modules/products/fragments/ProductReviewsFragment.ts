@@ -8,12 +8,7 @@ const ProductReviewsFragment = gql`
     deleted
     author {
       _id
-      username
       name
-      profile {
-        displayName
-      }
-      isGuest
       avatar {
         _id
         url
