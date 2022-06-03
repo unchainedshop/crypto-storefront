@@ -18,12 +18,21 @@ const OrderDetail = () => {
   useRedirect({ to: '/login', matchGuests: true, matchAnonymous: true });
 
   if (!order && !loading)
-    return <NotFound page={intl.formatMessage({ id: 'order' })} />;
+    return (
+      <NotFound
+        page={intl.formatMessage({ id: 'order', defaultMessage: 'Order' })}
+      />
+    );
 
   return (
     <>
       <MetaTags
-        title={`${intl.formatMessage({ id: 'order' })}: ${order?.orderNumber}`}
+        title={`${intl.formatMessage(
+          { id: 'order_numbered', defaultMessage: 'Order: {orderNumber}' },
+          {
+            orderNumber: order?.orderNumber,
+          },
+        )}`}
       />
       {loading ? <LoadingItem /> : <OrderDetailComponent order={order} />}
     </>

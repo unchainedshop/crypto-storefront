@@ -13,12 +13,20 @@ const Privacy = () => {
   return (
     <>
       <MetaTags
-        title={intl.formatMessage({ id: 'privacy' })}
+        title={intl.formatMessage({
+          id: 'privacy_policy',
+          defaultMessage: 'Privacy Policy',
+        })}
         url={currentUrl}
       />
       <div className="mx-4 flex flex-wrap">
         <div className="relative w-full px-4 md:ml-[16.666667%] md:max-w-2/3 md:flex-6">
-          <h1>{intl.formatMessage({ id: 'privacy' })}</h1>
+          <h1>
+            {intl.formatMessage({
+              id: 'privacy_policy',
+              defaultMessage: 'Privacy Policy',
+            })}
+          </h1>
           <p>...</p>
         </div>
       </div>

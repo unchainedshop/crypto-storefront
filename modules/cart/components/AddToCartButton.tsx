@@ -117,7 +117,9 @@ const AddToCartButton = ({ productId }) => {
       aria-label="In Cart"
       onClick={addToCart}
     >
-      <span>{formatMessage({ id: 'add_to_cart' })}</span>
+      <span>
+        {formatMessage({ id: 'add_to_cart', defaultMessage: 'Add to cart' })}
+      </span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"

@@ -1,5 +1,6 @@
 import { useQuery, gql } from '@apollo/client';
 import { useIntl } from 'react-intl';
+import { ProductAssortmentPathFragment } from '../../assortment/fragments/AssortmentPath';
 
 import useCurrencyContext from '../../common/utils/useCurrencyContext';
 import ProductFragment from '../fragments/ProductFragment';
@@ -12,6 +13,9 @@ const ProductDetailQuery = gql`
     $currency: String
   ) {
     product(slug: $slug) {
+      assortmentPaths {
+        ...ProductAssortmentPathFragment
+      }
       ...ProductFragment
       reviews {
         ...ProductReviewsFragment
@@ -19,6 +23,7 @@ const ProductDetailQuery = gql`
     }
   }
   ${ProductFragment}
+  ${ProductAssortmentPathFragment}
   ${ProductReviewsFragment}
 `;
 

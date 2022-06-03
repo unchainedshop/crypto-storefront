@@ -47,7 +47,11 @@ const SideCart = ({ isOpen }) => {
           >
             <ShoppingBagIcon className="h-6 w-6" />
             <p>
-              {intl.formatMessage({ id: 'no_product_in_cart' })}{' '}
+              {intl.formatMessage({
+                id: 'no_product_in_cart',
+                defaultMessage:
+                  'There are no products in your Cart. Browse our',
+              })}{' '}
               <Link href="/shop">
                 <a
                   onClick={() => context.toggleCart(false)}
@@ -72,7 +76,10 @@ const SideCart = ({ isOpen }) => {
             <div>
               <div className="relative">
                 <button
-                  aria-label={intl.formatMessage({ id: 'close' })}
+                  aria-label={intl.formatMessage({
+                    id: 'close',
+                    defaultMessage: 'Close',
+                  })}
                   type="button"
                   className="absolute cursor-pointer appearance-none p-2 text-left text-inherit opacity-100"
                   onClick={() => context.toggleCart()}
@@ -90,7 +97,11 @@ const SideCart = ({ isOpen }) => {
             <div className="px-2">
               {user?.cart?.items.length === 0 ? (
                 <p>
-                  {intl.formatMessage({ id: 'no_product_in_cart' })}{' '}
+                  {intl.formatMessage({
+                    id: 'no_product_in_cart',
+                    defaultMessage:
+                      'There are no products in your Cart. Browse our',
+                  })}{' '}
                   <Link href="/shop">
                     <a
                       onClick={() => context.toggleCart(false)}
@@ -144,7 +155,10 @@ const SideCart = ({ isOpen }) => {
                   className="my-4 block w-full text-sm font-semibold uppercase text-indigo-600 dark:text-indigo-400"
                   onClick={() => context.toggleCart(false)}
                 >
-                  {intl.formatMessage({ id: 'continue_shopping' })}
+                  {intl.formatMessage({
+                    id: 'continue_shopping',
+                    defaultMessage: 'Continue shopping',
+                  })}
                 </a>
               </Link>
             </div>

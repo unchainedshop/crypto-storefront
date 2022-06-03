@@ -65,7 +65,10 @@ const Subtree = ({
                 levelClassMap[level + 1]
               }`}
             >
-              {intl.formatMessage({ id: 'show_all' })}
+              {intl.formatMessage({
+                id: 'show_all',
+                defaultMessage: 'Show all',
+              })}
             </a>
           </Link>
 
@@ -115,7 +118,9 @@ const MobileNavigation = ({ doClose, isNavOpen }) => {
         className="mobile-menu-close cursor-pointer appearance-none border-0 bg-transparent p-0 text-left text-inherit"
         onClick={doClose}
       >
-        <span className="hidden">{intl.formatMessage({ id: 'close' })}</span>
+        <span className="hidden">
+          {intl.formatMessage({ id: 'close', defaultMessage: 'Close' })}
+        </span>
       </button>
       <nav id="menu" className="mobile-menu">
         <div>
@@ -127,14 +132,17 @@ const MobileNavigation = ({ doClose, isNavOpen }) => {
           >
             <XIcon className="mr-3 inline-flex h-4 w-5 select-none items-center justify-center align-middle" />
             <small className="ml-2">
-              {intl.formatMessage({ id: 'close' })}
+              {intl.formatMessage({ id: 'close', defaultMessage: 'Close' })}
             </small>
           </button>
 
           <a className="ml-3 mb-3 flex items-center" href={theme.websiteUrl}>
             <HomeIcon className="mr-3 inline-flex h-4 w-5 select-none items-center justify-center align-middle" />
 
-            {intl.formatMessage({ id: 'back_to_website' })}
+            {intl.formatMessage({
+              id: 'back_to_website',
+              defaultMessage: 'Back to website',
+            })}
           </a>
           {Object.entries(assortmentTree.children).map(
             ([pageId, node]: any) => (

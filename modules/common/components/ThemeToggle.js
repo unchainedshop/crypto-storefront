@@ -11,6 +11,7 @@ const ThemeToggle = () => {
     if (
       localStorage.theme === 'dark' ||
       (!('theme' in localStorage) &&
+        typeof window !== 'undefined' &&
         window.matchMedia('(prefers-color-scheme: dark)').matches)
     ) {
       document.getElementsByTagName('html')[0].classList.add('dark');

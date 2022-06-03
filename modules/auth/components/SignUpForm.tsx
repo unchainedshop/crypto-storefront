@@ -80,6 +80,8 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
         type: 'manual',
         message: `👬 ${formatMessage({
           id: 'email_exists_please_login',
+          defaultMessage:
+            'A User with the same email exists already. Please sign-in',
         })}`,
       });
     }

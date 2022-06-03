@@ -115,7 +115,12 @@ const Review = () => {
 
   return (
     <>
-      <MetaTags title={formatMessage({ id: 'order_review' })} />
+      <MetaTags
+        title={formatMessage({
+          id: 'order_review',
+          defaultMessage: 'Order review',
+        })}
+      />
       {user?.cart ? (
         <div className="bg-slate-50 dark:bg-slate-600">
           <div className="max-w-full px-4 pt-16 pb-24">
@@ -243,7 +248,10 @@ const Review = () => {
                           onChange={(e) => sameAsDeliveryChange(e)}
                         />
                         <span className="ml-3 text-sm font-medium text-slate-700 dark:text-slate-200">
-                          {formatMessage({ id: 'same_as_delivery' })}
+                          {formatMessage({
+                            id: 'same_as_delivery',
+                            defaultMessage: 'Same as delivery address',
+                          })}
                         </span>
                       </label>
                     </div>
@@ -429,7 +437,10 @@ const Review = () => {
                   </div>
 
                   <h2 className="text-lg font-medium text-slate-900 dark:text-slate-100">
-                    {formatMessage({ id: 'order_summary' })}
+                    {formatMessage({
+                      id: 'order_summary',
+                      defaultMessage: 'Order summary',
+                    })}
                   </h2>
                   <ManageCart user={user} />
                 </div>

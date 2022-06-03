@@ -120,7 +120,10 @@ const BityPayment = ({ cart }) => {
           setPaymentButtonDisabled(false);
         }}
       >
-        {intl.formatMessage({ id: 'confirm_order' })}
+        {intl.formatMessage({
+          id: 'confirm_order',
+          defaultMessage: 'OK, ok, ok. Just let me pay',
+        })}
       </button>
     </div>
   );

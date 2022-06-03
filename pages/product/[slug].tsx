@@ -141,10 +141,15 @@ const Detail = () => {
                       href="#"
                       className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
                     >
-                      {formatMessage({
-                        id: 'all_reviews',
-                        defaultMessage: `See all ${product?.reviews?.length} reviews`,
-                      })}
+                      {formatMessage(
+                        {
+                          id: 'all_reviews',
+                          defaultMessage: `See all {totalReviews} reviews`,
+                        },
+                        {
+                          totalReviews: product?.reviews?.length,
+                        },
+                      )}
                     </a>
                   </div>
                 </div>

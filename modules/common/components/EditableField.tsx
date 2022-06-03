@@ -25,7 +25,12 @@ const EditableField = ({
         defaultValue={value}
         ref={register(validator)}
       >
-        <option value="">{formatMessage({ id: 'please_select' })}</option>
+        <option value="">
+          {formatMessage({
+            id: 'please_select',
+            defaultMessage: 'Please select...',
+          })}
+        </option>
         {COUNTRIES.map((c) => (
           <option value={c.code} key={c.code}>
             {c.name}

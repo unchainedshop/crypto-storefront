@@ -51,7 +51,10 @@ const PasswordReset = () => {
                 htmlFor="newPassword"
                 className="block text-sm font-medium text-slate-700 dark:text-slate-300"
               >
-                {formatMessage({ id: 'new_password' })}
+                {formatMessage({
+                  id: 'new_password',
+                  defaultMessage: 'New password',
+                })}
               </label>
               <div className="my-1">
                 <input

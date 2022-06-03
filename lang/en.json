@@ -1,5 +1,6 @@
 {
   "404_sorry": {
+    "defaultMessage": "Sorry, the page you were looking for was not found!"
   },
   "505_sorry": {
     "defaultMessage": "Sorry"
@@ -32,6 +33,7 @@
     "defaultMessage": "Add your comment"
   },
   "add_to_cart": {
+    "defaultMessage": "Add to cart"
   },
   "address": {
     "defaultMessage": "Address"
@@ -43,11 +45,13 @@
     "defaultMessage": "Address 2"
   },
   "all_reviews": {
+    "defaultMessage": "See all {totalReviews} reviews"
   },
   "back_to_home": {
     "defaultMessage": "Back to Home"
   },
   "back_to_website": {
+    "defaultMessage": "Back to website"
   },
   "billing_address": {
     "defaultMessage": "Billing address"
@@ -83,27 +87,34 @@
     "defaultMessage": "Checkout"
   },
   "choose_language": {
+    "defaultMessage": "Choose language"
   },
   "city": {
     "defaultMessage": "City"
   },
   "close": {
+    "defaultMessage": "Close"
   },
   "company": {
     "defaultMessage": "Company"
   },
   "conditions": {
+    "defaultMessage": "conditions"
   },
   "confirm": {
     "defaultMessage": "Confirm order"
   },
   "confirm_order": {
+    "defaultMessage": "OK, ok, ok. Just let me pay"
   },
   "confirm_purchase": {
+    "defaultMessage": "Confirm purchase"
   },
   "confirmation_sent": {
+    "defaultMessage": "A confirmation email is sent"
   },
   "continue_shopping": {
+    "defaultMessage": "Continue shopping"
   },
   "country": {
     "defaultMessage": "Country"
@@ -118,6 +129,7 @@
     "defaultMessage": "Create an account"
   },
   "current_password": {
+    "defaultMessage": "Current password"
   },
   "customer_service": {
     "defaultMessage": "Customer Service"
@@ -127,6 +139,9 @@
   },
   "cvc": {
     "defaultMessage": "CVC"
+  },
+  "delivered_on": {
+    "defaultMessage": "Delivered on"
   },
   "delivery_address": {
     "defaultMessage": "Delivery address"
@@ -159,13 +174,16 @@
     "defaultMessage": "Email exists"
   },
   "email_exists_please_login": {
+    "defaultMessage": "A User with the same email exists already. Please sign-in"
   },
   "email_sign_up": {
     "defaultMessage": "Or continue with"
   },
   "email_verified_success": {
+    "defaultMessage": "Your email has been successfully verified"
   },
   "email_verifying": {
+    "defaultMessage": "Verifying your email address"
   },
   "error": {
     "defaultMessage": ", Try again later"
@@ -237,6 +255,7 @@
     "defaultMessage": "I have read term"
   },
   "imprint": {
+    "defaultMessage": "imprint"
   },
   "in_cart": {
     "defaultMessage": "In cart"
@@ -253,6 +272,9 @@
   "items_in_cart": {
     "defaultMessage": "Items in your cart"
   },
+  "language_en": {
+    "defaultMessage": "English"
+  },
   "last_name": {
     "defaultMessage": "Last name"
   },
@@ -263,6 +285,7 @@
     "defaultMessage": "Load More"
   },
   "loading": {
+    "defaultMessage": "loading..."
   },
   "log_in": {
     "defaultMessage": "Log In"
@@ -289,6 +312,7 @@
     "defaultMessage": "New here message"
   },
   "new_password": {
+    "defaultMessage": "New password"
   },
   "no": {
     "defaultMessage": "No"
@@ -300,6 +324,7 @@
     "defaultMessage": "item in cart"
   },
   "no_product_in_cart": {
+    "defaultMessage": "There are no products in your Cart. Browse our"
   },
   "no_username_set": {
     "defaultMessage": "No username set"
@@ -308,6 +333,7 @@
     "defaultMessage": "Number Of Orders"
   },
   "old_password_not_correct": {
+    "defaultMessage": "Wrong password, please try again"
   },
   "on": {
     "defaultMessage": "on"
@@ -316,6 +342,7 @@
     "defaultMessage": "Optional"
   },
   "order": {
+    "defaultMessage": "Order"
   },
   "order_date": {
     "defaultMessage": "Order date"
@@ -329,18 +356,26 @@
   "order_number": {
     "defaultMessage": "Order number"
   },
+  "order_numbered": {
+    "defaultMessage": "Order: {orderNumber}"
+  },
   "order_placed": {
     "defaultMessage": "Order placed"
   },
   "order_review": {
+    "defaultMessage": "Order review"
   },
   "order_status": {
     "defaultMessage": "Order status"
   },
   "order_summary": {
+    "defaultMessage": "Order summary"
   },
   "order_total": {
     "defaultMessage": "Order total"
+  },
+  "paid_on": {
+    "defaultMessage": "paid on"
   },
   "password": {
     "defaultMessage": "Password"
@@ -349,6 +384,7 @@
     "defaultMessage": "Password not match"
   },
   "pay_now": {
+    "defaultMessage": "Pay now"
   },
   "payment": {
     "defaultMessage": "Payment"
@@ -369,11 +405,13 @@
     "defaultMessage": "Title"
   },
   "please_select": {
+    "defaultMessage": "Please select..."
   },
   "postal_code": {
     "defaultMessage": "Postal code"
   },
-  "privacy": {
+  "privacy_policy": {
+    "defaultMessage": "Privacy Policy"
   },
   "product_categories": {
     "defaultMessage": "Product Categories"
@@ -409,6 +447,7 @@
     "defaultMessage": "Repeat Password"
   },
   "request_new_password": {
+    "defaultMessage": "Request new password"
   },
   "resend": {
     "defaultMessage": "ReSend"
@@ -426,6 +465,7 @@
     "defaultMessage": "All Rights Reserved"
   },
   "same_as_delivery": {
+    "defaultMessage": "Same as delivery address"
   },
   "save": {
     "defaultMessage": "Save"
@@ -464,6 +504,7 @@
     "defaultMessage": "Shop logo"
   },
   "show_all": {
+    "defaultMessage": "Show all"
   },
   "sign_in": {
     "defaultMessage": "Sign in"
@@ -493,14 +534,19 @@
     "defaultMessage": "Telephone"
   },
   "thank_you": {
+    "defaultMessage": "Thank you"
   },
   "thank_you_description": {
+    "defaultMessage": "It has reached us and an email with the order placement confirmation is on its way. To avoid any potential miscommunication, please check your spam, perhaps the email landed there."
   },
   "thank_you_header": {
+    "defaultMessage": "Thank You for Placing this Order with Us!"
   },
   "thank_you_order_date": {
+    "defaultMessage": "The Date you placed the order is: {orderDate}"
   },
   "thank_you_order_number": {
+    "defaultMessage": "Your Order Number is: {orderNumber}"
   },
   "title": {
     "defaultMessage": "Title"
@@ -526,7 +572,8 @@
   "unknown_error": {
     "defaultMessage": "An unknown error occurred."
   },
-  "update_address": {
+  "update": {
+    "defaultMessage": "update"
   },
   "update_password": {
     "defaultMessage": "Update Password"

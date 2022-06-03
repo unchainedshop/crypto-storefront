@@ -17,23 +17,56 @@ const ThankYou = () => {
   return (
     <>
       <MetaTags
-        title={intl.formatMessage({ id: 'thank_you' })}
-        description={intl.formatMessage({ id: 'thank_you_description' })}
+        title={intl.formatMessage({
+          id: 'thank_you',
+          defaultMessage: 'Thank you',
+        })}
+        description={intl.formatMessage({
+          id: 'thank_you_description',
+          defaultMessage:
+            'It has reached us and an email with the order placement  confirmation is on its way. To avoid any potential  miscommunication, please check your spam, perhaps the email landed  there.',
+        })}
       />
       <div className="mt-5">
         <div className="mx-4 flex flex-wrap">
           <div className="relative w-full px-4 md:ml-[16.666667%] md:max-w-2/3 md:flex-6">
-            <h1>{intl.formatMessage({ id: 'thank_you_header' })}</h1>
+            <h1>
+              {intl.formatMessage({
+                id: 'thank_you_header',
+                defaultMessage: 'Thank You for Placing this Order with Us!',
+              })}
+            </h1>
             {order && (
               <>
-                <p>{intl.formatMessage({ id: 'thank_you_description' })}</p>
+                <p>
+                  {intl.formatMessage({
+                    id: 'thank_you_description',
+                    defaultMessage:
+                      'It has reached us and an email with the order placement  confirmation is on its way. To avoid any potential  miscommunication, please check your spam, perhaps the email landed  there.',
+                  })}
+                </p>
                 <h4>
-                  {intl.formatMessage({ id: 'thank_you_order_number' })}
-                  {order.orderNumber}
+                  {intl.formatMessage(
+                    {
+                      id: 'thank_you_order_number',
+                      defaultMessage: 'Your Order Number is: {orderNumber}',
+                    },
+                    {
+                      orderNumber: order.orderNumber,
+                    },
+                  )}
                 </h4>
                 <p>
-                  {intl.formatMessage({ id: 'thank_you_order_date' })}
-                  {intl.formatDate(order.created)}
+                  {intl.formatMessage(
+                    {
+                      id: 'thank_you_order_date',
+                      defaultMessage:
+                        'The Date you placed the order is: {orderDate}',
+                    },
+                    {
+                      orderDate: intl.formatDate(order.created),
+                    },
+                  )}
                 </p>
                 {order?.payment?.provider?.interface?._id ===
                   'shop.unchained.payment.bity' && (

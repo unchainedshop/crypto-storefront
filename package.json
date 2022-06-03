@@ -73,6 +73,7 @@
     "dev": "next dev",
     "format": "npm run lint -- --fix",
     "extract-translation": "formatjs extract  '(pages|modules)/**/*.{ts,tsx,jsx}' --out-file lang/en.json --id-interpolation-pattern '[sha512:contenthash:base64:6]' ",
+    "compile-translation": "formatjs compile  ./lang/en.json  --out-file ./i18n/en.json --format custom-formatter.js",
     "lint": "eslint --fix --ext .ts,.tsx,.js,.jsx modules pages",
     "test": "npm run lint && npm run typecheck",
     "typecheck": "tsc --noEmit",

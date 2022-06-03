@@ -14,7 +14,13 @@ const PasswordForget = () => {
   const { formatMessage } = useIntl();
   const onSubmit = async ({ email }) => {
     const { success } = await forgotPassword({ email });
-    if (success) setEmailSent(formatMessage({ id: 'confirmation_sent' }));
+    if (success)
+      setEmailSent(
+        formatMessage({
+          id: 'confirmation_sent',
+          defaultMessage: 'A confirmation email is sent',
+        }),
+      );
   };
 
   return (
@@ -71,7 +77,10 @@ const PasswordForget = () => {
                     className="inline-flex items-center rounded-md border border-slate-300 bg-slate-900 px-4 py-2 text-sm font-medium text-slate-100 shadow-sm hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     type="submit"
                   >
-                    {formatMessage({ id: 'request_new_password' })}
+                    {formatMessage({
+                      id: 'request_new_password',
+                      defaultMessage: 'Request new password',
+                    })}
                   </button>
                 </div>
               </form>

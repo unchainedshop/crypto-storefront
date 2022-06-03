@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { ToastContainer } from 'react-toastify';
-import getConfig from 'next/config';
 
 import 'react-toastify/dist/ReactToastify.css';
 import '../public/static/css/all.css';
@@ -14,13 +13,10 @@ import { CartContext } from '../modules/cart/CartContext';
 import { useApollo } from '../modules/apollo/apolloClient';
 import Layout from '../modules/layout/components/Layout';
 import CurrencyContext from '../modules/common/utils/CurrencyContext';
-
-const {
-  publicRuntimeConfig: { localizations },
-} = getConfig();
+import getMessages from '../modules/i18n/utils/getMessages';
 
 const UnchainedApp = ({ Component, pageProps, router }) => {
-  const messages = localizations[router.locale];
+  const messages = getMessages(router.locale);
   const { locale } = useRouter();
   const apollo = useApollo(pageProps, { locale });
 

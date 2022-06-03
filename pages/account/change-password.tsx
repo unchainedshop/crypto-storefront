@@ -31,7 +31,10 @@ const ChangePassword = () => {
     if (error?.message?.includes('Invalid credentials')) {
       setError('oldPassword', {
         type: 'manual',
-        message: formatMessage({ id: 'old_password_not_correct' }),
+        message: formatMessage({
+          id: 'old_password_not_correct',
+          defaultMessage: 'Wrong password, please try again',
+        }),
       });
     }
   }, [error]);
@@ -74,7 +77,10 @@ const ChangePassword = () => {
                       },
                     )}
                   >
-                    {formatMessage({ id: 'current_password' })}
+                    {formatMessage({
+                      id: 'current_password',
+                      defaultMessage: 'Current password',
+                    })}
                   </label>
                   <div className="mt-1">
                     <input
@@ -97,7 +103,10 @@ const ChangePassword = () => {
                     htmlFor="newPassword"
                     className="block text-sm font-medium text-slate-700 dark:text-slate-300"
                   >
-                    {formatMessage({ id: 'new_password' })}
+                    {formatMessage({
+                      id: 'new_password',
+                      defaultMessage: 'New password',
+                    })}
                   </label>
                   <div className="mt-1">
                     <input

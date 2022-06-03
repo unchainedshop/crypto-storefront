@@ -72,7 +72,10 @@ const MegaDropdownItem = ({
 
           {type === 'show_all' ? (
             <small className="ml-2">
-              {intl.formatMessage({ id: 'show_all' })}
+              {intl.formatMessage({
+                id: 'show_all',
+                defaultMessage: 'Show all',
+              })}
             </small>
           ) : (
             ''
@@ -97,7 +100,10 @@ const MegaDropdownColumn = ({
         >
           <HomeIcon className="mr-2 inline-flex h-8 w-8 items-center" />
           <span className="align-bottom">
-            {intl.formatMessage({ id: 'back_to_website' })}
+            {intl.formatMessage({
+              id: 'back_to_website',
+              defaultMessage: 'Back to website',
+            })}
           </span>
         </a>
       )}

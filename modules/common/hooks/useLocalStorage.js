@@ -4,11 +4,12 @@ import { useState } from 'react';
 export default function useLocalStorage(key, initialValue) {
   const [storedValue, setStoredValue] = useState(() => {
     try {
-      const item = window.localStorage.getItem(key);
+      let item;
+      if (typeof window !== 'undefined')
+        item = window.localStorage.getItem(key);
 
       return item || initialValue;
     } catch (error) {
-      console.log(error);
       return initialValue;
     }
   });

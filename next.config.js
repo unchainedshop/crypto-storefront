@@ -22,8 +22,6 @@ const {
   SKIP_INVALID_REMOTES,
   UNCHAINED_ENDPOINT,
   UNCHAINED_CREATE_THEME,
-  DATATRANS_ENDPOINT,
-  DATATRANS_MERCHANT,
 } = process.env;
 
 const theme = JSON.parse(UNCHAINED_CREATE_THEME);
@@ -44,8 +42,6 @@ module.exports = {
     NODE_ENV,
     SKIP_INVALID_REMOTES: JSON.parse(SKIP_INVALID_REMOTES || 'false'),
     UNCHAINED_ENDPOINT,
-    DATATRANS_ENDPOINT,
-    DATATRANS_MERCHANT,
     theme,
     localizations,
   },
