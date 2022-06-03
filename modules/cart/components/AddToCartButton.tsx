@@ -113,29 +113,10 @@ const AddToCartButton = ({ productId }) => {
   ) : (
     <button
       type="button"
-      className="button button--primary button-add-to-cart mt-2 mb-3"
-      aria-label="In Cart"
       onClick={addToCart}
+      className="flex max-w-xs flex-1 items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full"
     >
-      <span>
-        {formatMessage({ id: 'add_to_cart', defaultMessage: 'Add to cart' })}
-      </span>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        height="18"
-        className="ml-3"
-      >
-        <title>add-square-alternate</title>
-        <path
-          fill="currentColor"
-          d="M21.545.25H2.455a2.206,2.206,0,0,0-2.2,2.2V21.546a2.207,2.207,0,0,0,2.205,2.2h19.09a2.207,2.207,0,0,0,2.2-2.2V2.454A2.206,2.206,0,0,0,21.545.25Zm-.3,21H2.75V2.75h18.5Z"
-        />
-        <path
-          fill="currentColor"
-          d="M6.273,13.25H10.5a.25.25,0,0,1,.25.25v4.227a1.25,1.25,0,0,0,2.5,0V13.5a.25.25,0,0,1,.25-.25h4.227a1.25,1.25,0,0,0,0-2.5H13.5a.25.25,0,0,1-.25-.25V6.272a1.25,1.25,0,1,0-2.5,0V10.5a.25.25,0,0,1-.25.25H6.273a1.25,1.25,0,0,0,0,2.5Z"
-        />
-      </svg>
+      {formatMessage({ id: 'add_to_cart', defaultMessage: 'Add to cart' })}
     </button>
   );
 };
