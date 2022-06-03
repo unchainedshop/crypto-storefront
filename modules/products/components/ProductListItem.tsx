@@ -7,7 +7,8 @@ import { useIntl } from 'react-intl';
 
 import useUser from '../../auth/hooks/useUser';
 import useConditionalAddCartProduct from '../../cart/hooks/useConditionalAddCartProduct';
-import useAddBookmark from '../../common/hooks/useAddBookmark';
+import useConditionalBookmarkProduct from '../../cart/hooks/useConditionalBookmarkProduct';
+
 import useRemoveBookmark from '../../common/hooks/useRemoveBookmark';
 import defaultNextImageLoader from '../../common/utils/getDefaultNextImageLoader';
 import getMediaUrl from '../../common/utils/getMediaUrl';
@@ -15,7 +16,7 @@ import getMediaUrl from '../../common/utils/getMediaUrl';
 const ProductListItem = ({ product }) => {
   const { formatMessage } = useIntl();
   const { conditionalAddCartProduct } = useConditionalAddCartProduct();
-  const { addBookmark } = useAddBookmark();
+  const { conditionalBookmarkProduct } = useConditionalBookmarkProduct();
   const { removeBookmark } = useRemoveBookmark();
   const { user } = useUser();
 
@@ -66,43 +67,39 @@ const ProductListItem = ({ product }) => {
           <span className="ml-1">{product?.simulatedPrice?.amount}</span>
         </p>
 
-        {user && (
-          <>
-            <button
-              type="button"
-              className="absolute bottom-1 right-1 dark:text-white"
-              onClick={() =>
-                conditionalAddCartProduct({ productId: product?._id })
-              }
-            >
-              <ShoppingCartIcon className="h-6 w-6" />
-            </button>
+        <button
+          type="button"
+          className="absolute bottom-1 right-1 dark:text-white"
+          onClick={() => conditionalAddCartProduct({ productId: product?._id })}
+        >
+          <ShoppingCartIcon className="h-6 w-6" />
+        </button>
 
-            <button
-              type="button"
-              className="bg-white-500 absolute top-1 right-1 dark:text-white"
-              onClick={() =>
-                filteredBookmark
-                  ? removeBookmark({
-                      bookmarkId: filteredBookmark?._id,
-                    })
-                  : addBookmark({ productId: product?._id, userId: user?._id })
-              }
-            >
-              <BookmarkIcon
-                className={classNames(
-                  'h-6 w-6 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300',
-                  {
-                    'text-purple-600 hover:text-purple-700 dark:text-yellow-500 dark:hover:text-yellow-700':
-                      user?.bookmarks
-                        ?.map((bookmark) => bookmark?.product?._id)
-                        .includes(product?._id),
-                  },
-                )}
-              />
-            </button>
-          </>
-        )}
+        <button
+          type="button"
+          className="bg-white-500 absolute top-1 right-1 dark:text-white"
+          onClick={() =>
+            filteredBookmark
+              ? removeBookmark({
+                  bookmarkId: filteredBookmark?._id,
+                })
+              : conditionalBookmarkProduct({
+                  productId: product?._id,
+                })
+          }
+        >
+          <BookmarkIcon
+            className={classNames(
+              'h-6 w-6 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300',
+              {
+                'text-purple-600 hover:text-purple-700 dark:text-yellow-500 dark:hover:text-yellow-700':
+                  user?.bookmarks
+                    ?.map((bookmark) => bookmark?.product?._id)
+                    .includes(product?._id),
+              },
+            )}
+          />
+        </button>
       </div>
       <div className="pt-4 text-center">
         <h3 className="text-sm font-medium text-slate-900 dark:text-white">

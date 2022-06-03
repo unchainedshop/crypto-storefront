@@ -1,4 +1,5 @@
-import { useMutation, useApolloClient, gql } from '@apollo/client';
+import { useMutation, gql } from '@apollo/client';
+import { storeLoginToken } from '../utils/store';
 
 const LoginAsGuestMutation = gql`
   mutation LoginAsGuest {
@@ -11,13 +12,16 @@ const LoginAsGuestMutation = gql`
 `;
 
 const useLoginAsGuest = () => {
-  const client = useApolloClient();
   const [loginAsGuestMutation] = useMutation(LoginAsGuestMutation);
 
   const loginAsGuest = async () => {
-    const result = await loginAsGuestMutation();
-    await client.resetStore();
-    return result;
+    const { data, context, errors, extensions } = await loginAsGuestMutation();
+
+    const { id, token, tokenExpires } = data?.loginAsGuest || {};
+
+    await storeLoginToken(id, token, new Date(tokenExpires));
+
+    return { data, context, errors, extensions };
   };
 
   return {

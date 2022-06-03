@@ -111,8 +111,6 @@ const Review = () => {
 
   if (loading) return <LoadingItem />;
 
-  console.log(user);
-
   return (
     <>
       <MetaTags

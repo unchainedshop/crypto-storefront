@@ -40,7 +40,7 @@ const UnchainedApp = ({ Component, pageProps, router }) => {
     toggleCart,
   });
   const [selectedCurrency, setSelectedCurrency] = useState({
-    selectedCurrency: 'EUR',
+    selectedCurrency: null,
     changeCurrency,
   });
 
