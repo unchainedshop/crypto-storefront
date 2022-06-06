@@ -1,10 +1,6 @@
 import { useIntl } from 'react-intl';
 import Link from 'next/link';
-import {
-  CheckCircleIcon,
-  ChevronDownIcon,
-  PaperClipIcon,
-} from '@heroicons/react/solid';
+import { CheckCircleIcon, PaperClipIcon } from '@heroicons/react/solid';
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
@@ -25,23 +21,17 @@ function getFlagEmoji(countryCode) {
   return String.fromCodePoint(...(codePoints || []));
 }
 
-const addresss = [
-  { address: '0xFB818374Bd09B47A2338991E8E72731555F145A7', currency: 'ETH' },
-  { address: '0xFB818374Bd09B47A2338991E8E72731555F145A7', currency: 'EUR' },
-];
-
 const OrderDetailComponent = ({ order }) => {
   const { formatMessage } = useIntl();
   const { formatDateTime } = useFormatDateTime();
   const { signForCheckout } = useSignForCheckout();
-  const [setPaymentAddress] = useState([]);
+  const [paymentAddresses, setPaymentAddress] = useState([]);
 
   const { user } = useUser();
   const signOrderPayment = async () => {
     if (order?.payment.provider?.type === 'GENERIC') {
       const response = await signForCheckout({
         orderPaymentId: order?.payment?._id,
-        transactionContext: {},
       });
 
       return JSON.parse(response || '[]');
@@ -52,7 +42,8 @@ const OrderDetailComponent = ({ order }) => {
 
   useEffect(() => {
     const updateContractAddress = async () => {
-      setPaymentAddress(await signOrderPayment());
+      const signedAddress = await signOrderPayment();
+      setPaymentAddress(signedAddress);
     };
     updateContractAddress();
   }, [order?.payment?._id]);
@@ -343,54 +334,18 @@ const OrderDetailComponent = ({ order }) => {
                   })}
                 </dt>
                 {order?.status === 'OPEN' || order?.status === 'PENDING' ? (
-                  addresss.map((address, index) => (
+                  paymentAddresses.map((paymentAddress) => (
                     <div
-                      key={address.currency}
+                      key={paymentAddress.address}
                       className="mt-6 space-y-6 divide-y divide-slate-200"
                     >
-                      <div className="pt-6">
-                        <div className="text-lg">
-                          <button
-                            type="button"
-                            data-index={index}
-                            className="flex w-full items-start justify-between text-left text-slate-400"
-                            aria-controls="faq-0"
-                            aria-expanded="false"
-                            // onClick={onClick}
-                            // onClick={() => {
-                            //   setAccordion(accordion.map((acc, i)=>{
-                            //     if(i===index)
-                            //   }));
-                            // }}
-                          >
-                            <span className="font-medium text-slate-900">
-                              {address?.currency}
-                            </span>
-                            <span className="ml-6 flex h-7 items-center">
-                              <ChevronDownIcon
-                                className={classNames(
-                                  'h-6 w-6 -rotate-180 transform',
-                                  // { 'rotate-0': open },
-                                )}
-                              />
-                            </span>
-                          </button>
-                        </div>
-                        <div
-                          className={classNames('mt-2 hidden pr-12', {
-                            // hidden: !open,
-                          })}
-                          id="faq-0"
-                        >
-                          <QRCodeComponent
-                            paymentAddress={address}
-                            currencyClassName="text-left my-0 hidden"
-                            className="mx-0 my-2"
-                          />
-                        </div>
+                      <div className={classNames('mt-2  pr-12', {})} id="faq-0">
+                        <QRCodeComponent
+                          paymentAddress={paymentAddress}
+                          currencyClassName="text-left my-0 "
+                          className="mx-0 my-2"
+                        />
                       </div>
-
-                      {/* <!-- More questions... --> */}
                     </div>
                   ))
                 ) : (

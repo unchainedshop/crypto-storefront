@@ -1,21 +1,18 @@
 import { useMutation, gql } from '@apollo/client';
 
 const SignPaymentProviderMutation = gql`
-  mutation signPaymentProviderForCheckout(
-    $orderPaymentId: ID!
-    $transactionContext: JSON
-  ) {
-    signPaymentProviderForCheckout(
-      orderPaymentId: $orderPaymentId
-      transactionContext: $transactionContext
-    )
+  mutation signPaymentProviderForCheckout($orderPaymentId: ID!) {
+    signPaymentProviderForCheckout(orderPaymentId: $orderPaymentId)
   }
 `;
 
 const useSignPaymentProviderMutation = () => {
   const [signPaymentProvider] = useMutation(SignPaymentProviderMutation);
 
-  const signForCheckout = async ({ transactionContext, orderPaymentId }) => {
+  const signForCheckout = async ({
+    transactionContext = null,
+    orderPaymentId,
+  }) => {
     const result = await signPaymentProvider({
       variables: { orderPaymentId, transactionContext },
     });
