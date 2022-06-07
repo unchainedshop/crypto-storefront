@@ -152,13 +152,19 @@ const Account = () => {
                   </span>
                 </div>
                 <div className="m-2 flex flex-col sm:flex-row">
-                  <span className="mb-1">
-                    {formatMessage({
-                      id: 'number_of_orders',
-                      defaultMessage: 'Number Of Orders',
-                    })}
-                  </span>
-                  <span className="mx-4 mb-1"> {user?.order?.length || 0}</span>
+                  <Link href="/orders">
+                    <a className="link mb-1 text-cyan-500">
+                      {formatMessage(
+                        {
+                          id: 'number_of_orders',
+                          defaultMessage: 'Number Of Orders: {count}',
+                        },
+                        {
+                          count: user?.orders?.length || 0,
+                        },
+                      )}
+                    </a>
+                  </Link>
                 </div>
               </div>
             </section>

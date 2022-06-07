@@ -59,6 +59,9 @@
   "billing_summary": {
     "defaultMessage": "Billing Summary"
   },
+  "bookmark": {
+    "defaultMessage": "Bookmark"
+  },
   "bookmarks": {
     "defaultMessage": "Bookmarks"
   },
@@ -82,6 +85,9 @@
   },
   "change_username": {
     "defaultMessage": "Change username"
+  },
+  "checked_out_success": {
+    "defaultMessage": "Checkout successfully"
   },
   "checkout": {
     "defaultMessage": "Checkout"
@@ -112,6 +118,9 @@
   },
   "confirmation_sent": {
     "defaultMessage": "A confirmation email is sent"
+  },
+  "confirmed": {
+    "defaultMessage": "Confirmed"
   },
   "continue_shopping": {
     "defaultMessage": "Continue shopping"
@@ -227,14 +236,14 @@
   "footer": {
     "defaultMessage": "Footer"
   },
-  "for_order": {
-    "defaultMessage": "for order"
-  },
   "forget_message": {
     "defaultMessage": "Enter your email address"
   },
   "forgot_password": {
     "defaultMessage": "Forgot your password?"
+  },
+  "fulfilled": {
+    "defaultMessage": "FulFilled"
   },
   "full_name": {
     "defaultMessage": "Full Name"
@@ -330,7 +339,7 @@
     "defaultMessage": "No username set"
   },
   "number_of_orders": {
-    "defaultMessage": "Number Of Orders"
+    "defaultMessage": "Number Of Orders: {count}"
   },
   "old_password_not_correct": {
     "defaultMessage": "Wrong password, please try again"
@@ -374,6 +383,9 @@
   "order_total": {
     "defaultMessage": "Order total"
   },
+  "ordered": {
+    "defaultMessage": "Ordered"
+  },
   "paid_on": {
     "defaultMessage": "paid on"
   },
@@ -397,6 +409,9 @@
   },
   "payment_type": {
     "defaultMessage": "Payment type"
+  },
+  "pending": {
+    "defaultMessage": "Pending"
   },
   "placeholder": {
     "defaultMessage": "Share your thought about the product"
@@ -534,7 +549,7 @@
     "defaultMessage": "Telephone"
   },
   "thank_you": {
-    "defaultMessage": "Thank you"
+    "defaultMessage": "Thank you!"
   },
   "thank_you_description": {
     "defaultMessage": "It has reached us and an email with the order placement confirmation is on its way. To avoid any potential miscommunication, please check your spam, perhaps the email landed there."
@@ -543,10 +558,10 @@
     "defaultMessage": "Thank You for Placing this Order with Us!"
   },
   "thank_you_order_date": {
-    "defaultMessage": "The Date you placed the order is: {orderDate}"
+    "defaultMessage": "<dl> <dt> The Date you placed the order is: </dt> <dd> {orderDate} </dd> </dl>"
   },
   "thank_you_order_number": {
-    "defaultMessage": "Your Order Number is: {orderNumber}"
+    "defaultMessage": "<dl> <dt> Your Order Number is: </dt> <dd> {orderNumber} </dd> </dl>"
   },
   "title": {
     "defaultMessage": "Title"
@@ -580,9 +595,6 @@
   },
   "username": {
     "defaultMessage": "username"
-  },
-  "view_invoice": {
-    "defaultMessage": "View Invoice"
   },
   "welcome": {
     "defaultMessage": "Welcome"

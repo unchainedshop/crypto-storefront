@@ -1,35 +1,9 @@
-import { CheckCircleIcon } from '@heroicons/react/solid';
-import Link from 'next/link';
 import { useIntl } from 'react-intl';
 import SearchField from '../../common/components/SearchField';
-
-import renderPrice from '../../common/utils/renderPrice';
-import useFormatDateTime from '../../common/utils/useFormatDateTime';
-
-const orderStatus = {
-  OPEN: {
-    text: 'ordered',
-    date: 'ordered',
-  },
-  PENDING: {
-    text: 'PENDING',
-  },
-  CONFIRMED: {
-    text: 'CONFIRMED',
-    date: 'confirmed',
-  },
-  FULLFILLED: {
-    text: 'Delivered',
-    icon: (
-      <CheckCircleIcon className="h-5 w-5 text-green-500" aria-hidden="true" />
-    ),
-    date: 'fullfilled',
-  },
-};
+import OrderListItem from './OrderListItem';
 
 const OrderList = ({ orders, queryString, setQueryString }) => {
   const { formatMessage } = useIntl();
-  const { formatDateTime } = useFormatDateTime();
 
   return (
     <div className="bg-white dark:bg-slate-600">
@@ -121,105 +95,7 @@ const OrderList = ({ orders, queryString, setQueryString }) => {
                 <div />
               </div>
               {orders.map((order) => (
-                <div
-                  key={order._id}
-                  className="w-full py-6 sm:flex sm:space-x-6 lg:space-x-8"
-                >
-                  <div className="sm:grid sm:w-5/6 sm:grid-cols-6 sm:gap-x-6 lg:gap-x-8">
-                    <div className="flex justify-between sm:block">
-                      <dt className="font-medium text-slate-900 dark:text-slate-100 sm:hidden">
-                        {formatMessage({
-                          id: 'order_date',
-                          defaultMessage: 'Order date',
-                        })}
-                      </dt>
-                      <dd className="sm:mt-1">
-                        <time dateTime={order.datetime}>
-                          {formatDateTime(order?.ordered)}
-                        </time>
-                      </dd>
-                    </div>
-                    <div className="flex justify-between pt-6 sm:block sm:pt-0">
-                      <dt className="font-medium text-slate-900 dark:text-slate-100 sm:hidden">
-                        {formatMessage({
-                          id: 'order_number',
-                          defaultMessage: 'Order number',
-                        })}
-                      </dt>
-                      <dd className="sm:mt-1">{order?.orderNumber}</dd>
-                    </div>
-                    <div className="flex justify-between pt-6 sm:block sm:pt-0">
-                      <dt className="font-medium text-slate-900 dark:text-slate-100 sm:hidden">
-                        {formatMessage({
-                          id: 'total_amount',
-                          defaultMessage: 'Total amount',
-                        })}
-                      </dt>
-                      <dd className="sm:mt-1">{renderPrice(order.total)}</dd>
-                    </div>
-                    <div className="flex justify-between pt-6 sm:block sm:pt-0">
-                      <dt className="font-medium text-slate-900 dark:text-slate-100 sm:hidden">
-                        {formatMessage({
-                          id: 'payment_status',
-                          defaultMessage: 'Payment status',
-                        })}
-                      </dt>
-                      <dd className="sm:mt-1">{order?.payment?.status}</dd>
-                    </div>
-                    <div className="flex items-center justify-between pt-6 sm:pt-0">
-                      <dt className="font-medium text-slate-900 dark:text-slate-100 sm:hidden">
-                        {formatMessage({
-                          id: 'status',
-                          defaultMessage: 'Status',
-                        })}
-                      </dt>
-                      <dd className="uppercase sm:mt-1">
-                        <div className="flex items-center gap-x-2">
-                          {orderStatus[order?.status]?.icon &&
-                            orderStatus[order?.status].icon}
-                          {orderStatus[order?.status]?.text}
-                          {orderStatus[order?.status]?.date && (
-                            <>
-                              {formatMessage({
-                                id: 'on',
-                                defaultMessage: ' on ',
-                              })}
-                              <time dateTime={order.datetime}>
-                                {formatDateTime(
-                                  order[orderStatus[order?.status].date],
-                                )}
-                              </time>
-                            </>
-                          )}
-                        </div>
-                      </dd>
-                    </div>
-                    <div className="flex justify-between pt-6 sm:block sm:pt-0">
-                      <dt className="font-medium text-slate-900 dark:text-slate-100 sm:hidden">
-                        {formatMessage({
-                          id: 'delivery_status',
-                          defaultMessage: 'Delivery status',
-                        })}
-                      </dt>
-                      <dd className="sm:mt-1">{order?.delivery?.status}</dd>
-                    </div>
-                  </div>
-                  <Link href={`orders/${order?._id}`}>
-                    <a className="ml-auto mt-6 flex w-full items-center justify-center rounded-md border border-slate-300 bg-white py-2 px-4 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:w-auto">
-                      {formatMessage({
-                        id: 'view_invoice',
-                        defaultMessage: 'View Invoice',
-                      })}
-                      <span className="sr-only">
-                        {formatMessage({
-                          id: 'for_order',
-                          defaultMessage: 'for order ',
-                        })}
-                        {order?.number}
-                      </span>
-                    </a>
-                  </Link>
-                </div>
+                <OrderListItem order={order} key={order._id} />
               ))}
             </dl>
           </div>

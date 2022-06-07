@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import QRCode from 'react-qr-code';
+import { QRCode } from 'react-qr-svg';
 import { toast } from 'react-toastify';
 
 const QRCodeComponent = ({
@@ -47,8 +47,11 @@ const QRCodeComponent = ({
       >
         <div className="rounded-lg border bg-white p-4 drop-shadow-lg">
           <QRCode
+            style={{ width: 128 }}
             value={paymentAddress.address}
-            title="Contract for checkout"
+            bgColor="#FFFFFF"
+            fgColor="#000000"
+            level="Q"
           />
         </div>
       </div>
