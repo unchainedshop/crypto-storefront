@@ -1,4 +1,3 @@
-import { useContext } from 'react';
 import Link from 'next/link';
 
 import { useIntl } from 'react-intl';
@@ -6,13 +5,13 @@ import classNames from 'classnames';
 import { ShoppingBagIcon, XIcon } from '@heroicons/react/outline';
 import renderPrice from '../../common/utils/renderPrice';
 import useUser from '../../auth/hooks/useUser';
-import { CartContext } from '../CartContext';
 import CartItem from './CartItem';
+import { useAppContext } from '../../common/components/AppContextWrapper';
 
 const SideCart = ({ isOpen }) => {
   const { user } = useUser();
   const intl = useIntl();
-  const context = useContext(CartContext);
+  const { isCartOpen, toggleCart } = useAppContext();
 
   const subtotal = (user?.cart?.items || []).reduce(
     (acc, item) => {
@@ -33,7 +32,7 @@ const SideCart = ({ isOpen }) => {
           'fixed top-0 right-0 bottom-0 left-0 z-50 cursor-pointer bg-black opacity-0':
             isOpen,
         })}
-        onClick={() => context.toggleCart()}
+        onClick={() => toggleCart(!isCartOpen)}
       />
       {!user?.cart?.items.length ? (
         <>
@@ -54,7 +53,7 @@ const SideCart = ({ isOpen }) => {
               })}{' '}
               <Link href="/shop">
                 <a
-                  onClick={() => context.toggleCart(false)}
+                  onClick={() => toggleCart(false)}
                   className="cursor-pointer font-normal underline"
                 >
                   {intl.formatMessage({ id: 'shop', defaultMessage: 'Shop' })}
@@ -82,7 +81,7 @@ const SideCart = ({ isOpen }) => {
                   })}
                   type="button"
                   className="absolute cursor-pointer appearance-none p-2 text-left text-inherit opacity-100"
-                  onClick={() => context.toggleCart()}
+                  onClick={() => toggleCart(!isCartOpen)}
                 >
                   <XIcon className="h-5 w-5" />
                 </button>
@@ -104,7 +103,7 @@ const SideCart = ({ isOpen }) => {
                   })}{' '}
                   <Link href="/shop">
                     <a
-                      onClick={() => context.toggleCart(false)}
+                      onClick={() => toggleCart(false)}
                       className="cursor-pointer font-normal underline"
                       href="#"
                     >
@@ -138,7 +137,7 @@ const SideCart = ({ isOpen }) => {
                 <a
                   type="button"
                   className="mb-4 block w-full rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-base font-medium uppercase text-white shadow-sm hover:bg-indigo-700 hover:text-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
-                  onClick={() => context.toggleCart(false)}
+                  onClick={() => toggleCart(false)}
                 >
                   {intl.formatMessage({
                     id: 'to_checkout',
@@ -153,7 +152,7 @@ const SideCart = ({ isOpen }) => {
               >
                 <a
                   className="my-4 block w-full text-sm font-semibold uppercase text-indigo-600 dark:text-indigo-400"
-                  onClick={() => context.toggleCart(false)}
+                  onClick={() => toggleCart(false)}
                 >
                   {intl.formatMessage({
                     id: 'continue_shopping',

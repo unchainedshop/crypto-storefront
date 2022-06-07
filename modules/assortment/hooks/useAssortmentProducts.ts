@@ -1,6 +1,6 @@
 import { useQuery, gql } from '@apollo/client';
 import { useIntl } from 'react-intl';
-import useCurrencyContext from '../../common/utils/useCurrencyContext';
+import { useAppContext } from '../../common/components/AppContextWrapper';
 
 import ProductFragment from '../../products/fragments/ProductFragment';
 import AssortmentFragment from '../fragments/assortment';
@@ -53,7 +53,7 @@ const useAssortmentProducts = (
   },
 ) => {
   const intl = useIntl();
-  const { selectedCurrency } = useCurrencyContext();
+  const { selectedCurrency } = useAppContext();
   const { data, loading, error, fetchMore } = useQuery(
     AssortmentsProductsQuery,
     {

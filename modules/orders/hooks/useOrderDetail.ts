@@ -1,5 +1,5 @@
 import { useQuery, gql } from '@apollo/client';
-import useCurrencyContext from '../../common/utils/useCurrencyContext';
+import { useAppContext } from '../../common/components/AppContextWrapper';
 
 import OrderFragment from '../fragments/OrderFragment';
 import OrderItemFragment from '../fragments/OrderItemFragment';
@@ -18,7 +18,7 @@ const OrderDetailQuery = gql`
 `;
 
 const useOrderDetail = ({ orderId }) => {
-  const { selectedCurrency } = useCurrencyContext();
+  const { selectedCurrency } = useAppContext();
   const { data, loading, error, ...rest } = useQuery(OrderDetailQuery, {
     variables: { orderId, currency: selectedCurrency },
     notifyOnNetworkStatusChange: true,

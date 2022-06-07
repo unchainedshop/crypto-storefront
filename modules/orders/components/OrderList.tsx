@@ -39,66 +39,64 @@ const OrderList = ({ orders, queryString, setQueryString }) => {
             })}
           </h2>
 
-          <div className="rounded-lg bg-slate-50 py-6 px-4 dark:bg-slate-500 sm:flex sm:items-center sm:justify-between sm:space-x-6 sm:px-6 lg:space-x-8">
-            <dl className="w-full space-y-6 divide-y divide-slate-300 text-base text-slate-600 dark:text-slate-300 sm:grid sm:space-y-0 lg:flex-none">
-              <div className="hidden sm:block sm:pb-6">
-                <div className="flex-auto sm:grid sm:w-5/6 sm:grid-cols-6 sm:gap-x-6 lg:gap-x-8">
-                  <div className="flex justify-between sm:block">
-                    <dt className="font-medium text-slate-900 dark:text-slate-100">
-                      {formatMessage({
-                        id: 'order_date',
-                        defaultMessage: 'Order date',
-                      })}
-                    </dt>
-                  </div>
-                  <div className="flex justify-between pt-6 sm:block sm:pt-0">
-                    <dt className="font-medium text-slate-900 dark:text-slate-100">
-                      {formatMessage({
-                        id: 'order_number',
-                        defaultMessage: 'Order number',
-                      })}
-                    </dt>
-                  </div>
-                  <div className="flex justify-between pt-6 sm:block sm:pt-0">
-                    <dt className="font-medium text-slate-900 dark:text-slate-100">
-                      {formatMessage({
-                        id: 'total_amount',
-                        defaultMessage: 'Total amount',
-                      })}
-                    </dt>
-                  </div>
-                  <div className="flex justify-between pt-6 sm:block sm:pt-0">
-                    <dt className="font-medium text-slate-900 dark:text-slate-100">
-                      {formatMessage({
-                        id: 'payment_status',
-                        defaultMessage: 'Payment status',
-                      })}
-                    </dt>
-                  </div>
-                  <div className="flex justify-between pt-6 sm:block sm:pt-0">
-                    <dt className="font-medium text-slate-900 dark:text-slate-100">
-                      {formatMessage({
-                        id: 'order_status',
-                        defaultMessage: 'Order status',
-                      })}
-                    </dt>
-                  </div>
-                  <div className="flex justify-between pt-6 sm:block sm:pt-0">
-                    <dt className="font-medium text-slate-900 dark:text-slate-100">
-                      {formatMessage({
-                        id: 'Delivery_status',
-                        defaultMessage: 'Delivery status',
-                      })}
-                    </dt>
-                  </div>
+          <dl className=" divide-y divide-slate-300 text-base text-slate-600 dark:text-slate-300 sm:grid sm:space-y-0 lg:flex-none">
+            <div className="hidden sm:block sm:pb-6">
+              <div className="flex-auto sm:grid sm:w-5/6 sm:grid-cols-6 sm:gap-x-6 lg:gap-x-8">
+                <div className="flex justify-between sm:block">
+                  <dt className="font-medium text-slate-900 dark:text-slate-100">
+                    {formatMessage({
+                      id: 'order_date',
+                      defaultMessage: 'Order date',
+                    })}
+                  </dt>
                 </div>
-                <div />
+                <div className="flex justify-between pt-6 sm:block sm:pt-0">
+                  <dt className="font-medium text-slate-900 dark:text-slate-100">
+                    {formatMessage({
+                      id: 'order_number',
+                      defaultMessage: 'Order number',
+                    })}
+                  </dt>
+                </div>
+                <div className="flex justify-between pt-6 sm:block sm:pt-0">
+                  <dt className="font-medium text-slate-900 dark:text-slate-100">
+                    {formatMessage({
+                      id: 'total_amount',
+                      defaultMessage: 'Total amount',
+                    })}
+                  </dt>
+                </div>
+                <div className="flex justify-between pt-6 sm:block sm:pt-0">
+                  <dt className="font-medium text-slate-900 dark:text-slate-100">
+                    {formatMessage({
+                      id: 'payment_status',
+                      defaultMessage: 'Payment status',
+                    })}
+                  </dt>
+                </div>
+                <div className="flex justify-between pt-6 sm:block sm:pt-0">
+                  <dt className="font-medium text-slate-900 dark:text-slate-100">
+                    {formatMessage({
+                      id: 'order_status',
+                      defaultMessage: 'Order status',
+                    })}
+                  </dt>
+                </div>
+                <div className="flex justify-between pt-6 sm:block sm:pt-0">
+                  <dt className="font-medium text-slate-900 dark:text-slate-100">
+                    {formatMessage({
+                      id: 'Delivery_status',
+                      defaultMessage: 'Delivery status',
+                    })}
+                  </dt>
+                </div>
               </div>
-              {orders.map((order) => (
-                <OrderListItem order={order} key={order._id} />
-              ))}
-            </dl>
-          </div>
+              <div />
+            </div>
+            {orders.map((order) => (
+              <OrderListItem order={order} key={order._id} />
+            ))}
+          </dl>
         </div>
       </div>
     </div>

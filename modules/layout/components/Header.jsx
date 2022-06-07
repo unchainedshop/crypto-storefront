@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Head from 'next/head';
 import getConfig from 'next/config';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useIntl } from 'react-intl';
 
@@ -9,24 +9,24 @@ import { MenuIcon } from '@heroicons/react/solid';
 import Image from 'next/image';
 import LoginCart from '../../auth/components/LoginCart';
 import SideCart from '../../cart/components/SideCart';
-import { CartContext } from '../../cart/CartContext';
 import DesktopNavigation from '../../assortment/components/DesktopNavigation';
 import MobileNavigation from '../../assortment/components/MobileNavigation';
 import ThemeToggle from '../../common/components/ThemeToggle';
 import defaultNextImageLoader from '../../common/utils/getDefaultNextImageLoader';
 import CurrencySelector from '../../common/components/CurrencySelector';
-import useCurrencyContext from '../../common/utils/useCurrencyContext';
+
+import { useAppContext } from '../../common/components/AppContextWrapper';
 
 const {
   publicRuntimeConfig: { theme },
 } = getConfig();
 
 const Header = () => {
-  const context = useContext(CartContext);
+  const { isCartOpen } = useAppContext();
   const router = useRouter();
   const [isNavOpen, setNavOpenState] = useState(false);
   const { formatMessage } = useIntl();
-  const { selectedCurrency, changeCurrency } = useCurrencyContext();
+  const { selectedCurrency, changeCurrency } = useAppContext();
 
   const setNavOpen = (isOpen) => {
     setNavOpenState(isOpen);
@@ -55,7 +55,7 @@ const Header = () => {
       )}
 
       <header className="sticky top-0 z-[1020] bg-white text-black opacity-80 dark:bg-slate-600 dark:text-white">
-        <SideCart isOpen={context.isCartOpen} />
+        <SideCart isOpen={isCartOpen} />
         <Head>
           <link
             rel="apple-touch-icon"

@@ -1,5 +1,5 @@
 import { useMutation, gql } from '@apollo/client';
-import useCurrencyContext from '../../common/utils/useCurrencyContext';
+import { useAppContext } from '../../common/components/AppContextWrapper';
 
 import CurrentUserFragment from '../fragments/CurrentUserFragment';
 
@@ -27,7 +27,7 @@ const LoginWithPasswordMutation = gql`
   ${CurrentUserFragment}
 `;
 const useLoginWithPassword = (): any => {
-  const { selectedCurrency } = useCurrencyContext();
+  const { selectedCurrency } = useAppContext();
   const [logInWithPasswordMutation, { error }] = useMutation(
     LoginWithPasswordMutation,
     {

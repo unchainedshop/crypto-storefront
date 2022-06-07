@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { useContext } from 'react';
 import { useIntl } from 'react-intl';
 
 import {
@@ -10,15 +9,15 @@ import {
 } from '@heroicons/react/outline';
 import { useRouter } from 'next/router';
 import OrderButton from '../../orders/components/UserOrderButton';
-import { CartContext } from '../../cart/CartContext';
 import useUser from '../hooks/useUser';
 import { useApollo } from '../../apollo/apolloClient';
 import logOut from '../hooks/logOut';
+import { useAppContext } from '../../common/components/AppContextWrapper';
 
 const LoginCart = () => {
   const { user } = useUser();
   const { formatMessage } = useIntl();
-  const context = useContext(CartContext);
+  const { isCartOpen, toggleCart } = useAppContext();
   const router = useRouter();
   const apollo = useApollo({ locale: router.locale });
 
@@ -50,7 +49,7 @@ const LoginCart = () => {
       )}
       <a
         className="flex cursor-pointer items-center gap-x-3"
-        onClick={() => context.toggleCart(!context.isCartOpen)}
+        onClick={() => toggleCart(!isCartOpen)}
       >
         <ShoppingCartIcon className="inline-flex h-6 w-6 select-none items-center justify-center dark:text-white" />
 
