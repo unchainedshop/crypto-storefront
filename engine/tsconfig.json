@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "strict": false,
+    "allowJs": true,
+    "baseUrl": ".",
+    "downlevelIteration": true,
+    "types": [
+      "meteor-typings"
+    ],
+    "lib": [
+      "es2018",
+      "dom",
+      "esnext"
+    ],
+    "esModuleInterop": true,
+    "paths": {
+      "meteor/unchained:*": [
+        "./node_modules/@unchainedshop/types/index.d.ts"
+      ]
+    }
+  }
+}
