@@ -13,6 +13,7 @@ export const AppContext = React.createContext<{
   changeCurrency: (val) => void,
   isCartOpen: boolean;
   toggleCart?: (val) => void;
+  payWithMetaMask?: (orderAddress: string, orderAmount: string) => void
   
 }>({
   accounts: [],
@@ -31,7 +32,7 @@ const ethereum = (global as any).ethereum;
 
 export const AppContextWrapper = ({ children }) => {
   
-  const [provider, setProvider] = useState<ethers.providers.BaseProvider>();
+  const [currentProvider, setProvider] = useState<ethers.providers.Web3Provider>();
   const [accounts, setAccounts] = useState<string[]>([]);
   const [chainId, setChainId] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
@@ -40,25 +41,36 @@ export const AppContextWrapper = ({ children }) => {
   
   
 
+  const payWithMetaMask = async (orderAddress, orderAmount) => {
+    const params = [{
+      from: accounts[0],
+      to: orderAddress ,
+      value:  ethers.utils.parseUnits(String(orderAmount), 'ether').toHexString()  
+  }];
+  await currentProvider.provider.send( {method: 'eth_sendTransaction', params}, () => {} )
+  }
 
   useEffect(() => {
     (async () => {
       const scopedProvider = ethereum
         ? new ethers.providers.Web3Provider(ethereum)
        :null
-
+      
       setProvider(scopedProvider);
 
       const { chainId } = await scopedProvider.getNetwork();
+      console.log(chainId)
       setChainId(chainId);
 
       ethereum?.on('chainChanged', () => window.location.reload());
+ 
 
       scopedProvider.on('chainChanged', (chainId) => {
         console.log('chainChanged');
         setChainId(chainId);
       });
 
+      console.log(scopedProvider)
     
 
       
@@ -74,16 +86,15 @@ export const AppContextWrapper = ({ children }) => {
           setAccounts(accounts);
         });
       }
+
+       
     })();
+
+
   }, []);
 
-  useEffect(() => {
-    if (!(provider as any)?.getSigner) return;
 
-    (async () => {
-      const signer = await (provider as any).getSigner();
-    })();
-  }, [accounts]);
+
 
   const doConnect = async () => {
     setModalOpen(false);
@@ -106,7 +117,8 @@ export const AppContextWrapper = ({ children }) => {
         isCartOpen,
         toggleCart,
         selectedCurrency,
-        changeCurrency
+        changeCurrency,
+        payWithMetaMask,
         
         
       }}

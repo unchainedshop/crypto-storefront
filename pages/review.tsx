@@ -21,10 +21,12 @@ import QRCodeComponent from '../modules/checkout/components/QRCodeComponent';
 import useSignForCheckout from '../modules/checkout/hooks/useSignForCheckout';
 import NoData from '../modules/common/components/NoData';
 import CardPaymentForm from '../modules/checkout/components/CardPaymentForm';
+import { useAppContext } from '../modules/common/components/AppContextWrapper';
 
 const Review = () => {
   const { user, loading } = useUser();
   const { formatMessage } = useIntl();
+  const { hasSigner, payWithMetaMask } = useAppContext();
   const router = useRouter();
 
   const { setOrderPaymentProvider } = useSetOrderPaymentProvider();
@@ -325,7 +327,25 @@ const Review = () => {
                       {user?.cart?.paymentInfo?.provider?.interface?._id ===
                         'shop.unchained.payment.cryptopay' &&
                         contractAddress?.map((address) => (
-                          <QRCodeComponent paymentAddress={address} />
+                          <>
+                            <QRCodeComponent paymentAddress={address} />
+                            {address.currency === 'ETH' && hasSigner && (
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  payWithMetaMask(
+                                    address.address,
+                                    user?.cart.total.amount,
+                                  )
+                                }
+                              >
+                                {formatMessage({
+                                  id: 'pay_with_metamask',
+                                  defaultMessage: 'Pay with metamask',
+                                })}
+                              </button>
+                            )}
+                          </>
                         ))}
                     </div>
 

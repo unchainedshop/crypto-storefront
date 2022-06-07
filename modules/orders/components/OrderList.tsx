@@ -39,7 +39,7 @@ const OrderList = ({ orders, queryString, setQueryString }) => {
             })}
           </h2>
 
-          <dl className=" divide-y divide-slate-300 text-base text-slate-600 dark:text-slate-300 sm:grid sm:space-y-0 lg:flex-none">
+          <dl className="divide-y divide-slate-300 text-base text-slate-600 dark:text-slate-300 sm:grid sm:space-y-0 lg:flex-none">
             <div className="hidden sm:block sm:pb-6">
               <div className="flex-auto sm:grid sm:w-5/6 sm:grid-cols-6 sm:gap-x-6 lg:gap-x-8">
                 <div className="flex justify-between sm:block">
