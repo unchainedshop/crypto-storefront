@@ -5,9 +5,7 @@ import {
   setAccessToken,
 } from 'meteor/unchained:platform';
 
-
-import 'meteor/unchained:core-payment/plugins/cryptopay';
-
+import './plugins'
 import seed from './seed';
 
 Meteor.startup(async () => {
@@ -15,11 +13,25 @@ Meteor.startup(async () => {
     introspection: true,
     playground: true,
     tracing: true,
+    context: withAccessToken(),
+    typeDefs: [],
+    resolvers: [],
     corsOrigins: (_, callback) => {
       callback(null, true);
     },
+    options: {
+      orders: {
+        ensureUserHasCart: true,
+      },
+      accounts: {
+        autoMessagingAfterUserCreation: false,
+        server: {
+          loginExpirationInDays: 0.5,
+        },
+      },
+    },
+    
 
-    context: withAccessToken(),
   });
   await seed(unchainedAPI);
   await setAccessToken(unchainedAPI, 'admin', process.env.UNCHAINED_SECRET);
