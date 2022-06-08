@@ -1,0 +1,10 @@
+version: '3'
+services:
+  crypto_gateway:
+     build: './gateway'
+     network_mode: "host"        
+     restart: on-failure
+  crypto_storefront:
+    build: ./storefront
+    ports:
+      - "3000:3000"
