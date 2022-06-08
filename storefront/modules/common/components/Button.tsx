@@ -6,7 +6,7 @@ const Button = ({
   text = '',
   disabled = false,
   className = '',
-  onClick = () => {},
+  onClick = (value) => value,
 }) => {
   return (
     <button

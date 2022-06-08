@@ -176,6 +176,7 @@ const General = ({ user }) => {
                         <Verified isActive={e.verified} />
                         {!e.verified && (
                           <Button
+                            type="button"
                             text={formatMessage({
                               id: 'resend',
                               defaultMessage: 'ReSend',
@@ -186,6 +187,7 @@ const General = ({ user }) => {
                         )}
                         {user?.emails?.length > 1 && (
                           <Button
+                            type="button"
                             text={formatMessage({
                               id: 'remove',
                               defaultMessage: 'Remove',
@@ -212,6 +214,7 @@ const General = ({ user }) => {
                         />
                       </div>
                       <Button
+                        type="button"
                         text={formatMessage({
                           id: 'add_email',
                           defaultMessage: 'Add Email',
@@ -250,6 +253,7 @@ const General = ({ user }) => {
             {updateProfile ? (
               <>
                 <Button
+                  type="button"
                   text={formatMessage({
                     id: 'cancel',
                     defaultMessage: 'Cancel',
@@ -268,11 +272,11 @@ const General = ({ user }) => {
               </>
             ) : (
               <Button
+                type="button"
                 text={formatMessage({
                   id: 'update',
                   defaultMessage: 'update',
                 })}
-                type="button"
                 className="inline-flex justify-center rounded-md border border-transparent bg-slate-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"
                 onClick={() => setUpdateProfile(true)}
               />

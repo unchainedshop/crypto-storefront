@@ -328,6 +328,7 @@ const Address = ({ user }) => {
               {updateProfile ? (
                 <>
                   <Button
+                    type="button"
                     text={formatMessage({
                       id: 'cancel',
                       defaultMessage: 'Cancel',

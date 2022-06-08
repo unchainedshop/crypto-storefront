@@ -2,7 +2,7 @@
   "name": "storefront",
   "version": "0.1.0",
   "private": false,
-  "description": "SPA Storefront Boilerplate for Unchained Engine",
+  "description": "SPA Storefront Boilerplate for Unchained Engine ",
   "license": "Apache-2.0",
   "dependencies": {
     "@apollo/client": "^3.3.20",
