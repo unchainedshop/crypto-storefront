@@ -1,10 +1,56 @@
-version: '3'
+version: '3.6'
 services:
   crypto_gateway:
      build: './gateway'
      network_mode: "host"        
      restart: on-failure
+     depends_on:
+      - crypto_engine
+     deploy:
+       restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
   crypto_storefront:
     build: ./storefront
     ports:
       - "3000:3000"
+    depends_on:
+      - crypto_engine
+    deploy:
+       restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    environment:
+      UNCHAINED_ENDPOINT : http://crypto_engine:3000/graphql
+  crypto_engine:
+    build: ./engine
+    ports:
+      - "4010:3000"
+    environment:
+      NODE_ENV: development
+      ROOT_URL: http://localhost:4010
+      EMAIL_WEBSITE_NAME: Unchained
+      EMAIL_FROM: noreply@unchained.local
+      EMAIL_WEBSITE_URL: http://localhost:4010
+      MONGO_URL: mongodb://my-mongoDB
+      CRYPTOPAY_SECRET: secret
+      CRYPTOPAY_ETH_XPUB: xpub6DCkxV3yvvk8eGye7t11DZ3vpWkJLxfqCiGdB6jieHXHDyzvZTVXG632jcoEPCw6NCPw2GqghAGjmqeXGnLEQEbGTAZSN8neBh3SAyVn5k9
+    healthcheck:
+      test: >-
+        curl -f http://localhost:3000/graphql/healthcheck || exit 1
+      start_period: 10s
+      timeout: 5s
+    depends_on:
+      - my-mongoDB
+  my-mongoDB:
+    image: mongo:latest
+    volumes:
+      - db-data:/data/db
+      - mongo-config:/data/configdb
+volumes:
+  db-data:
+  mongo-config:
