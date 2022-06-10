@@ -6,15 +6,15 @@ currencies:
     init-block-history: 1000 # How many blocks in the past to consider on the first run
     link-feed-registry-addr: "0x47Fb2585D2C56Fe188D0E6ec628a38b74fCeeeDf" # Chainlink Feed Registry Address: https://docs.chain.link/docs/feed-registry/
   btc:
-    bcoin-endpoint: http://127.0.0.1:18332
-    wallet-endpoint: http://127.0.0.1:18334
+    bcoin-endpoint: ${BCOIN_ENDPOINT}
+    wallet-endpoint: ${BCOIN_WALLET_ENDPOINT}
     bcoin-apikey: ${BCOIN_API_KEY}
-    xpub: tpubDDsGg7jiaNfukcctBwCogVUqdfU7p7X4Uoge2FNCk64YD6THTBxdGahRuAq9uuJxFErJuihg7RdgbG3YHW5AgT17f7m6MAQjauiUAPJytQG
+    xpub: ${BTC_EXTENDED_PUBLIC_KEY}
 
 unchained:
-  transaction-webhook-url: http://127.0.0.1:4010/graphql/cryptopay
-  price-webhook-url: http://127.0.0.1:4010/graphql/cryptopay-pricing
-  graphql-endpoint: http://127.0.0.1:4010/graphql
+  transaction-webhook-url: ${UNCHAINED_TRANSACTION_WEBHOOK_ENDPOINT}
+  price-webhook-url: ${UNCHAINED_PRCING_WEBHOOK_ENDPOINT}
+  graphql-endpoint: ${UNCHAINED_GRAPHQL_ENDPOINT}
   secret: ${CRYPTOPAY_SHARED_SECRET}
 redis:
   host: 127.0.0.1
