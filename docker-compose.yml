@@ -12,6 +12,8 @@ services:
         delay: 5s
         max_attempts: 3
         window: 120s
+     env_file:
+      - './.env.gateway'
   crypto_storefront:
     build: ./storefront
     ports:
@@ -30,15 +32,8 @@ services:
     build: ./engine
     ports:
       - "4010:3000"
-    environment:
-      NODE_ENV: development
-      ROOT_URL: http://localhost:4010
-      EMAIL_WEBSITE_NAME: Unchained
-      EMAIL_FROM: noreply@unchained.local
-      EMAIL_WEBSITE_URL: http://localhost:4010
-      MONGO_URL: mongodb://my-mongoDB
-      CRYPTOPAY_SECRET: secret
-      CRYPTOPAY_ETH_XPUB: xpub6DCkxV3yvvk8eGye7t11DZ3vpWkJLxfqCiGdB6jieHXHDyzvZTVXG632jcoEPCw6NCPw2GqghAGjmqeXGnLEQEbGTAZSN8neBh3SAyVn5k9
+    env_file:
+      - './.env.engine'
     healthcheck:
       test: >-
         curl -f http://localhost:3000/graphql/healthcheck || exit 1
