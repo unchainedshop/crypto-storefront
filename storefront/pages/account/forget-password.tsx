@@ -59,7 +59,7 @@ const PasswordForget = () => {
                 >
                   {formatMessage({ id: 'email', defaultMessage: 'Email' })}
                 </label>
-                <div className="mt-1">
+                <div className="mt-1 bg-white">
                   <input
                     type="email"
                     id="email"

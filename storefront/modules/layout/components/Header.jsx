@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Head from 'next/head';
 import getConfig from 'next/config';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
@@ -56,25 +55,6 @@ const Header = () => {
 
       <header className="sticky top-0 z-[1020] bg-white text-black opacity-80 dark:bg-slate-600 dark:text-white">
         <SideCart isOpen={isCartOpen} />
-        <Head>
-          <link
-            rel="apple-touch-icon"
-            sizes="180x180"
-            href={theme.assets['icon-180x180']}
-          />
-          <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href={theme.assets['icon-32x32']}
-          />
-          <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href={theme.assets['icon-16x16']}
-          />
-        </Head>
         <div className="container mx-auto hidden w-full sm:flex sm:flex-wrap sm:items-center sm:justify-between sm:py-2">
           <div className="flex items-center justify-start">
             <DesktopNavigation />

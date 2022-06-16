@@ -20,17 +20,14 @@ const ProductListItem = ({ product }) => {
   const { removeBookmark } = useRemoveBookmark();
   const { user } = useUser();
 
-  const totalUpVote = product?.reviews?.reduce(
-    (prev, next) => prev + next.upVote,
+  const totalRatings = product?.reviews?.reduce(
+    (prev, next) => prev + next.rating,
     0,
   );
 
-  const totalDownVote = product?.reviews?.reduce(
-    (prev, next) => prev + next.downVote,
-    0,
-  );
-
-  const averageVote = (totalUpVote / (totalUpVote + totalDownVote)) * 100;
+  const averageVote = product?.reviews.length
+    ? totalRatings / product?.reviews.length
+    : 0;
 
   const [filteredBookmark] =
     user?.bookmarks?.filter(
@@ -106,14 +103,13 @@ const ProductListItem = ({ product }) => {
           {product?.texts?.title}
         </h3>
         <div className="mt-3 flex flex-col items-center">
-          {/* <p className="sr-only">{averageVote} out of 5 stars</p> */}
           <div className="flex items-center">
             {[0, 1, 2, 3, 4].map((rating) => (
               <StarIcon
                 key={rating}
                 className={`
                         ${
-                          averageVote >= rating * 20
+                          averageVote >= rating
                             ? 'text-yellow-400'
                             : 'text-slate-400'
                         }

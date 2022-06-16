@@ -7,8 +7,6 @@ import classNames from 'classnames';
 import useUser from '../modules/auth/hooks/useUser';
 import useSetOrderPaymentProvider from '../modules/orders/hooks/setPaymentOrderProvider';
 import DatatransStatusGate from '../modules/checkout/components/DatatransStatusGate';
-import BityPayment from '../modules/checkout/components/BityPayment';
-import DatatransPayment from '../modules/checkout/components/DatatransPayment';
 
 import ManageCart from '../modules/cart/components/ManageCart';
 import DeliveryAddressEditable from '../modules/checkout/components/DeliveryAddressEditable';
@@ -292,7 +290,6 @@ const Review = () => {
                                   user?.cart?.paymentInfo?.provider?._id
                                 }
                                 onChange={async () => {
-                                  // e.preventDefault();
                                   await selectPayment(paymentMethod._id);
                                 }}
                               />
@@ -312,18 +309,6 @@ const Review = () => {
                     </fieldset>
 
                     <div className="mt-4">
-                      {user?.cart?.paymentInfo?.provider?.interface?._id ===
-                      'shop.unchained.datatrans' ? (
-                        <DatatransPayment cart={user?.cart} />
-                      ) : (
-                        ''
-                      )}
-                      {user?.cart?.paymentInfo?.provider?.interface?._id ===
-                      'shop.unchained.payment.bity' ? (
-                        <BityPayment cart={user?.cart} />
-                      ) : (
-                        ''
-                      )}
                       {user?.cart?.paymentInfo?.provider?.interface?._id ===
                         'shop.unchained.payment.cryptopay' &&
                         contractAddress?.map((address) => (

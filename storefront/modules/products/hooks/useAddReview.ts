@@ -14,7 +14,10 @@ const useAddReview = () => {
   });
 
   const addReview = async ({ productId, productReview }) => {
-    return addReviewMutation({ variables: { productId, productReview } });
+    return addReviewMutation({
+      variables: { productId, productReview },
+      refetchQueries: ['Product'],
+    });
   };
 
   return { addReview };

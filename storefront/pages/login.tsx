@@ -1,10 +1,15 @@
 import { useIntl } from 'react-intl';
 
 import Image from 'next/image';
+import getConfig from 'next/config';
 import LoginForm from '../modules/auth/components/LoginForm';
 import MetaTags from '../modules/common/components/MetaTags';
 import useRedirect from '../modules/auth/hooks/useRedirect';
 import defaultNextImageLoader from '../modules/common/utils/getDefaultNextImageLoader';
+
+const {
+  publicRuntimeConfig: { theme },
+} = getConfig();
 
 const LogIn = () => {
   const { formatMessage } = useIntl();
@@ -18,7 +23,7 @@ const LogIn = () => {
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <div className="relative mx-auto h-10 w-36 rounded">
             <Image
-              src="/img/logo.png"
+              src={theme.assets.logo}
               alt={formatMessage({
                 id: 'shop_logo_login',
                 defaultMessage: 'Shop logo',
