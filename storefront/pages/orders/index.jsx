@@ -9,6 +9,7 @@ import useRedirect from '../../modules/auth/hooks/useRedirect';
 
 const Order = () => {
   const { orders, loading } = useOrderList();
+
   const { query, push } = useRouter();
   const { formatMessage } = useIntl();
   useRedirect({ to: '/login', matchGuests: true, matchAnonymous: true });

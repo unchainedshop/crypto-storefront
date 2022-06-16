@@ -43,7 +43,7 @@ const Categories = () => {
                     'Each season, we collaborate with world-class designers to create a collection inspired by the natural world.',
                 })}
               </p>
-              <div className="mt-10 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-8 lg:gap-y-16 lg:space-y-0">
+              <div className="mt-10 space-y-12 divide-y divide-gray-200 lg:grid lg:grid-cols-3 lg:gap-x-5  lg:space-y-0">
                 {assortments.map((category) => (
                   <CategoryListItem key={category._id} category={category} />
                 ))}

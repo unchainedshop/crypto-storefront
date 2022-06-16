@@ -95,7 +95,11 @@ export const keyMappings: any = {
       },
     },
   },
-
+  ProductSearchResult: {
+    fields: {
+      products: offsetLimitPagination(),
+    },
+  },
   SearchResult: {
     fields: {
       products: offsetLimitPagination(),

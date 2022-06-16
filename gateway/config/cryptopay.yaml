@@ -1,6 +1,6 @@
 currencies:
   eth:
-    rpc-endpoint: ${ETH_API_KEY}
+    rpc-endpoint: ${ETH_RPC_ENDPOINT}
     xpub: ${ETH_EXTENDED_PUBLIC_KEY}
     poa-testnet: True # Running on a a testnet with PoA
     init-block-history: 1000 # How many blocks in the past to consider on the first run

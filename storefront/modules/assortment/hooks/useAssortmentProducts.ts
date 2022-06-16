@@ -73,10 +73,6 @@ const useAssortmentProducts = (
     fetchMore({
       variables: {
         offset: products.length,
-        includeLeaves,
-        slugs,
-        forceLocale: intl.locale,
-        limit: 10,
       },
     });
   };

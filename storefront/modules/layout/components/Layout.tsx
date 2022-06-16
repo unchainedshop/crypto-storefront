@@ -1,4 +1,3 @@
-import Footer from './Footer';
 import Header from './Header';
 
 const Layout = ({ children }) => {
@@ -6,7 +5,6 @@ const Layout = ({ children }) => {
     <>
       <Header />
       <main className="container mx-auto">{children}</main>
-      <Footer />
     </>
   );
 };

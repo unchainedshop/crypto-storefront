@@ -73,7 +73,7 @@ const Detail = () => {
               />
             </div>
 
-            <div className="mt-8 lg:col-span-7 lg:col-start-1 lg:row-span-3 lg:mt-0">
+            <div className="mt-8 lg:col-span-5 lg:col-start-1  lg:mt-0">
               <ImageGallery
                 lazyLoad
                 showThumbnails
@@ -156,8 +156,22 @@ const Detail = () => {
                 </div>
               </div>
 
-              {/* Variations */}
-
+              <div>
+                <div className="mt-10">
+                  <h2 className="text-sm font-medium text-slate-900 dark:text-slate-100">
+                    {formatMessage({
+                      id: 'description',
+                      defaultMessage: 'Description',
+                    })}
+                  </h2>
+                  <div
+                    className="prose prose-sm mt-4 text-slate-500 dark:text-slate-300"
+                    dangerouslySetInnerHTML={{
+                      __html: product?.texts?.description,
+                    }}
+                  />
+                </div>
+              </div>
               <div className=" mt-5 flex w-full justify-evenly ">
                 <AddToCartButton productId={product._id} />
                 <button
@@ -183,23 +197,6 @@ const Detail = () => {
                     })}
                   </span>
                 </button>
-              </div>
-              <div>
-                {/* Product details */}
-                <div className="mt-10">
-                  <h2 className="text-sm font-medium text-slate-900 dark:text-slate-100">
-                    {formatMessage({
-                      id: 'description',
-                      defaultMessage: 'Description',
-                    })}
-                  </h2>
-                  <div
-                    className="prose prose-sm mt-4 text-slate-500 dark:text-slate-300"
-                    dangerouslySetInnerHTML={{
-                      __html: product?.texts?.description,
-                    }}
-                  />
-                </div>
               </div>
             </div>
 
