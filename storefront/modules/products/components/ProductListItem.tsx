@@ -12,6 +12,7 @@ import useConditionalBookmarkProduct from '../../cart/hooks/useConditionalBookma
 import useRemoveBookmark from '../../common/hooks/useRemoveBookmark';
 import defaultNextImageLoader from '../../common/utils/getDefaultNextImageLoader';
 import getMediaUrl from '../../common/utils/getMediaUrl';
+import calculateProductRating from '../utils/calculateProductRating';
 
 const ProductListItem = ({ product }) => {
   const { formatMessage } = useIntl();
@@ -20,14 +21,7 @@ const ProductListItem = ({ product }) => {
   const { removeBookmark } = useRemoveBookmark();
   const { user } = useUser();
 
-  const totalRatings = product?.reviews?.reduce(
-    (prev, next) => prev + next.rating,
-    0,
-  );
-
-  const averageVote = product?.reviews.length
-    ? totalRatings / product?.reviews.length
-    : 0;
+  const averageVote = calculateProductRating(product?.reviews);
 
   const [filteredBookmark] =
     user?.bookmarks?.filter(
@@ -104,7 +98,7 @@ const ProductListItem = ({ product }) => {
         </h3>
         <div className="mt-3 flex flex-col items-center">
           <div className="flex items-center">
-            {[0, 1, 2, 3, 4].map((rating) => (
+            {[1, 2, 3, 4, 5].map((rating) => (
               <StarIcon
                 key={rating}
                 className={`

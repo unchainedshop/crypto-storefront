@@ -21,6 +21,7 @@ const ProductFragment = gql`
       title
       review
     }
+
     ... on SimpleProduct {
       simulatedPrice(currency: $currency) {
         _id
@@ -29,29 +30,24 @@ const ProductFragment = gql`
         amount
         currency
       }
+      texts(forceLocale: $forceLocale) {
+        _id
+        title
+        subtitle
+        description
+        slug
+        labels
+        vendor
+        brand
+      }
       dimensions {
         width
         height
         length
         weight
       }
-      texts(forceLocale: $forceLocale) {
-        _id
-        title
-        subtitle
-        description
-        slug
-      }
     }
-    ... on PlanProduct {
-      texts(forceLocale: $forceLocale) {
-        _id
-        title
-        subtitle
-        description
-        slug
-      }
-    }
+
     ... on BundleProduct {
       texts(forceLocale: $forceLocale) {
         _id
@@ -59,6 +55,9 @@ const ProductFragment = gql`
         subtitle
         description
         slug
+        labels
+        vendor
+        brand
       }
       bundleItems {
         product {
@@ -94,6 +93,9 @@ const ProductFragment = gql`
         subtitle
         description
         slug
+        labels
+        vendor
+        brand
       }
       variations {
         _id

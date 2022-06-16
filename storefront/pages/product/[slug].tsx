@@ -19,6 +19,7 @@ import ProductReview from '../../modules/products/components/ProductReview';
 import ProductListItem from '../../modules/products/components/ProductListItem';
 import AddToCartButton from '../../modules/cart/components/AddToCartButton';
 import useConditionalBookmarkProduct from '../../modules/cart/hooks/useConditionalBookmarkProduct';
+import calculateProductRating from '../../modules/products/utils/calculateProductRating';
 
 const Detail = () => {
   const router = useRouter();
@@ -35,17 +36,7 @@ const Detail = () => {
     setCurrentUrl(window.location.href);
   }, []);
 
-  const totalUpVote = product?.reviews?.reduce(
-    (prev, next) => prev + next.upVote,
-    0,
-  );
-
-  const totalDownVote = product?.reviews?.reduce(
-    (prev, next) => prev + next.downVote,
-    0,
-  );
-
-  const averageVote = (totalUpVote / (totalUpVote + totalDownVote)) * 100;
+  const averageReview = calculateProductRating(product?.reviews);
 
   if (!product && !loading)
     return (
@@ -115,7 +106,7 @@ const Detail = () => {
                 </h2>
                 <div className="flex items-center">
                   <p className="text-sm text-slate-700 dark:text-slate-100">
-                    {averageVote || ''}
+                    {averageReview || ''}
                     <span className="sr-only">
                       {formatMessage({
                         id: 'reviews_starts_range',
@@ -124,11 +115,11 @@ const Detail = () => {
                     </span>
                   </p>
                   <div className="ml-1 flex items-center">
-                    {[0, 1, 2, 3, 4].map((rating) => (
+                    {[1, 2, 3, 4, 5].map((rating) => (
                       <StarIcon
                         key={rating}
                         className={`${
-                          averageVote >= rating * 20
+                          averageReview >= rating
                             ? 'text-yellow-400'
                             : 'text-slate-200'
                         } h-5 w-5 flex-shrink-0`}
