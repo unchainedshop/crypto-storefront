@@ -29,19 +29,12 @@ const ProductReview = ({ reviews, productId }) => {
   };
 
   return (
-    <section
-      aria-labelledby="reviews-heading"
-      className="mt-16 sm:mt-24 lg:col-span-12"
-    >
+    <section aria-labelledby="reviews-heading">
       <div className="md:grid md:grid-cols-2">
-        <h2 className="sr-only">
-          {formatMessage({
-            id: 'recent_reviews',
-            defaultMessage: 'Recent Reviews',
-          })}
-        </h2>
-
-        <form className="mt-10 flex flex-col" onSubmit={handleSubmit(onSubmit)}>
+        <form
+          className=" mr-2 flex flex-col border-2 pb-8 "
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <fieldset className="flex justify-center gap-6 pt-10">
             <legend className="sr-only">
               {formatMessage({
@@ -124,7 +117,7 @@ const ProductReview = ({ reviews, productId }) => {
           <button
             type="submit"
             disabled={!user}
-            className="mx-8 mt-6 inline-flex items-center justify-center rounded-md border border-slate-300 bg-white py-2 px-8 text-sm font-medium text-slate-900 hover:bg-slate-50 dark:bg-slate-700 dark:text-slate-100"
+            className="mx-auto mt-4 w-1/2 rounded-md border border-transparent bg-indigo-600 p-1 text-center text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
           >
             {formatMessage({
               id: 'write_review',
@@ -177,15 +170,13 @@ const ProductReview = ({ reviews, productId }) => {
 
                 <div className="mt-4 flex items-center text-slate-300">
                   {[0, 1, 2, 3, 4].map((star) => (
-                    <>
-                      <StarIcon
-                        key={star}
-                        className={classNames('h-5 w-5 flex-shrink-0 ', {
-                          'text-yellow-400': review.rating > star,
-                        })}
-                        aria-hidden="true"
-                      />
-                    </>
+                    <StarIcon
+                      key={star}
+                      className={classNames('h-5 w-5 flex-shrink-0 ', {
+                        'text-yellow-400': review.rating > star,
+                      })}
+                      aria-hidden="true"
+                    />
                   ))}
                 </div>
                 <p className="sr-only">
@@ -205,7 +196,7 @@ const ProductReview = ({ reviews, productId }) => {
                 <div className="mt-4 flex text-slate-400">
                   <button
                     type="button"
-                    className="flex items-center p-2 hover:bg-yellow-100 hover:text-yellow-700 disabled:cursor-not-allowed disabled:bg-white disabled:text-slate-200"
+                    className="flex items-center border-2 p-2 hover:bg-yellow-100 hover:text-yellow-700 disabled:cursor-not-allowed disabled:bg-white disabled:text-slate-200"
                     onClick={() =>
                       addReviewVote({
                         productReviewId: review._id,
@@ -219,7 +210,7 @@ const ProductReview = ({ reviews, productId }) => {
                   <span className="mx-2 p-2">{review?.upVote}</span>
                   <button
                     type="button"
-                    className="flex items-center p-2 hover:bg-yellow-100 hover:text-yellow-700 disabled:cursor-not-allowed disabled:bg-white disabled:text-slate-200"
+                    className="flex items-center border-2 p-2 hover:bg-yellow-100 hover:text-yellow-700 disabled:cursor-not-allowed disabled:bg-white disabled:text-slate-200"
                     onClick={() =>
                       addReviewVote({
                         productReviewId: review._id,

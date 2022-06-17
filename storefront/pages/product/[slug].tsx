@@ -55,8 +55,8 @@ const Detail = () => {
       {loading ? (
         <LoadingItem />
       ) : (
-        <div className="mt-2 pl-1 pb-16 sm:pb-24">
-          <div className="lg:grid lg:auto-rows-min lg:grid-cols-12 lg:gap-x-8">
+        <div className="mt-2  bg-slate-100 pl-1 pb-16 dark:bg-slate-600 sm:pb-24">
+          <div className="lg:grid lg:auto-rows-min lg:grid-cols-12 ">
             <div className="max-w-full lg:col-span-12 lg:col-start-1">
               <AssortmentBreadcrumbs
                 paths={productPath}
@@ -64,20 +64,22 @@ const Detail = () => {
               />
             </div>
 
-            <div className="mt-8 lg:col-span-5 lg:col-start-1  lg:mt-0">
-              <ImageGallery
-                lazyLoad
-                showThumbnails
-                onErrorImageURL="/static/img/sun-glass-placeholder.jpeg"
-                useBrowserFullscreen
-                items={getMediaUrls(product).map((image) => ({
-                  original: image,
-                  thumbnail: image,
-                }))}
-              />
+            <div className=" border-2 bg-white lg:col-span-6 lg:col-start-1">
+              {getMediaUrls(product)?.length ? (
+                <ImageGallery
+                  lazyLoad
+                  showThumbnails
+                  onErrorImageURL="/static/img/sun-glass-placeholder.jpeg"
+                  useBrowserFullscreen
+                  items={getMediaUrls(product).map((image) => ({
+                    original: image,
+                    thumbnail: image,
+                  }))}
+                />
+              ) : null}
             </div>
 
-            <div className="lg:col-span-5 lg:col-start-8">
+            <div className="ml-4 border-2 bg-white p-5 lg:col-span-6">
               <div className="flex justify-between">
                 <h1
                   className="text-xl font-medium text-slate-900 dark:text-slate-100"
@@ -87,17 +89,13 @@ const Detail = () => {
                   {renderPrice(product?.simulatedPrice)}
                 </p>
               </div>
-              <div>
-                <h4
-                  className="text-base font-normal text-slate-500 dark:text-slate-300"
-                  dangerouslySetInnerHTML={{
-                    __html: product?.texts?.subtitle,
-                  }}
-                />
-              </div>
-
-              {/* Reviews */}
-              <div className="mt-4">
+              <h4
+                className="text-base font-normal text-slate-500 dark:text-slate-300"
+                dangerouslySetInnerHTML={{
+                  __html: product?.texts?.subtitle,
+                }}
+              />
+              <div className="mt-4 ">
                 <h2 className="sr-only">
                   {formatMessage({
                     id: 'reviews',
@@ -163,6 +161,18 @@ const Detail = () => {
                   />
                 </div>
               </div>
+              <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
+                {(product?.texts?.labels || [])?.map((label) => (
+                  <label className="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white py-3 px-4 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1 ">
+                    <span id="size-choice-1-label"> {label} </span>
+
+                    <span
+                      className="pointer-events-none absolute -inset-px rounded-md"
+                      aria-hidden="true"
+                    />
+                  </label>
+                ))}
+              </div>
               <div className=" mt-5 flex w-full justify-evenly ">
                 <AddToCartButton productId={product._id} />
                 <button
@@ -170,7 +180,7 @@ const Detail = () => {
                   onClick={() =>
                     conditionalBookmarkProduct({ productId: product?._id })
                   }
-                  className="ml-4 flex items-center justify-center rounded-md py-3 px-3 text-gray-400 hover:bg-gray-100 hover:text-gray-500"
+                  className="ml-4 flex items-center justify-center rounded-md border-2 py-3 px-3 text-gray-400 hover:bg-gray-100 hover:text-gray-500"
                 >
                   <HeartIcon
                     fill="none"
@@ -190,15 +200,13 @@ const Detail = () => {
                 </button>
               </div>
             </div>
-
-            {
+            <div className="mt-8 border-2 bg-white lg:col-span-12">
               <ProductReview
                 reviews={product?.reviews || []}
                 productId={product?._id}
               />
-            }
+            </div>
 
-            {/* Bundle products */}
             {product?.bundleItems && (
               <section
                 aria-labelledby="related-heading"
