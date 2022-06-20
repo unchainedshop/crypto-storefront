@@ -5,8 +5,8 @@ RUN mkdir -p /source
 WORKDIR /source
 ADD package.json /source/
 ADD package-lock.json /source/
-ENV MONGOMS_VERSION 5.0.6
-RUN  NODE_ENV=development MONGOMS_VERSION=5.0.6  meteor npm install
+
+RUN  NODE_ENV=development meteor npm install
 
 # Build app
 ADD . /source/
