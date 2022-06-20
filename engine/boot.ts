@@ -1,4 +1,6 @@
 import { Meteor } from 'meteor/meteor';
+import { embedControlpanelInMeteorWebApp } from "@unchainedshop/controlpanel";
+import { WebApp } from "meteor/webapp";
 import {
   startPlatform,
   withAccessToken,
@@ -35,6 +37,7 @@ Meteor.startup(async () => {
   });
   await seed(unchainedAPI);
   await setAccessToken(unchainedAPI, 'admin', process.env.UNCHAINED_SECRET);
+  embedControlpanelInMeteorWebApp(WebApp);
 
   
 });
