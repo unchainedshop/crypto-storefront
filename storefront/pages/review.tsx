@@ -36,6 +36,8 @@ const Review = () => {
   );
   const [contractAddress, setContractAddress] = useState([]);
 
+  console.log(user);
+
   useEffect(() => {
     if (!loading && user?.cart && !user.cart.contact?.emailAddress) {
       router.replace({ pathname: '/checkout' });
@@ -234,14 +236,12 @@ const Review = () => {
                     </h4>
 
                     <div className="my-3 flex items-start">
-                      <label className="mb-5 " htmlFor="same">
+                      <label className="mb-5" htmlFor="same">
                         <input
                           type="checkbox"
                           className="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 dark:text-indigo-800"
                           id="same"
-                          defaultChecked={
-                            user?.cart?.deliveryInfo?.address === null
-                          }
+                          defaultChecked={user?.cart?.deliveryInfo === null}
                           name="same"
                           onChange={(e) => sameAsDeliveryChange(e)}
                         />
@@ -313,10 +313,13 @@ const Review = () => {
                         'shop.unchained.payment.cryptopay' &&
                         contractAddress?.map((address) => (
                           <>
-                            <QRCodeComponent paymentAddress={address} />
+                            <div className="flex">
+                              <QRCodeComponent paymentAddress={address} />
+                            </div>
                             {address.currency === 'ETH' && hasSigner && (
                               <button
                                 type="button"
+                                className="mt-3 inline-flex items-center rounded-md border-2 border-slate-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-slate-700 shadow hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-slate-500 dark:text-white"
                                 onClick={() =>
                                   payWithMetaMask(
                                     address.address,

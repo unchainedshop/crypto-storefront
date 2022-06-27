@@ -4,8 +4,11 @@ import { useEffect, useState } from 'react';
 import ImageGallery from 'react-image-gallery';
 import { useIntl } from 'react-intl';
 
-import { StarIcon } from '@heroicons/react/solid';
-import { HeartIcon } from '@heroicons/react/outline';
+import { HeartIcon, PhotographIcon, StarIcon } from '@heroicons/react/solid';
+// eslint-disable-next-line no-unused-vars
+import Image from 'next/image';
+import classNames from 'classnames';
+
 import useProductDetail from '../../modules/products/hooks/useProductDetail';
 import renderPrice from '../../modules/common/utils/renderPrice';
 import LoadingItem from '../../modules/common/components/LoadingItem';
@@ -20,16 +23,27 @@ import ProductListItem from '../../modules/products/components/ProductListItem';
 import AddToCartButton from '../../modules/cart/components/AddToCartButton';
 import useConditionalBookmarkProduct from '../../modules/cart/hooks/useConditionalBookmarkProduct';
 import calculateProductRating from '../../modules/products/utils/calculateProductRating';
+// eslint-disable-next-line no-unused-vars
+import defaultNextImageLoader from '../../modules/common/utils/defaultNextImageLoader';
+import useUser from '../../modules/auth/hooks/useUser';
+import useRemoveBookmark from '../../modules/common/hooks/useRemoveBookmark';
 
 const Detail = () => {
   const router = useRouter();
   const { formatMessage } = useIntl();
   const [currentUrl, setCurrentUrl] = useState('');
+  const { user } = useUser();
 
   const { product, paths, loading } = useProductDetail({
     slug: router.query.slug,
   });
   const { conditionalBookmarkProduct } = useConditionalBookmarkProduct();
+  const { removeBookmark } = useRemoveBookmark();
+
+  const [filteredBookmark] =
+    user?.bookmarks?.filter(
+      (bookmark) => bookmark?.product?._id === product?._id,
+    ) || [];
 
   const productPath = getAssortmentPath(paths);
   useEffect(() => {
@@ -55,8 +69,8 @@ const Detail = () => {
       {loading ? (
         <LoadingItem />
       ) : (
-        <div className="mt-2  bg-slate-100 pl-1 pb-16 dark:bg-slate-600 sm:pb-24">
-          <div className="lg:grid lg:auto-rows-min lg:grid-cols-12 ">
+        <div className="mt-2 bg-slate-100 pl-1 pb-16 dark:bg-slate-600 sm:pb-24">
+          <div className="space-y-4 lg:grid lg:auto-rows-min lg:grid-cols-12 ">
             <div className="max-w-full lg:col-span-12 lg:col-start-1">
               <AssortmentBreadcrumbs
                 paths={productPath}
@@ -64,7 +78,7 @@ const Detail = () => {
               />
             </div>
 
-            <div className=" border-2 bg-white lg:col-span-6 lg:col-start-1">
+            <div className="mx-2 h-60 rounded-md border-2 bg-white dark:bg-slate-600 lg:col-span-6 lg:col-start-1 lg:h-auto">
               {getMediaUrls(product)?.length ? (
                 <ImageGallery
                   lazyLoad
@@ -76,10 +90,24 @@ const Detail = () => {
                     thumbnail: image,
                   }))}
                 />
-              ) : null}
+              ) : (
+                <div className="relative h-full w-full">
+                  {/* <Image
+                    loading="lazy"
+                    src="/static/img/sun-glass-placeholder.jpeg"
+                    alt="sun-glass-placeholder"
+                    layout="fill"
+                    quality={100}
+                    objectFit="cover"
+                    objectPosition="center"
+                    loader={defaultNextImageLoader}
+                  /> */}
+                  <PhotographIcon className="absolute inset-0 h-full w-full text-slate-200 dark:text-slate-500" />
+                </div>
+              )}
             </div>
 
-            <div className="ml-4 border-2 bg-white p-5 lg:col-span-6">
+            <div className="mx-2 rounded-md border-2 bg-white p-5 dark:bg-slate-600 lg:col-span-6">
               <div className="flex justify-between">
                 <h1
                   className="text-xl font-medium text-slate-900 dark:text-slate-100"
@@ -104,7 +132,7 @@ const Detail = () => {
                 </h2>
                 <div className="flex items-center">
                   <p className="text-sm text-slate-700 dark:text-slate-100">
-                    {averageReview || ''}
+                    {Math.round(averageReview * 100) / 100 || ''}
                     <span className="sr-only">
                       {formatMessage({
                         id: 'reviews_starts_range',
@@ -128,7 +156,7 @@ const Detail = () => {
 
                   <div className="ml-4 flex">
                     <a
-                      href="#"
+                      href="#all_reviews"
                       className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
                     >
                       {formatMessage(
@@ -173,22 +201,31 @@ const Detail = () => {
                   </label>
                 ))}
               </div>
-              <div className=" mt-5 flex w-full justify-evenly ">
+              <div className="mt-5 flex w-full justify-between">
                 <AddToCartButton productId={product._id} />
                 <button
                   type="button"
                   onClick={() =>
-                    conditionalBookmarkProduct({ productId: product?._id })
+                    filteredBookmark
+                      ? removeBookmark({
+                          bookmarkId: filteredBookmark?._id,
+                        })
+                      : conditionalBookmarkProduct({
+                          productId: product?._id,
+                        })
                   }
-                  className="ml-4 flex items-center justify-center rounded-md border-2 py-3 px-3 text-gray-400 hover:bg-gray-100 hover:text-gray-500"
                 >
                   <HeartIcon
-                    fill="none"
                     viewBox="0 0 24 24"
-                    stroke-width="2"
+                    strokeWidth="2"
                     stroke="currentColor"
                     aria-hidden="true"
-                    className="h-6 w-6"
+                    className={classNames(
+                      'h-8 w-8 text-slate-500 dark:text-slate-100',
+                      {
+                        'text-red-500 dark:text-red-200': filteredBookmark,
+                      },
+                    )}
                   />
 
                   <span className="sr-only">
@@ -200,7 +237,8 @@ const Detail = () => {
                 </button>
               </div>
             </div>
-            <div className="mt-8 border-2 bg-white lg:col-span-12">
+
+            <div className="mx-2 rounded-md border-2 bg-white dark:bg-slate-600 lg:col-span-12">
               <ProductReview
                 reviews={product?.reviews || []}
                 productId={product?._id}

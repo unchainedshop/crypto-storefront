@@ -8,7 +8,7 @@ import useAddReview from '../hooks/useAddReview';
 import useProductReviewVote from '../hooks/useProductReviewVote';
 
 const ProductReview = ({ reviews, productId }) => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const { formatMessage, locale } = useIntl();
   const { addReview } = useAddReview();
   const [rating, setRating] = useState(0);
@@ -26,15 +26,13 @@ const ProductReview = ({ reviews, productId }) => {
         title,
       },
     });
+    reset();
   };
 
   return (
     <section aria-labelledby="reviews-heading">
-      <div className="md:grid md:grid-cols-2">
-        <form
-          className=" mr-2 flex flex-col border-2 pb-8 "
-          onSubmit={handleSubmit(onSubmit)}
-        >
+      <div className="md:grid md:grid-cols-2 md:divide-x-2">
+        <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
           <fieldset className="flex justify-center gap-6 pt-10">
             <legend className="sr-only">
               {formatMessage({
@@ -117,7 +115,7 @@ const ProductReview = ({ reviews, productId }) => {
           <button
             type="submit"
             disabled={!user}
-            className="mx-auto mt-4 w-1/2 rounded-md border border-transparent bg-indigo-600 p-1 text-center text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            className="mx-8 my-4 rounded-md border border-transparent bg-indigo-600 p-2 text-center font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
           >
             {formatMessage({
               id: 'write_review',
@@ -125,11 +123,11 @@ const ProductReview = ({ reviews, productId }) => {
             })}
           </button>
         </form>
-        <div className="my-10">
+        <div className="my-10" id="all_reviews">
           {reviews.map((review, reviewIdx) => (
             <div
               key={review._id}
-              className="flex space-x-4 text-sm text-slate-500"
+              className="flex space-x-4 px-4 text-sm text-slate-500"
             >
               <div className="flex-none py-10">
                 {review?.author?.avatar?.url ? (
@@ -155,10 +153,10 @@ const ProductReview = ({ reviews, productId }) => {
                   'border-t border-slate-200': !(reviewIdx === 0),
                 })}
               >
-                <h3 className="font-medium text-slate-900">
+                <h3 className="font-medium text-slate-900 dark:text-slate-300">
                   {review.author.name}
                 </h3>
-                <p>
+                <p className="dark:text-slate-400">
                   <time dateTime={review.created}>
                     {new Intl.DateTimeFormat(locale, {
                       year: 'numeric',
@@ -188,7 +186,7 @@ const ProductReview = ({ reviews, productId }) => {
                 </p>
 
                 <div
-                  className="prose prose-sm mt-4 max-w-none text-slate-500"
+                  className="prose prose-sm mt-4 max-w-none text-slate-500 dark:text-slate-400"
                   // eslint-disable-next-line react/no-danger
                   dangerouslySetInnerHTML={{ __html: review.review }}
                 />
@@ -196,7 +194,7 @@ const ProductReview = ({ reviews, productId }) => {
                 <div className="mt-4 flex text-slate-400">
                   <button
                     type="button"
-                    className="flex items-center border-2 p-2 hover:bg-yellow-100 hover:text-yellow-700 disabled:cursor-not-allowed disabled:bg-white disabled:text-slate-200"
+                    className="flex items-center rounded border-2 p-2 hover:bg-yellow-100 hover:text-yellow-700 disabled:cursor-not-allowed disabled:bg-white disabled:text-slate-200 dark:disabled:bg-slate-500  dark:disabled:text-slate-400"
                     onClick={() =>
                       addReviewVote({
                         productReviewId: review._id,
@@ -210,7 +208,7 @@ const ProductReview = ({ reviews, productId }) => {
                   <span className="mx-2 p-2">{review?.upVote}</span>
                   <button
                     type="button"
-                    className="flex items-center border-2 p-2 hover:bg-yellow-100 hover:text-yellow-700 disabled:cursor-not-allowed disabled:bg-white disabled:text-slate-200"
+                    className="flex items-center rounded border-2 p-2 hover:bg-yellow-100 hover:text-yellow-700 disabled:cursor-not-allowed disabled:bg-white disabled:text-slate-200 dark:disabled:bg-slate-500 dark:disabled:text-slate-400"
                     onClick={() =>
                       addReviewVote({
                         productReviewId: review._id,
