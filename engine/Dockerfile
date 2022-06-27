@@ -27,7 +27,7 @@ RUN apt-get update && apt-get install -y curl pdftk
 COPY --from=bundler /bundle/programs/server/package* /webapp/programs/server/
 COPY --from=bundler /source/file_env.js  /webapp
 WORKDIR /webapp/programs/server
-RUN NODE_ENV=production npm install
+RUN NODE_ENV=production npm install && meteor update --all-packages
 
 
 
