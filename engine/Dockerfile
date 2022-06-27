@@ -12,7 +12,7 @@ RUN  NODE_ENV=development meteor npm install
 ADD . /source/
 RUN meteor build --server-only --allow-superuser --directory /
 
-FROM node:14 as runtime
+FROM node:14 as runtime 
 
 RUN useradd -u 501 -d /home/meteor meteor
 
@@ -27,13 +27,13 @@ RUN apt-get update && apt-get install -y curl pdftk
 COPY --from=bundler /bundle/programs/server/package* /webapp/programs/server/
 COPY --from=bundler /source/file_env.js  /webapp
 WORKDIR /webapp/programs/server
-RUN NODE_ENV=production npm install && meteor update --all-packages
+RUN NODE_ENV=production npm install 
 
 
 
 # Copy the app
 COPY --from=bundler /bundle /webapp/
-RUN NODE_ENV=production npm run install --production
+RUN NODE_ENV=production npm run install 
 WORKDIR /webapp
 
 ENV PORT 3000
