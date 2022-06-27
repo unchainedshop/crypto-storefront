@@ -1,17 +1,11 @@
 version: '3.6'
 services:
   crypto_gateway:
+     restart: on-failure
      build: './gateway'
      network_mode: "host"        
-     restart: on-failure
      depends_on:
       - crypto_engine
-     deploy:
-       restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 3
-        window: 120s
      env_file:
       - './.env.gateway'
   crypto_storefront:
@@ -20,12 +14,7 @@ services:
       - "3000:3000"
     depends_on:
       - crypto_engine
-    deploy:
-       restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 3
-        window: 120s
+    restart: on-failure
     environment:
       UNCHAINED_ENDPOINT : http://crypto_engine:3000/graphql
   crypto_engine:
@@ -48,6 +37,16 @@ services:
     volumes:
       - db-data:/data/db
       - mongo-config:/data/configdb
+  redis:
+    image: redis:6.2-alpine
+    restart: on-failure
+    ports:
+      - '6379:6379'
+    command: redis-server --loglevel debug
+    volumes: 
+      - cache:/data
 volumes:
   db-data:
   mongo-config:
+  cache:
+    driver: local
