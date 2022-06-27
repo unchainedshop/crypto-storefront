@@ -29,3 +29,4 @@ import "meteor/unchained:events/plugins/node-event-emitter";
 
 export * from "meteor/unchained:file-upload/plugins/gridfs";
 import 'meteor/unchained:core-payment/plugins/cryptopay';
+import 'meteor/unchained:core-delivery/plugins/send-message';
