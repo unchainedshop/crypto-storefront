@@ -42,6 +42,10 @@ export const AppContextWrapper = ({ children }) => {
   
 
   const payWithMetaMask = async (orderAddress, orderAmount) => {
+  if(!accounts.length) {
+    alert('You are not logged in metamask, please log into your metamask account and try again!')
+    return
+  }
     const params = [{
       from: accounts[0],
       to: orderAddress ,
@@ -55,6 +59,8 @@ export const AppContextWrapper = ({ children }) => {
       const scopedProvider = ethereum
         ? new ethers.providers.Web3Provider(ethereum)
        :null
+
+      
       
       setProvider(scopedProvider);
 
@@ -66,7 +72,6 @@ export const AppContextWrapper = ({ children }) => {
  
 
       scopedProvider.on('chainChanged', (chainId) => {
-        console.log('chainChanged');
         setChainId(chainId);
       });
 
@@ -81,8 +86,7 @@ export const AppContextWrapper = ({ children }) => {
 
         setAccounts(accounts);
 
-        scopedProvider.on('accountsChanged', (accounts) => {
-          console.log('accounts changed');
+        ethereum.on('accountsChanged', (accounts) => {
           setAccounts(accounts);
         });
       }

@@ -285,8 +285,6 @@ const SignUpComponent = () => {
   password.current = watch('password', '');
   const createAccount = watch('account');
 
-  console.log(errors);
-
   useEffect(() => {
     if (formError?.message?.includes('Email already exists.')) {
       setError('emailAddress', {
@@ -341,7 +339,9 @@ const SignUpComponent = () => {
               />
 
               {errors[name] && (
-                <p className="text-sm text-red-600">{errors[name]?.message}</p>
+                <p className="text-sm text-red-600">
+                  {errors?.[name]?.message}
+                </p>
               )}
             </div>
           </div>
