@@ -35,8 +35,9 @@ const Review = () => {
     user?.cart?.deliveryInfo?.provider?._id,
   );
   const [contractAddress, setContractAddress] = useState([]);
-
-  console.log(user);
+  const [sameCheckbox, setSameCheckbox] = useState(
+    user?.cart?.billingAddress !== null,
+  );
 
   useEffect(() => {
     if (!loading && user?.cart && !user.cart.contact?.emailAddress) {
@@ -102,6 +103,7 @@ const Review = () => {
         meta: null,
       });
     }
+    setSameCheckbox(!sameCheckbox);
   };
 
   useEffect(() => {
@@ -241,7 +243,8 @@ const Review = () => {
                           type="checkbox"
                           className="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 dark:text-indigo-800"
                           id="same"
-                          defaultChecked={user?.cart?.deliveryInfo === null}
+                          // defaultChecked={user?.cart?.deliveryInfo === null}
+                          defaultChecked={sameCheckbox}
                           name="same"
                           onChange={(e) => sameAsDeliveryChange(e)}
                         />
@@ -253,7 +256,10 @@ const Review = () => {
                         </span>
                       </label>
                     </div>
-                    <BillingAddressEditable user={user} />
+                    <BillingAddressEditable
+                      checked={sameCheckbox}
+                      user={user}
+                    />
                   </div>
 
                   {/* Payment */}
@@ -312,7 +318,7 @@ const Review = () => {
                       {user?.cart?.paymentInfo?.provider?.interface?._id ===
                         'shop.unchained.payment.cryptopay' &&
                         contractAddress?.map((address) => (
-                          <>
+                          <div key={address}>
                             <div className="flex">
                               <QRCodeComponent paymentAddress={address} />
                             </div>
@@ -333,7 +339,7 @@ const Review = () => {
                                 })}
                               </button>
                             )}
-                          </>
+                          </div>
                         ))}
                     </div>
 

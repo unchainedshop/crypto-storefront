@@ -5,7 +5,7 @@ import { useIntl } from 'react-intl';
 import useUpdateCart from '../hooks/useUpdateCart';
 import EditableField from '../../common/components/EditableField';
 
-const BillingAddressEditable = ({ user }) => {
+const BillingAddressEditable = ({ user, checked }) => {
   const [isEditing, setEditing] = useState(false);
   const { formatMessage } = useIntl();
   const { updateCart } = useUpdateCart();
@@ -103,7 +103,7 @@ const BillingAddressEditable = ({ user }) => {
 
   return (
     <>
-      {!user?.cart?.deliveryInfo?.address ? (
+      {checked ? (
         ''
       ) : (
         <form onSubmit={handleSubmit(onSubmit)}>
