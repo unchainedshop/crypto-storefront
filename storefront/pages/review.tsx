@@ -325,7 +325,7 @@ const Review = () => {
                             {address.currency === 'ETH' && hasSigner && (
                               <button
                                 type="button"
-                                className="mt-3 inline-flex items-center rounded-md border-2 border-slate-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-slate-700 shadow hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-slate-500 dark:text-white"
+                                className="mt-3 inline-flex items-center rounded-md border-2 border-[#F6851B] bg-[#F6851B] px-3 py-2 text-sm font-medium leading-4 text-slate-100 shadow hover:bg-[#E2761B] focus:outline-none focus:ring-2 focus:ring-[#F6851B] focus:ring-offset-2"
                                 onClick={() =>
                                   payWithMetaMask(
                                     address.address,
@@ -337,6 +337,15 @@ const Review = () => {
                                   id: 'pay_with_metamask',
                                   defaultMessage: 'Pay with metamask',
                                 })}
+                                <span className="ml-2 h-5 w-5">
+                                  <img
+                                    src="/static/img/icon-streamline/metamask-fox.svg"
+                                    alt={formatMessage({
+                                      id: 'metamask_fox',
+                                      defaultMessage: 'Metamask Fox',
+                                    })}
+                                  />
+                                </span>
                               </button>
                             )}
                           </div>
