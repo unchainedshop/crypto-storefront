@@ -258,27 +258,29 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                       defaultMessage: 'Last name',
                     })}
                   </label>
-                  <input
-                    type="text"
-                    id="lastName"
-                    name="lastName"
-                    ref={register({ required: true })}
-                    className={classNames(
-                      'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none  dark:text-slate-600 sm:text-sm',
-                      {
-                        'border-red-300 focus:border-red-600 focus:outline-none focus:ring-red-600':
-                          errors.lastName,
-                      },
+                  <div className="mt-1">
+                    <input
+                      type="text"
+                      id="lastName"
+                      name="lastName"
+                      ref={register({ required: true })}
+                      className={classNames(
+                        'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none  dark:text-slate-600 sm:text-sm',
+                        {
+                          'border-red-300 focus:border-red-600 focus:outline-none focus:ring-red-600':
+                            errors.lastName,
+                        },
+                      )}
+                    />
+                    {errors.lastName && (
+                      <p className="text-sm text-red-600">
+                        {formatMessage({
+                          id: 'error_lastName',
+                          defaultMessage: 'Last Name is required',
+                        })}
+                      </p>
                     )}
-                  />
-                  {errors.lastName && (
-                    <p className="text-sm text-red-600">
-                      {formatMessage({
-                        id: 'error_lastName',
-                        defaultMessage: 'Last Name is required',
-                      })}
-                    </p>
-                  )}
+                  </div>
                 </div>
 
                 <div className="md:col-span-3">
@@ -291,27 +293,29 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                       defaultMessage: 'Address',
                     })}
                   </label>
-                  <input
-                    type="text"
-                    id="addressLine"
-                    name="addressLine"
-                    ref={register({ required: true })}
-                    className={classNames(
-                      'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm',
-                      {
-                        'border-red-300 focus:border-red-600 focus:outline-none focus:ring-red-600':
-                          errors.addressLine,
-                      },
+                  <div className="mt-1">
+                    <input
+                      type="text"
+                      id="addressLine"
+                      name="addressLine"
+                      ref={register({ required: true })}
+                      className={classNames(
+                        'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm',
+                        {
+                          'border-red-300 focus:border-red-600 focus:outline-none focus:ring-red-600':
+                            errors.addressLine,
+                        },
+                      )}
+                    />
+                    {errors.addressLine && (
+                      <p className="text-sm text-red-600">
+                        {formatMessage({
+                          id: 'error_address',
+                          defaultMessage: 'Address is required',
+                        })}
+                      </p>
                     )}
-                  />
-                  {errors.addressLine && (
-                    <p className="text-sm text-red-600">
-                      {formatMessage({
-                        id: 'error_address',
-                        defaultMessage: 'Address is required',
-                      })}
-                    </p>
-                  )}
+                  </div>
                 </div>
 
                 <div className="md:col-span-3">
@@ -329,13 +333,15 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                       defaultMessage: 'Optional',
                     })}
                   </label>
-                  <input
-                    type="text"
-                    id="company"
-                    name="company"
-                    ref={register}
-                    className="block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm"
-                  />
+                  <div className="mt-1">
+                    <input
+                      type="text"
+                      id="company"
+                      name="company"
+                      ref={register}
+                      className="block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm"
+                    />
+                  </div>
                 </div>
 
                 <div className="md:col-span-3">
@@ -348,27 +354,29 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                       defaultMessage: 'Postal code',
                     })}
                   </label>
-                  <input
-                    type="text"
-                    id="postalCode"
-                    name="postalCode"
-                    ref={register({ required: true })}
-                    className={classNames(
-                      'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm',
-                      {
-                        'border-red-300 focus:border-red-600 focus:outline-none focus:ring-red-600':
-                          errors.postalCode,
-                      },
+                  <div className="mt-1">
+                    <input
+                      type="text"
+                      id="postalCode"
+                      name="postalCode"
+                      ref={register({ required: true })}
+                      className={classNames(
+                        'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm',
+                        {
+                          'border-red-300 focus:border-red-600 focus:outline-none focus:ring-red-600':
+                            errors.postalCode,
+                        },
+                      )}
+                    />
+                    {errors.postalCode && (
+                      <p className="text-sm text-red-600">
+                        {formatMessage({
+                          id: 'error_postalCode',
+                          defaultMessage: 'Postal code is required',
+                        })}
+                      </p>
                     )}
-                  />
-                  {errors.postalCode && (
-                    <p className="text-sm text-red-600">
-                      {formatMessage({
-                        id: 'error_postalCode',
-                        defaultMessage: 'Postal code is required',
-                      })}
-                    </p>
-                  )}
+                  </div>
                 </div>
 
                 <div className="md:col-span-3">
@@ -381,27 +389,29 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                       defaultMessage: 'Telephone',
                     })}
                   </label>
-                  <input
-                    type="tel"
-                    name="telNumber"
-                    autoComplete="tel"
-                    ref={register({ required: true })}
-                    className={classNames(
-                      'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm',
-                      {
-                        'border-red-300 focus:border-red-600 focus:outline-none focus:ring-red-600':
-                          errors.telNumber,
-                      },
+                  <div className="mt-1">
+                    <input
+                      type="tel"
+                      name="telNumber"
+                      autoComplete="tel"
+                      ref={register({ required: true })}
+                      className={classNames(
+                        'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm',
+                        {
+                          'border-red-300 focus:border-red-600 focus:outline-none focus:ring-red-600':
+                            errors.telNumber,
+                        },
+                      )}
+                    />
+                    {errors.telNumber && (
+                      <p className="text-sm text-red-600">
+                        {formatMessage({
+                          id: 'error_telNumber',
+                          defaultMessage: 'Telephone number is required',
+                        })}
+                      </p>
                     )}
-                  />
-                  {errors.telNumber && (
-                    <p className="text-sm text-red-600">
-                      {formatMessage({
-                        id: 'error_telNumber',
-                        defaultMessage: 'Telephone number is required',
-                      })}
-                    </p>
-                  )}
+                  </div>
                 </div>
 
                 <div className="md:col-span-2">
@@ -411,26 +421,28 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                   >
                     {formatMessage({ id: 'city', defaultMessage: 'City' })}
                   </label>
-                  <input
-                    type="text"
-                    id="city"
-                    name="city"
-                    ref={register({ required: true })}
-                    className={classNames(
-                      'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm',
-                      {
-                        'mt-2 text-sm text-red-600': errors.city,
-                      },
+                  <div className="mt-1">
+                    <input
+                      type="text"
+                      id="city"
+                      name="city"
+                      ref={register({ required: true })}
+                      className={classNames(
+                        'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm',
+                        {
+                          'mt-2 text-sm text-red-600': errors.city,
+                        },
+                      )}
+                    />
+                    {errors.city && (
+                      <p className="text-sm text-red-600">
+                        {formatMessage({
+                          id: 'error_city',
+                          defaultMessage: 'City is required',
+                        })}
+                      </p>
                     )}
-                  />
-                  {errors.city && (
-                    <p className="text-sm text-red-600">
-                      {formatMessage({
-                        id: 'error_city',
-                        defaultMessage: 'City is required',
-                      })}
-                    </p>
-                  )}
+                  </div>
                 </div>
 
                 <div className="md:col-span-2">
@@ -444,19 +456,21 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                       defaultMessage: 'Optional',
                     })}
                   </label>
-                  <input
-                    type="text"
-                    id="regionCode"
-                    name="regionCode"
-                    ref={register}
-                    className={classNames(
-                      'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm',
-                      {
-                        'border-red-300 focus:border-red-600 focus:outline-none focus:ring-red-600':
-                          errors.regionCode,
-                      },
-                    )}
-                  />
+                  <div className="mt-1">
+                    <input
+                      type="text"
+                      id="regionCode"
+                      name="regionCode"
+                      ref={register}
+                      className={classNames(
+                        'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm',
+                        {
+                          'border-red-300 focus:border-red-600 focus:outline-none focus:ring-red-600':
+                            errors.regionCode,
+                        },
+                      )}
+                    />
+                  </div>
                 </div>
 
                 <div className="md:col-span-2">

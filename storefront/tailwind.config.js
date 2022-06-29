@@ -1,3 +1,5 @@
+/* eslint-disable global-require */
+/* eslint-disable import/no-extraneous-dependencies */
 module.exports = {
   darkMode: 'class',
   content: ['./pages/**/*.{js,ts,jsx,tsx}', './modules/**/*.{js,ts,jsx,tsx}'],
@@ -43,7 +45,7 @@ module.exports = {
         '3/4': '75%',
       },
       content: {
-        star: 'url("/public/static/img/icon-streamline/star.svg")',
+        star: 'url("/storefront/public/static/img/icon-streamline/arrow-button-down.svg")',
       },
       spacing: {
         sp: 'calc(1em - 5px)',

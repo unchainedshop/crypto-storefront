@@ -35,6 +35,9 @@ const Review = () => {
     user?.cart?.deliveryInfo?.provider?._id,
   );
   const [contractAddress, setContractAddress] = useState([]);
+  const [sameCheckbox, setSameCheckbox] = useState(
+    user?.cart?.billingAddress !== null,
+  );
 
   useEffect(() => {
     if (!loading && user?.cart && !user.cart.contact?.emailAddress) {
@@ -100,6 +103,7 @@ const Review = () => {
         meta: null,
       });
     }
+    setSameCheckbox(!sameCheckbox);
   };
 
   useEffect(() => {
@@ -234,14 +238,13 @@ const Review = () => {
                     </h4>
 
                     <div className="my-3 flex items-start">
-                      <label className="mb-5 " htmlFor="same">
+                      <label className="mb-5" htmlFor="same">
                         <input
                           type="checkbox"
                           className="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 dark:text-indigo-800"
                           id="same"
-                          defaultChecked={
-                            user?.cart?.deliveryInfo?.address === null
-                          }
+                          // defaultChecked={user?.cart?.deliveryInfo === null}
+                          defaultChecked={sameCheckbox}
                           name="same"
                           onChange={(e) => sameAsDeliveryChange(e)}
                         />
@@ -253,7 +256,10 @@ const Review = () => {
                         </span>
                       </label>
                     </div>
-                    <BillingAddressEditable user={user} />
+                    <BillingAddressEditable
+                      checked={sameCheckbox}
+                      user={user}
+                    />
                   </div>
 
                   {/* Payment */}
@@ -312,11 +318,14 @@ const Review = () => {
                       {user?.cart?.paymentInfo?.provider?.interface?._id ===
                         'shop.unchained.payment.cryptopay' &&
                         contractAddress?.map((address) => (
-                          <>
-                            <QRCodeComponent paymentAddress={address} />
+                          <div key={address}>
+                            <div className="flex">
+                              <QRCodeComponent paymentAddress={address} />
+                            </div>
                             {address.currency === 'ETH' && hasSigner && (
                               <button
                                 type="button"
+                                className="mt-3 inline-flex items-center rounded-md border-2 border-[#F6851B] bg-[#F6851B] px-3 py-2 text-sm font-medium leading-4 text-slate-100 shadow hover:bg-[#E2761B] focus:outline-none focus:ring-2 focus:ring-[#F6851B] focus:ring-offset-2"
                                 onClick={() =>
                                   payWithMetaMask(
                                     address.address,
@@ -328,9 +337,19 @@ const Review = () => {
                                   id: 'pay_with_metamask',
                                   defaultMessage: 'Pay with metamask',
                                 })}
+                                <span className="ml-2 rounded-full border border-[#CD6116] p-1">
+                                  <img
+                                    src="/static/img/icon-streamline/metamask-fox.svg"
+                                    alt={formatMessage({
+                                      id: 'metamask_fox',
+                                      defaultMessage: 'Metamask Fox',
+                                    })}
+                                    className="h-5 w-5"
+                                  />
+                                </span>
                               </button>
                             )}
-                          </>
+                          </div>
                         ))}
                     </div>
 

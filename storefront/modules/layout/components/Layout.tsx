@@ -4,7 +4,7 @@ const Layout = ({ children }) => {
   return (
     <>
       <Header />
-      <main className="container mx-auto">{children}</main>
+      <main className="container mx-auto mb-16">{children}</main>
     </>
   );
 };

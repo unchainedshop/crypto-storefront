@@ -81,7 +81,7 @@ const DeliveryAddressEditable = ({ user }) => {
         defaultMessage: 'Last name',
       }),
       type: 'text',
-      validator: { required: 'First name must be provided.' },
+      validator: { required: 'Last name must be provided.' },
       full: false,
     },
     {

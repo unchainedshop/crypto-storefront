@@ -29,7 +29,7 @@ const QRCodeComponent = ({
   };
 
   return paymentAddress ? (
-    <div className="relative w-full">
+    <div className="relative">
       <div
         className={classNames(
           'my-2 text-center text-lg font-bold text-slate-600 dark:text-slate-200',
@@ -41,11 +41,11 @@ const QRCodeComponent = ({
       <div
         onClick={copyToClipboard}
         className={classNames(
-          "relative mx-auto my-4 w-fit after:invisible after:absolute after:left-2 after:top-0 after:z-10 after:h-fit after:rounded after:bg-slate-900 after:px-2 after:py-1 after:text-white after:opacity-0 after:transition after:content-['Click_to_copy'] hover:cursor-pointer hover:after:visible hover:after:opacity-100",
+          "relative my-4 w-fit after:invisible after:absolute after:left-2 after:top-0 after:z-10 after:h-fit after:rounded after:bg-slate-900 after:px-2 after:py-1 after:text-white after:opacity-0 after:transition after:content-['Click_to_copy'] hover:cursor-pointer hover:after:visible hover:after:opacity-100",
           className,
         )}
       >
-        <div className="rounded-lg border bg-white p-4 drop-shadow-lg">
+        <div className="rounded-lg border bg-white p-4 drop-shadow-lg dark:bg-slate-400">
           <QRCode
             style={{ width: 128 }}
             value={paymentAddress.address}

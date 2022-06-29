@@ -60,7 +60,7 @@ const AddToCartButton = ({ productId }) => {
 
   return quantity ? (
     <div className="flex justify-between">
-      <div className="flex w-full items-center">
+      <div className="flex w-full items-center gap-4">
         <button
           type="button"
           className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 p-1 text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
@@ -75,6 +75,7 @@ const AddToCartButton = ({ productId }) => {
           onClick={addToCart}
         >
           <input
+            disabled
             name="quantity"
             ref={register}
             type="number"
@@ -84,7 +85,7 @@ const AddToCartButton = ({ productId }) => {
             onChange={handleNumberInput}
             onClick={(event) => event.stopPropagation()}
           />
-          <span className="ml-1">
+          {/* <span className="ml-1">
             {formatMessage({ id: 'in_cart', defaultMessage: 'In cart' })}
           </span>
           <span className="icon icon--check ml-2">
@@ -98,7 +99,7 @@ const AddToCartButton = ({ productId }) => {
                 d="M23.146 5.4l-2.792-2.8a.5.5 0 00-.708 0L7.854 14.4a.5.5 0 01-.708 0l-2.792-2.8a.5.5 0 00-.708 0L.854 14.4a.5.5 0 000 .707L7.146 21.4a.5.5 0 00.708 0L23.146 6.1a.5.5 0 000-.7z"
               />
             </svg>
-          </span>
+          </span> */}
         </button>
 
         <button
