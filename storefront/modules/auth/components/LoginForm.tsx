@@ -19,11 +19,11 @@ const LoginForm = ({ onLogin = null }) => {
 
   useEffect(() => {
     if (error?.message?.includes('Invalid credentials')) {
-      setError('email', {
+      setError('account', {
         type: 'manual',
         message: `👷‍♀️ ${formatMessage({
-          id: 'invalid_email_password',
-          defaultMessage: 'Invalid password',
+          id: 'invalid_credentials',
+          defaultMessage: 'Invalid credentials',
         })}`,
       });
     }
@@ -42,7 +42,7 @@ const LoginForm = ({ onLogin = null }) => {
       onLogin?.();
       toast.success('Login is successfully');
     } catch (err) {
-      toast.error(`Login failed with ${err}`);
+      toast.error(`Login failed, try again`);
     }
   };
 
@@ -53,7 +53,7 @@ const LoginForm = ({ onLogin = null }) => {
   return (
     <>
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow dark:bg-slate-500 sm:rounded-lg sm:px-10">
+        <div className="bg-white py-8 px-4 shadow dark:bg-slate-600 sm:rounded-lg sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
             <div>
               <label
@@ -70,7 +70,7 @@ const LoginForm = ({ onLogin = null }) => {
                   autoComplete="email"
                   ref={register({ required: true })}
                   className={classNames(
-                    'block w-full appearance-none rounded-md border border-slate-300 px-3 py-2 placeholder-slate-400 shadow-sm focus:border-slate-500 focus:outline-none focus:ring-slate-500 sm:text-sm',
+                    'block w-full appearance-none rounded-md border border-slate-300 px-3 py-2 text-slate-900 placeholder-slate-400 shadow-sm focus:border-slate-900 focus:outline-none focus:ring-slate-900 dark:bg-slate-300 sm:text-sm',
                     {
                       'border-red-300 focus:border-red-500 focus:outline-none focus:ring-red-500':
                         errors.email,
@@ -103,7 +103,7 @@ const LoginForm = ({ onLogin = null }) => {
                   autoComplete="current-password"
                   ref={register({ required: true })}
                   className={classNames(
-                    'block w-full appearance-none rounded-md border border-slate-300 px-3 py-2 placeholder-slate-400 shadow-sm focus:border-slate-500 focus:outline-none focus:ring-slate-500 sm:text-sm',
+                    'block w-full appearance-none rounded-md border border-slate-300 px-3 py-2 text-slate-900 placeholder-slate-400 shadow-sm focus:border-slate-900 focus:outline-none focus:ring-slate-900 dark:bg-slate-300 sm:text-sm',
                     {
                       'border-red-300 focus:border-red-500 focus:outline-none focus:ring-red-500':
                         errors.password,
@@ -135,8 +135,9 @@ const LoginForm = ({ onLogin = null }) => {
             </div>
 
             {hasErrors
-              ? Object.values(errors).map((err) => (
-                  <div key={err.message} className="text-red-600">
+              ? Object.values(errors).map((err, key) => (
+                  // eslint-disable-next-line react/no-array-index-key
+                  <div key={`${err.message}${key}`} className="text-red-600">
                     {err.message}
                   </div>
                 ))

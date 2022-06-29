@@ -337,13 +337,14 @@ const Review = () => {
                                   id: 'pay_with_metamask',
                                   defaultMessage: 'Pay with metamask',
                                 })}
-                                <span className="ml-2 h-5 w-5">
+                                <span className="ml-2 rounded-full border border-[#CD6116] p-1">
                                   <img
                                     src="/static/img/icon-streamline/metamask-fox.svg"
                                     alt={formatMessage({
                                       id: 'metamask_fox',
                                       defaultMessage: 'Metamask Fox',
                                     })}
+                                    className="h-5 w-5"
                                   />
                                 </span>
                               </button>

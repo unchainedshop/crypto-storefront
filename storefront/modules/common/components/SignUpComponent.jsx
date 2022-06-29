@@ -14,7 +14,7 @@ const ErrorDisplay = ({ error }) => {
   if (!error) return '';
   if (error.message?.includes('Email already exists')) {
     return (
-      <div className="my-4 text-red-600">
+      <div className="my-4 text-red-600 lg:col-span-6">
         👬{' '}
         {formatMessage({ id: 'email_exists', defaultMessage: 'Email exists' })}.
       </div>
@@ -22,7 +22,7 @@ const ErrorDisplay = ({ error }) => {
   }
 
   return (
-    <div className="my-4 text-red-600">
+    <div className="my-4 text-red-600 lg:col-span-6">
       👷‍♀️{' '}
       {formatMessage({
         id: 'unknown_error',
@@ -165,10 +165,10 @@ const SignUpComponent = () => {
       width: 'third',
     },
     {
-      name: 'email',
+      name: 'emailAddress',
       type: 'email',
       label: formatMessage({
-        id: 'email',
+        id: 'emailAddress',
         defaultMessage: 'Email',
       }),
       validator: {
