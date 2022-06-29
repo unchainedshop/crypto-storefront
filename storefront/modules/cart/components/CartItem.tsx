@@ -141,7 +141,9 @@ const CartItem = ({ _id, quantity, product, total, enableUpdate = true }) => {
                   </button>
                 </div>
               </div>
-            ) : null}
+            ) : (
+              <span>{quantity}</span>
+            )}
           </div>
         </div>
       </div>

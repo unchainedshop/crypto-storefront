@@ -4,16 +4,26 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import Link from 'next/link';
 import Image from 'next/image';
 import getConfig from 'next/config';
+import { CheckCircleIcon } from '@heroicons/react/solid';
 import useOrderDetail from '../modules/orders/hooks/useOrderDetail';
 import MetaTags from '../modules/common/components/MetaTags';
 import CartItem from '../modules/cart/components/CartItem';
 import OrderPriceSummary from '../modules/checkout/components/OrderPriceSummary';
 import useFormatDateTime from '../modules/common/utils/useFormatDateTime';
 import defaultNextImageLoader from '../modules/common/utils/defaultNextImageLoader';
+import renderPrice from '../modules/common/utils/renderPrice';
 
 const {
   publicRuntimeConfig: { theme },
 } = getConfig();
+
+function getFlagEmoji(countryCode) {
+  const codePoints = countryCode
+    ?.toUpperCase()
+    ?.split('')
+    ?.map((char) => 127397 + char?.charCodeAt());
+  return String.fromCodePoint(...(codePoints || []));
+}
 
 const ThankYou = () => {
   const router = useRouter();
@@ -24,6 +34,8 @@ const ThankYou = () => {
   const { order } = useOrderDetail({
     orderId: router.query?.orderId,
   });
+
+  console.log(order);
 
   return (
     <>
@@ -40,9 +52,9 @@ const ThankYou = () => {
       />
 
       {order && (
-        <>
-          <main className="relative lg:min-h-full">
-            <div className="hidden  overflow-hidden lg:absolute lg:block lg:h-1/4 lg:w-1/2 lg:pr-4 xl:pr-12">
+        <div className="relative lg:min-h-full">
+          <div className="mx-auto max-w-2xl py-8 px-4 sm:px-6 sm:py-12 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8 lg:py-16 xl:gap-x-24">
+            <div className="relative hidden lg:block lg:h-1/6 lg:w-full lg:pr-4 xl:pr-12">
               <Image
                 src={theme.assets.logo}
                 alt={formatMessage({
@@ -56,141 +68,191 @@ const ThankYou = () => {
                 loader={defaultNextImageLoader}
               />
             </div>
+            <div className="lg:col-start-2">
+              <h1 className="text-sm font-medium text-indigo-600 dark:text-sky-400">
+                {formatMessage({
+                  id: 'thank_you',
+                  defaultMessage: 'Thank you!',
+                })}
+              </h1>
+              <p className="mt-2 text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-5xl">
+                {formatMessage({
+                  id: 'thank_you_header',
+                  defaultMessage: 'Thank You for Placing this Order with Us!',
+                })}
+              </p>
+              <p className="mt-2 text-base text-slate-500 dark:text-slate-400">
+                {formatMessage({
+                  id: 'thank_you_description',
+                  defaultMessage:
+                    'It has reached us and an email with the order placement  confirmation is on its way. To avoid any potential  miscommunication, please check your spam, perhaps the email landed  there.',
+                })}
+              </p>
 
-            <div>
-              <div className="mx-auto max-w-2xl py-16 px-4 sm:px-6 sm:py-24 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8 lg:py-32 xl:gap-x-24">
-                <div className="lg:col-start-2">
-                  <h1 className="text-sm font-medium text-indigo-600">
-                    {formatMessage({
-                      id: 'thank_you',
-                      defaultMessage: 'Thank you!',
-                    })}
-                  </h1>
-                  <p className="mt-2 text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
-                    {formatMessage({
-                      id: 'thank_you_header',
-                      defaultMessage:
-                        'Thank You for Placing this Order with Us!',
-                    })}
-                  </p>
-                  <p className="mt-2 text-base text-gray-500">
-                    {formatMessage({
-                      id: 'thank_you_description',
-                      defaultMessage:
-                        'It has reached us and an email with the order placement  confirmation is on its way. To avoid any potential  miscommunication, please check your spam, perhaps the email landed  there.',
-                    })}
-                  </p>
-
-                  <FormattedMessage
-                    tagName="dl"
-                    id="thank_you_order_number"
-                    defaultMessage="<dl> <dt> Your Order Number is: </dt> <dd>
+              <FormattedMessage
+                tagName="dl"
+                id="thank_you_order_number"
+                defaultMessage="<dl> <dt> Your Order Number is: </dt> <dd>
                             {orderNumber}
                           </dd> </dl> "
-                    values={{
-                      dl: (chunks) => (
-                        <dl className="mt-16 text-sm font-medium">{chunks}</dl>
-                      ),
-                      dt: (chunks) => (
-                        <dt className="text-gray-900"> {chunks}</dt>
-                      ),
-                      dd: (chunks) => (
-                        <dd className="mt-2 text-indigo-600">{chunks}</dd>
-                      ),
-                      orderNumber: order.orderNumber,
-                    }}
-                  />
-                  <FormattedMessage
-                    tagName="dl"
-                    id="thank_you_order_date"
-                    defaultMessage="<dl> <dt> The Date you placed the order is: </dt> <dd>
+                values={{
+                  dl: (chunks) => (
+                    <dl className="mt-8 text-sm font-medium">{chunks}</dl>
+                  ),
+                  dt: (chunks) => (
+                    <dt className="text-slate-900 dark:text-white">{chunks}</dt>
+                  ),
+                  dd: (chunks) => (
+                    <dd className="mt-2 text-indigo-600 dark:text-sky-400">
+                      {chunks}
+                    </dd>
+                  ),
+                  orderNumber: order.orderNumber,
+                }}
+              />
+              <FormattedMessage
+                tagName="dl"
+                id="thank_you_order_date"
+                defaultMessage="<dl> <dt> The Date you placed the order is: </dt> <dd>
                           {orderDate}
                           </dd> </dl> "
-                    values={{
-                      dl: (chunks) => (
-                        <dl className="mt-16 text-sm font-medium">{chunks}</dl>
-                      ),
-                      dt: (chunks) => (
-                        <dt className="text-gray-900"> {chunks}</dt>
-                      ),
-                      dd: (chunks) => (
-                        <dd className="mt-2 text-indigo-600">{chunks}</dd>
-                      ),
-                      orderDate: formatDateTime(order.created),
-                    }}
-                  />
-
-                  {(order?.items || []).map((item) => (
-                    <CartItem key={item._id} {...item} enableUpdate={false} />
-                  ))}
-
+                values={{
+                  dl: (chunks) => (
+                    <dl className="mt-8 text-sm font-medium">{chunks}</dl>
+                  ),
+                  dt: (chunks) => (
+                    <dt className="text-slate-900 dark:text-white">{chunks}</dt>
+                  ),
+                  dd: (chunks) => (
+                    <dd className="mt-2 text-indigo-600 dark:text-sky-400">
+                      {chunks}
+                    </dd>
+                  ),
+                  orderDate: formatDateTime(order.created),
+                }}
+              />
+              <div className="text-slate-700 dark:text-slate-300">
+                <div className="mt-4 rounded-lg border border-slate-300 bg-white shadow-sm dark:bg-slate-500">
+                  <ul className="divide-y divide-slate-300">
+                    {(order?.items || []).map((item) => (
+                      <CartItem key={item._id} {...item} enableUpdate={false} />
+                    ))}
+                  </ul>
                   <OrderPriceSummary order={order} />
-
-                  <dl className="mt-16 grid grid-cols-2 gap-x-4 text-sm text-gray-600">
-                    <div>
-                      <dt className="font-medium text-gray-900">
-                        Shipping Address
-                      </dt>
-                      <dd className="mt-2">
-                        <address className="not-italic">
-                          <span className="block">Kristin Watson</span>
-                          <span className="block">7363 Cynthia Pass</span>
-                          <span className="block">Toronto, ON N3Y 4H8</span>
-                        </address>
-                      </dd>
-                    </div>
-                    <div>
-                      <dt className="font-medium text-gray-900">
-                        Payment Information
-                      </dt>
-                      <dd className="mt-2 space-y-2 sm:flex sm:space-y-0 sm:space-x-4">
-                        <div className="flex-none">
-                          <svg
-                            aria-hidden="true"
-                            width="36"
-                            height="24"
-                            viewBox="0 0 36 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-6 w-auto"
-                          >
-                            <rect
-                              width="36"
-                              height="24"
-                              rx="4"
-                              fill="#224DBA"
-                            />
-                            <path
-                              d="M10.925 15.673H8.874l-1.538-6c-.073-.276-.228-.52-.456-.635A6.575 6.575 0 005 8.403v-.231h3.304c.456 0 .798.347.855.75l.798 4.328 2.05-5.078h1.994l-3.076 7.5zm4.216 0h-1.937L14.8 8.172h1.937l-1.595 7.5zm4.101-5.422c.057-.404.399-.635.798-.635a3.54 3.54 0 011.88.346l.342-1.615A4.808 4.808 0 0020.496 8c-1.88 0-3.248 1.039-3.248 2.481 0 1.097.969 1.673 1.653 2.02.74.346 1.025.577.968.923 0 .519-.57.75-1.139.75a4.795 4.795 0 01-1.994-.462l-.342 1.616a5.48 5.48 0 002.108.404c2.108.057 3.418-.981 3.418-2.539 0-1.962-2.678-2.077-2.678-2.942zm9.457 5.422L27.16 8.172h-1.652a.858.858 0 00-.798.577l-2.848 6.924h1.994l.398-1.096h2.45l.228 1.096h1.766zm-2.905-5.482l.57 2.827h-1.596l1.026-2.827z"
-                              fill="#fff"
-                            />
-                          </svg>
-                          <p className="sr-only">Visa</p>
-                        </div>
-                        <div className="flex-auto">
-                          <p className="text-gray-900">Ending with 4242</p>
-                          <p>Expires 12 / 21</p>
-                        </div>
-                      </dd>
-                    </div>
-                  </dl>
-
-                  <div className="mt-16 border-t border-gray-200 py-6 text-right">
-                    <Link href="/shop">
-                      <a className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                        {formatMessage({
-                          id: 'continue_shopping',
-                          defaultMessage: 'Continue Shopping',
-                        })}
-
-                        <span aria-hidden="true"> &rarr;</span>
-                      </a>
-                    </Link>
-                  </div>
                 </div>
               </div>
+
+              <dl className="mt-8 grid grid-cols-2 gap-x-4 text-sm text-slate-600">
+                <div>
+                  <dt className="font-medium text-slate-900 dark:text-white">
+                    {formatMessage({
+                      id: 'shipping_address',
+                      defaultMessage: 'Shipping Address',
+                    })}
+                  </dt>
+                  <dd className="mt-2">
+                    {order?.delivery?.provider?.type === 'SHIPPING' ? (
+                      <address className="mt-3 not-italic text-slate-500 dark:text-slate-300">
+                        <span className="block">
+                          {order?.delivery?.address?.firstName}&nbsp;
+                          {order?.delivery?.address?.lastName}
+                        </span>
+                        <span className="block">
+                          {order?.delivery?.address?.addressLine}
+                        </span>
+                        <span className="block">
+                          {order?.profile?.address?.city}&nbsp;&nbsp;
+                          {getFlagEmoji(order?.delivery?.address?.countryCode)}
+                          &nbsp;
+                          {order?.delivery?.address?.countryCode}
+                        </span>
+                      </address>
+                    ) : (
+                      <div>
+                        <span className="block">
+                          {formatMessage({
+                            id: 'order_pickup',
+                            defaultMessage: 'Order is pick up',
+                          })}
+                        </span>
+                      </div>
+                    )}
+                  </dd>
+                </div>
+
+                <div>
+                  <dt className="font-medium text-slate-900 dark:text-white">
+                    {formatMessage({
+                      id: 'payment_information',
+                      defaultMessage: 'Payment Information',
+                    })}
+                  </dt>
+                  <dd className="-ml-4 -mt-1">
+                    <div className="ml-4 mt-4">
+                      <p className="sr-only">
+                        {order?.payment?.provider?.interface?.label}
+                      </p>
+                    </div>
+                    <div className="ml-4 mt-4">
+                      <p className="text-slate-500 dark:text-slate-300">
+                        {order?.payment?.provider?.interface?.label}
+                        &nbsp;&nbsp;
+                        {order?.payment?.provider?.interface?.version}
+                      </p>
+                    </div>
+                    <div className="ml-4 mt-4">
+                      <p className="text-slate-500 dark:text-slate-300">
+                        <span>{order?.payment?.provider?.type}</span>
+                        <span className="mx-2 inline-flex items-center rounded-full bg-green-100 px-3 py-0.5 text-sm font-medium text-green-800">
+                          {order?.payment?.status}
+                        </span>
+                      </p>
+                    </div>
+                    <div className="ml-4 mt-4">
+                      <p className="text-slate-600 dark:text-slate-300">
+                        {renderPrice(order?.payment?.fee)}
+                      </p>
+                    </div>
+                    <div className="ml-4 mt-4">
+                      <p>
+                        {order?.payment?.paid ? (
+                          <>
+                            <CheckCircleIcon
+                              className="h-5 w-5 text-green-500"
+                              aria-hidden="true"
+                            />
+                            <span className="mx-2">
+                              {formatMessage({
+                                id: 'paid_on',
+                                defaultMessage: 'paid on',
+                              })}
+                            </span>
+                            <time dateTime={order?.paid}>
+                              {formatDateTime(order?.payment?.paid)}
+                            </time>
+                          </>
+                        ) : null}
+                      </p>
+                    </div>
+                  </dd>
+                </div>
+              </dl>
+
+              <div className="mt-8 border-t border-slate-200 py-6 text-center">
+                <Link href="/shop">
+                  <a className="text-sm font-medium text-indigo-600 hover:text-indigo-500 dark:text-sky-400 dark:hover:text-sky-500">
+                    {formatMessage({
+                      id: 'continue_shopping',
+                      defaultMessage: 'Continue Shopping',
+                    })}
+
+                    <span aria-hidden="true"> &rarr;</span>
+                  </a>
+                </Link>
+              </div>
             </div>
-          </main>
-        </>
+          </div>
+        </div>
       )}
     </>
   );

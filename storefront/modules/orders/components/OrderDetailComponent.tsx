@@ -1,10 +1,9 @@
 import { useIntl } from 'react-intl';
 import Link from 'next/link';
 import { CheckCircleIcon, PaperClipIcon } from '@heroicons/react/solid';
-
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import classNames from 'classnames';
+
 import renderPrice from '../../common/utils/renderPrice';
 import useFormatDateTime from '../../common/utils/useFormatDateTime';
 import useUser from '../../auth/hooks/useUser';
@@ -12,6 +11,8 @@ import QRCodeComponent from '../../checkout/components/QRCodeComponent';
 import useSignForCheckout from '../../checkout/hooks/useSignForCheckout';
 import getMediaUrl from '../../common/utils/getMediaUrl';
 import defaultNextImageLoader from '../../common/utils/getDefaultNextImageLoader';
+import { useAppContext } from '../../common/components/AppContextWrapper';
+import Accordion from '../../common/components/Accordion';
 
 function getFlagEmoji(countryCode) {
   const codePoints = countryCode
@@ -26,6 +27,7 @@ const OrderDetailComponent = ({ order }) => {
   const { formatDateTime } = useFormatDateTime();
   const { signForCheckout } = useSignForCheckout();
   const [paymentAddresses, setPaymentAddress] = useState([]);
+  const { hasSigner, payWithMetaMask } = useAppContext();
 
   const { user } = useUser();
   const signOrderPayment = async () => {
@@ -47,6 +49,55 @@ const OrderDetailComponent = ({ order }) => {
     };
     updateContractAddress();
   }, [order?.payment?._id]);
+
+  const data =
+    paymentAddresses.map((paymentAddress) => ({
+      header: (
+        <div className="text-center font-bold text-slate-600 dark:text-slate-200">
+          {paymentAddress.currency}
+        </div>
+      ),
+      body: (
+        <div className="mx-auto">
+          <div id="faq-0">
+            <QRCodeComponent
+              paymentAddress={paymentAddress}
+              currencyClassName="hidden"
+              className="mx-auto"
+            />
+          </div>
+          {paymentAddress.currency === 'ETH' && hasSigner && (
+            <div className="flex items-center justify-center">
+              <button
+                type="button"
+                className="inline-flex items-center rounded-md border-2 border-[#F6851B] bg-[#F6851B] px-3 py-2 text-sm font-medium leading-4 text-slate-100 shadow hover:bg-[#E2761B] focus:outline-none focus:ring-2 focus:ring-[#F6851B] focus:ring-offset-2"
+                onClick={() =>
+                  payWithMetaMask(
+                    paymentAddress.address,
+                    user?.cart.total.amount,
+                  )
+                }
+              >
+                {formatMessage({
+                  id: 'pay_with_metamask',
+                  defaultMessage: 'Pay with metamask',
+                })}
+                <span className="ml-2 rounded-full border border-[#CD6116] p-1">
+                  <img
+                    src="/static/img/icon-streamline/metamask-fox.svg"
+                    alt={formatMessage({
+                      id: 'metamask_fox',
+                      defaultMessage: 'Metamask Fox',
+                    })}
+                    className="h-5 w-5"
+                  />
+                </span>
+              </button>
+            </div>
+          )}
+        </div>
+      ),
+    })) || [];
 
   return (
     <div className="bg-slate-50 dark:bg-slate-600">
@@ -188,7 +239,7 @@ const OrderDetailComponent = ({ order }) => {
               </div>
 
               <div>
-                <dt className="text-lg font-medium text-slate-900">
+                <dt className="text-lg font-medium text-slate-900 dark:text-white">
                   {formatMessage({
                     id: 'delivery_information',
                     defaultMessage: 'Delivery Information',
@@ -333,21 +384,12 @@ const OrderDetailComponent = ({ order }) => {
                     defaultMessage: 'Payment information',
                   })}
                 </dt>
+
                 {order?.status === 'OPEN' || order?.status === 'PENDING' ? (
-                  paymentAddresses.map((paymentAddress) => (
-                    <div
-                      key={paymentAddress.address}
-                      className="mt-6 space-y-6 divide-y divide-slate-200"
-                    >
-                      <div className={classNames('mt-2  pr-12', {})} id="faq-0">
-                        <QRCodeComponent
-                          paymentAddress={paymentAddress}
-                          currencyClassName="text-left my-0 "
-                          className="mx-0 my-2"
-                        />
-                      </div>
-                    </div>
-                  ))
+                  <Accordion
+                    data={data}
+                    headerCSS="inline-flex items-center justify-between w-full px-2 py-1 rounded-lg border border-slate-200 shadow-md text-sm font-medium text-slate-700 hover:bg-slate-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-400 focus:border-indigo-400"
+                  />
                 ) : (
                   <dd className="-ml-4 -mt-1">
                     <div className="ml-4 mt-4">
@@ -409,7 +451,7 @@ const OrderDetailComponent = ({ order }) => {
                     defaultMessage: 'Subtotal',
                   })}
                 </dt>
-                <dd className="font-medium text-slate-900 dark:text-slate-100">
+                <dd className="font-medium text-slate-900 dark:text-sky-400">
                   {renderPrice(order?.total)}
                 </dd>
               </div>
@@ -439,7 +481,7 @@ const OrderDetailComponent = ({ order }) => {
                     defaultMessage: 'Order total',
                   })}
                 </dt>
-                <dd className="font-medium text-indigo-600 dark:text-lime-600">
+                <dd className="font-medium text-indigo-600 dark:text-sky-400">
                   {renderPrice(order.total)}
                 </dd>
               </div>

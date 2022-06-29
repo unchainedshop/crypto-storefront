@@ -1,8 +1,12 @@
-import React, { useState, useContext, useEffect, Dispatch, SetStateAction } from 'react';
+import React, {
+  useState,
+  useContext,
+  useEffect,
+  Dispatch,
+  SetStateAction,
+} from 'react';
 import { ethers } from 'ethers';
 import ConnectPopup from './ConnectPopup';
-
-
 
 export const AppContext = React.createContext<{
   hasSigner?: boolean;
@@ -10,11 +14,10 @@ export const AppContext = React.createContext<{
 
   connect: () => Promise<void>;
   selectedCurrency: string;
-  changeCurrency: (val) => void,
+  changeCurrency: (val) => void;
   isCartOpen: boolean;
   toggleCart?: (val) => void;
-  payWithMetaMask?: (orderAddress: string, orderAmount: string) => void
-  
+  payWithMetaMask?: (orderAddress: string, orderAmount: string) => void;
 }>({
   accounts: [],
   connect: () => null,
@@ -22,8 +25,7 @@ export const AppContext = React.createContext<{
   selectedCurrency: '',
   changeCurrency: () => null,
   isCartOpen: false,
-  toggleCart: () => null
-
+  toggleCart: () => null,
 });
 
 export const useAppContext = () => useContext(AppContext);
@@ -31,54 +33,56 @@ export const useAppContext = () => useContext(AppContext);
 const ethereum = (global as any).ethereum;
 
 export const AppContextWrapper = ({ children }) => {
-  
-  const [currentProvider, setProvider] = useState<ethers.providers.Web3Provider>();
+  const [currentProvider, setProvider] =
+    useState<ethers.providers.Web3Provider>();
   const [accounts, setAccounts] = useState<string[]>([]);
   const [chainId, setChainId] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
-  const [isCartOpen, toggleCart] = useState(false)
-  const [selectedCurrency, changeCurrency] = useState('')
-  
-  
+  const [isCartOpen, toggleCart] = useState(false);
+  const [selectedCurrency, changeCurrency] = useState('');
 
   const payWithMetaMask = async (orderAddress, orderAmount) => {
-  if(!accounts.length) {
-    alert('You are not logged in metamask, please log into your metamask account and try again!')
-    return
-  }
-    const params = [{
-      from: accounts[0],
-      to: orderAddress ,
-      value:  ethers.utils.parseUnits(String(orderAmount), 'ether').toHexString()  
-  }];
-  await currentProvider.provider.send( {method: 'eth_sendTransaction', params}, () => {} )
-  }
+    if (!accounts.length) {
+      alert(
+        'You are not logged in metamask, please log into your metamask account and try again!',
+      );
+      return;
+    }
+    const params = [
+      {
+        from: accounts[0],
+        to: orderAddress,
+        value: ethers.utils
+          .parseUnits(String(orderAmount), 'ether')
+          .toHexString(),
+      },
+    ];
+    await currentProvider.provider.send(
+      { method: 'eth_sendTransaction', params },
+      () => {},
+    );
+  };
 
   useEffect(() => {
     (async () => {
       const scopedProvider = ethereum
         ? new ethers.providers.Web3Provider(ethereum)
-       :null
+        : null;
 
-      
-      
       setProvider(scopedProvider);
 
       const { chainId } = await scopedProvider.getNetwork();
-      console.log(chainId)
+      console.log(chainId);
       setChainId(chainId);
 
       ethereum?.on('chainChanged', () => window.location.reload());
- 
 
       scopedProvider.on('chainChanged', (chainId) => {
         setChainId(chainId);
       });
 
-      console.log(scopedProvider)
-    
+      console.log(scopedProvider);
 
-      
       if (ethereum) {
         const accounts = await ethereum.request({
           method: 'eth_accounts',
@@ -90,15 +94,10 @@ export const AppContextWrapper = ({ children }) => {
           setAccounts(accounts);
         });
       }
-
-       
     })();
-
-
   }, []);
 
-
-
+  console.log(accounts);
 
   const doConnect = async () => {
     setModalOpen(false);
@@ -111,7 +110,6 @@ export const AppContextWrapper = ({ children }) => {
 
   const connect = async () => setModalOpen(true);
 
-
   return (
     <AppContext.Provider
       value={{
@@ -123,8 +121,6 @@ export const AppContextWrapper = ({ children }) => {
         selectedCurrency,
         changeCurrency,
         payWithMetaMask,
-        
-        
       }}
     >
       <ConnectPopup isOpen={modalOpen} connect={doConnect} />

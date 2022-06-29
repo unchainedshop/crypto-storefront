@@ -13,7 +13,7 @@ const OrderPriceSummary = ({ order }) => {
           })}
         </dt>
         <dd className="text-sm font-medium text-slate-900 dark:text-white">
-          {renderPrice(order?.itemsTotal)}
+          {renderPrice(order?.itemsTotal || order?.total)}
         </dd>
       </div>
       <div className="flex items-center justify-between">
