@@ -7,11 +7,11 @@ const renderPrice = (
 
   if (currency === 'BTC' || currency === 'ETH') {
     if (addBTCFraction) {
-      return `${currency} ${amount}`;
+      return `${currency} ${amount / 100}`;
     }
     return `${currency} ${amount}`;
   }
-  return `${renderCurrency(currency, amount)}`;
+  return `${renderCurrency(currency, amount / 100)}`;
 };
 
 export default renderPrice;
