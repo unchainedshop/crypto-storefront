@@ -18,7 +18,7 @@ const GetCurrentTab = ({ selectedView }) => {
 
   if (selectedView === 'signup') {
     return (
-      <div className="w-full rounded-md border-2 bg-white px-4 py-4 shadow dark:bg-slate-600 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+      <div className="mt-2 w-full rounded-md border-2 bg-white px-4 py-4 shadow dark:bg-slate-600 sm:px-6 md:px-8 lg:mt-0 lg:px-10 xl:px-12">
         <h2 className="mx-auto w-2/3 text-center text-2xl font-bold text-slate-700 dark:text-slate-300">
           {formatMessage({
             id: 'new_here',
@@ -36,7 +36,7 @@ const GetCurrentTab = ({ selectedView }) => {
     );
   }
   return (
-    <div className="relative w-full rounded-md border-2 bg-white pb-8 shadow dark:bg-slate-600 dark:shadow-white">
+    <div className="relative mt-2 w-full rounded-md border-2 bg-white pb-8 shadow dark:bg-slate-600 dark:shadow-white lg:mt-0">
       <h2 className="mx-auto my-4 w-2/3 text-center text-2xl font-bold text-slate-700 dark:text-slate-300">
         {formatMessage({
           id: 'welcome_back',

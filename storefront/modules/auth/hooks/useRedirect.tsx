@@ -11,10 +11,10 @@ const useRedirect = ({
   matchGuests = false,
 }) => {
   const router = useRouter();
-  const { user } = useUser();
+  const { user, loading } = useUser();
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined' || loading) return;
 
     const isAnonymousMatched = !user && matchAnonymous;
     const isUserMatched = user && !user.isGuest && matchUsers;

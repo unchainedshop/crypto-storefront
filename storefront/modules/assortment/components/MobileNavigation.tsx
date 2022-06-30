@@ -136,14 +136,16 @@ const MobileNavigation = ({ doClose, isNavOpen }) => {
             </small>
           </button>
 
-          <a className="ml-3 mb-3 flex items-center" href={theme.websiteUrl}>
-            <HomeIcon className="mr-3 inline-flex h-4 w-5 select-none items-center justify-center align-middle" />
+          <Link href="/">
+            <a className="ml-3 mb-3 flex cursor-pointer items-center">
+              <HomeIcon className="mr-3 inline-flex h-4 w-5 select-none items-center justify-center align-middle" />
 
-            {intl.formatMessage({
-              id: 'back_to_website',
-              defaultMessage: 'Back to website',
-            })}
-          </a>
+              {intl.formatMessage({
+                id: 'back_to_website',
+                defaultMessage: 'Back to website',
+              })}
+            </a>
+          </Link>
           {Object.entries(assortmentTree.children).map(
             ([pageId, node]: any) => (
               <Subtree

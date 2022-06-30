@@ -201,7 +201,7 @@ const DeliveryAddressEditable = ({ user }) => {
         ))}
       </div>
       <button
-        className="mt-3 inline-flex items-center rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-slate-700 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 "
+        className="mt-3 inline-flex items-center rounded-md bg-slate-900 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"
         type="submit"
       >
         {formatMessage({ id: 'save', defaultMessage: 'Save' })}

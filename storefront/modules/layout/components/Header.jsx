@@ -48,44 +48,43 @@ const Header = () => {
       {showTopNav && (
         <div className="bg-slate-900">
           <div className="container py-2 text-center font-bold text-white">
-            <p className="my-0">{topNavigationText}</p>
+            <p className="my-0 overflow-x-hidden">{topNavigationText}</p>
           </div>
         </div>
       )}
 
-      <header className="sticky top-0 z-[1020] bg-white text-black opacity-80 dark:bg-slate-600 dark:text-white">
-        <SideCart isOpen={isCartOpen} />
-        <div className="container mx-auto hidden w-full sm:flex sm:flex-wrap sm:items-center sm:justify-between sm:py-2">
-          <div className="flex items-center justify-start">
-            <DesktopNavigation />
-            <Link href="/">
-              <a className="relative ml-4 h-10 w-36 rounded">
-                <Image
-                  src={theme.assets.logo}
-                  alt={formatMessage({
-                    id: 'shop_logo',
-                    defaultMessage: 'Shop logo',
-                  })}
-                  layout="fill"
-                  placeholder="blur"
-                  blurDataURL="/placeholder.png"
-                  className="rounded"
-                  loader={defaultNextImageLoader}
-                />
-              </a>
-            </Link>
+      <header className="sticky top-0 z-[1020] overflow-x-hidden bg-white text-black opacity-80 dark:bg-slate-600 dark:text-white">
+        <div className="relative">
+          <SideCart isOpen={isCartOpen} />
+          <div className="container mx-auto hidden w-full sm:flex sm:flex-wrap sm:items-center sm:justify-between sm:py-2">
+            <div className="flex items-center justify-start">
+              <DesktopNavigation />
+              <Link href="/">
+                <a className="relative ml-4 h-10 w-36 rounded">
+                  <Image
+                    src={theme.assets.logo}
+                    alt={formatMessage({
+                      id: 'shop_logo',
+                      defaultMessage: 'Shop logo',
+                    })}
+                    layout="fill"
+                    placeholder="blur"
+                    blurDataURL="/placeholder.png"
+                    className="rounded"
+                    loader={defaultNextImageLoader}
+                  />
+                </a>
+              </Link>
+            </div>
+            <div className="ml-auto mr-4 flex">
+              <LoginCart />
+              <CurrencySelector
+                onChange={(e) => changeCurrency(e.target.value)}
+                selectedCurrency={selectedCurrency}
+              />
+            </div>
           </div>
-          <div className="ml-auto mr-4 flex">
-            <LoginCart />
-            <CurrencySelector
-              onChange={(e) => changeCurrency(e.target.value)}
-              selectedCurrency={selectedCurrency}
-            />
-          </div>
-          <ThemeToggle />
-        </div>
-        <div className="container">
-          <div className="flex items-center justify-between px-4 py-2 sm:hidden">
+          <div className="container flex flex-wrap items-center justify-between px-4 py-2 sm:hidden">
             <div className="flex items-center">
               <button
                 type="button"
@@ -126,8 +125,8 @@ const Header = () => {
                 selectedCurrency={selectedCurrency}
               />
             </div>
-            <ThemeToggle />
           </div>
+          <ThemeToggle />
         </div>
       </header>
     </>
