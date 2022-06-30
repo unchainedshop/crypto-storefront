@@ -11,7 +11,7 @@ const renderCurrency = (amount, currency = null, locale = null) => {
       maximumFractionDigits: currency === 'BTC' ? 4 : 0,
     }).format(amount);
   } catch {
-    return `${currency}${amount}`;
+    return `${currency} ${amount}`;
   }
 };
 export default renderCurrency;

@@ -35,6 +35,11 @@ const OrderFragment = gql`
         amount
         currency
       }
+      ... on OrderDeliveryShipping {
+        address {
+          ...AddressFragment
+        }
+      }
     }
     orderNumber
     total {
