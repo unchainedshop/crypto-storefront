@@ -1,12 +1,13 @@
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 
 import useCreateUser from '../../auth/hooks/useCreateUser';
 import useUpdateCart from '../../checkout/hooks/useUpdateCart';
 import EditableField from './EditableField';
+import PasswordVisible from './PasswordVisible';
 
 const ErrorDisplay = ({ error }) => {
   const { formatMessage } = useIntl();
@@ -39,6 +40,8 @@ const SignUpComponent = () => {
   const { createUser, error: formError } = useCreateUser();
   const { register, handleSubmit, watch, errors, setError } = useForm();
   const hasErrors = Object.keys(errors).length;
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isPassword2Visible, setIsPassword2Visible] = useState(false);
 
   const signUpFields = [
     {
@@ -384,11 +387,11 @@ const SignUpComponent = () => {
                   })}
                 </label>
               </div>
-              <div className="mt-1">
+              <div className="relative mt-1">
                 <EditableField
                   name="password"
                   id="password"
-                  type="password"
+                  type={isPasswordVisible ? 'text' : 'password'}
                   register={register}
                   validator={{
                     required: formatMessage({
@@ -398,7 +401,10 @@ const SignUpComponent = () => {
                   }}
                   errors={errors}
                 />
-
+                <PasswordVisible
+                  isPasswordVisible={isPasswordVisible}
+                  setIsPasswordVisible={setIsPasswordVisible}
+                />
                 {errors.password && (
                   <p className="text-sm text-red-600">
                     {errors.password.message}
@@ -419,11 +425,11 @@ const SignUpComponent = () => {
                   })}
                 </label>
               </div>
-              <div className="mt-1">
+              <div className="relative mt-1">
                 <EditableField
                   name="password2"
                   id="password2"
-                  type="password"
+                  type={isPassword2Visible ? 'text' : 'password'}
                   register={register}
                   validator={{
                     required: formatMessage({
@@ -434,6 +440,10 @@ const SignUpComponent = () => {
                   errors={errors}
                 />
 
+                <PasswordVisible
+                  isPasswordVisible={isPassword2Visible}
+                  setIsPasswordVisible={setIsPassword2Visible}
+                />
                 {errors.password2 && (
                   <p className="text-sm text-red-600">
                     {errors.password2.message}

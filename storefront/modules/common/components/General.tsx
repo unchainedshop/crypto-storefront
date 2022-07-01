@@ -99,7 +99,7 @@ const General = ({ user }) => {
                               type="text"
                               name="firstName"
                               defaultValue={profile?.address?.firstName}
-                              ref={register({ required: true })}
+                              ref={register}
                               className={classNames(
                                 'block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600',
                                 {
@@ -131,7 +131,7 @@ const General = ({ user }) => {
                               type="text"
                               name="lastName"
                               defaultValue={profile?.address?.lastName}
-                              ref={register({ required: true })}
+                              ref={register}
                               className={classNames(
                                 'block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600',
                                 {
@@ -165,63 +165,72 @@ const General = ({ user }) => {
                         defaultMessage: 'Email',
                       })}
                     </h2>
-                    {user?.emails?.map((e, i) => (
-                      <div
-                        key={e.address}
-                        className="mb-1 flex flex-wrap items-center"
-                      >
-                        <span className="text-lg font-extrabold dark:text-slate-100">
-                          {i + 1}. {e.address}
-                        </span>
-                        <Verified isActive={e.verified} />
-                        {!e.verified && (
-                          <Button
-                            type="button"
-                            text={formatMessage({
-                              id: 'resend',
-                              defaultMessage: 'ReSend',
-                            })}
-                            className="my-2 px-0 py-0 text-purple-600 hover:text-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 dark:text-purple-400"
-                            onClick={() => resendVerificationEmail(e.address)}
-                          />
-                        )}
-                        {user?.emails?.length > 1 && (
-                          <Button
-                            type="button"
-                            text={formatMessage({
-                              id: 'remove',
-                              defaultMessage: 'Remove',
-                            })}
-                            className="my-2 text-purple-600 hover:text-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 dark:text-purple-400"
-                            onClick={() => removeEmail(e.address)}
-                          />
-                        )}
+                    <div className="sm:col-span-2">
+                      <div className="gap-2 md:grid md:grid-cols-2">
+                        {user?.emails?.map((e, i) => (
+                          <div
+                            key={e.address}
+                            className="mb-1 flex flex-wrap items-center"
+                          >
+                            <span className="text-lg font-extrabold dark:text-slate-100">
+                              {i + 1}. {e.address}
+                            </span>
+                            <Verified isActive={e.verified} />
+                            <div>
+                              {!e.verified && (
+                                <Button
+                                  type="button"
+                                  text={formatMessage({
+                                    id: 'resend',
+                                    defaultMessage: 'ReSend',
+                                  })}
+                                  className="my-2 mr-2 border-0 bg-slate-900 text-white hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
+                                  onClick={() =>
+                                    resendVerificationEmail(e.address)
+                                  }
+                                />
+                              )}
+                              {user?.emails?.length > 1 && (
+                                <Button
+                                  type="button"
+                                  text={formatMessage({
+                                    id: 'remove',
+                                    defaultMessage: 'Remove',
+                                  })}
+                                  className="my-2 border-0 bg-slate-100 text-slate-900 hover:text-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"
+                                  onClick={() => removeEmail(e.address)}
+                                />
+                              )}
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                    <div>
-                      <div className="form-row">
-                        <label className="form-label">
-                          {formatMessage({
+
+                      <div>
+                        <div className="form-row">
+                          <label className="form-label">
+                            {formatMessage({
+                              id: 'add_email',
+                              defaultMessage: 'Add Email',
+                            })}
+                          </label>
+                          <input
+                            className="block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600"
+                            type="text"
+                            onChange={(e) => setNewEmail(e.target.value)}
+                            value={newEmail}
+                          />
+                        </div>
+                        <Button
+                          type="button"
+                          text={formatMessage({
                             id: 'add_email',
                             defaultMessage: 'Add Email',
                           })}
-                        </label>
-                        <input
-                          className="block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600"
-                          type="text"
-                          onChange={(e) => setNewEmail(e.target.value)}
-                          value={newEmail}
+                          className="mt-2 border-0 bg-slate-900 font-medium text-white hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"
+                          onClick={() => addEmail(newEmail)}
                         />
                       </div>
-                      <Button
-                        type="button"
-                        text={formatMessage({
-                          id: 'add_email',
-                          defaultMessage: 'Add Email',
-                        })}
-                        className="rounded-md py-0 px-0 font-medium text-purple-600 hover:text-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 dark:text-purple-400"
-                        onClick={() => addEmail(newEmail)}
-                      />
                     </div>
                   </div>
 
@@ -259,7 +268,7 @@ const General = ({ user }) => {
                     defaultMessage: 'Cancel',
                   })}
                   onClick={onProfileUpdateComplete}
-                  className="mx-4 inline-flex items-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  className="mx-4 inline-flex items-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"
                 />
                 <Button
                   text={formatMessage({

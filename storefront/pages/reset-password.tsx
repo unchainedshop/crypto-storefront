@@ -6,6 +6,7 @@ import { useIntl } from 'react-intl';
 
 import useResetPassword from '../modules/auth/hooks/useResetPassword';
 import MetaTags from '../modules/common/components/MetaTags';
+import PasswordVisible from '../modules/common/components/PasswordVisible';
 
 const PasswordReset = () => {
   const router = useRouter();
@@ -17,6 +18,9 @@ const PasswordReset = () => {
 
   password.current = watch('newPassword', '');
   const { resetPassword } = useResetPassword();
+
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isPassword2Visible, setIsPassword2Visible] = useState(false);
 
   const onSubmit = async ({ newPassword }) => {
     try {
@@ -56,9 +60,9 @@ const PasswordReset = () => {
                   defaultMessage: 'New password',
                 })}
               </label>
-              <div className="my-1">
+              <div className="relative my-1">
                 <input
-                  type="password"
+                  type={isPasswordVisible ? 'text' : 'password'}
                   id="newPassword"
                   name="newPassword"
                   autoComplete="new-password"
@@ -70,6 +74,11 @@ const PasswordReset = () => {
                         errors.newPassword,
                     },
                   )}
+                />
+
+                <PasswordVisible
+                  isPasswordVisible={isPasswordVisible}
+                  setIsPasswordVisible={setIsPasswordVisible}
                 />
                 {errors.newPassword && (
                   <p className="text-sm text-red-600">
@@ -88,9 +97,9 @@ const PasswordReset = () => {
                   defaultMessage: 'Repeat Password',
                 })}
               </label>
-              <div className="my-1">
+              <div className="relative my-1">
                 <input
-                  type="password"
+                  type={isPassword2Visible ? 'text' : 'password'}
                   id="password2"
                   name="password2"
                   autoComplete="new-password"
@@ -107,12 +116,16 @@ const PasswordReset = () => {
                     },
                   )}
                 />
+                <PasswordVisible
+                  isPasswordVisible={isPassword2Visible}
+                  setIsPasswordVisible={setIsPassword2Visible}
+                />
+                {errors.password2 && (
+                  <p className="text-sm text-red-600">
+                    {errors.password2.message}
+                  </p>
+                )}
               </div>
-              {errors.password2 && (
-                <p className="text-sm text-red-600">
-                  {errors.password2.message}
-                </p>
-              )}
             </div>
             {error && (
               <ul className="form-error">

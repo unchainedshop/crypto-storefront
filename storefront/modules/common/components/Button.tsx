@@ -17,7 +17,7 @@ const Button = ({
         },
         className,
       )}
-      type={type ? 'submit' : 'button'}
+      type={type === 'submit' ? 'submit' : 'button'}
       onClick={onClick}
       disabled={disabled}
     >

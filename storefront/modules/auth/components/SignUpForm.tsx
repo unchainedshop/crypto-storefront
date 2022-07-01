@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import getConfig from 'next/config';
@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import COUNTRIES from '../../common/data/countries-list';
 import useCreateUser from '../hooks/useCreateUser';
 import defaultNextImageLoader from '../../common/utils/getDefaultNextImageLoader';
+import PasswordVisible from '../../common/components/PasswordVisible';
 
 const {
   publicRuntimeConfig: { theme },
@@ -28,6 +29,8 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
   const { createUser, error } = useCreateUser();
   const password = useRef({});
   password.current = watch('password', '');
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isPassword2Visible, setIsPassword2Visible] = useState(false);
 
   const onSubmit = async (form) => {
     const {
@@ -540,39 +543,46 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                       defaultMessage: 'Password',
                     })}
                   </label>
-                  <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    ref={register({
-                      required: {
-                        value: true,
-                        message: 'Password is required',
-                      },
-                      minLength: {
-                        value: 8,
-                        message: 'Password must be at least 8 characters',
-                      },
-                      pattern: {
-                        value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/,
-                        message:
-                          'Password must contain at least one numeric digit, one uppercase and one lowercase letter',
-                      },
-                    })}
-                    autoComplete="new-password"
-                    className={classNames(
-                      'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm',
-                      {
-                        'border-red-300 focus:border-red-600 focus:outline-none focus:ring-red-600':
-                          errors.password,
-                      },
+                  <div className="relative mt-1">
+                    <input
+                      type={isPasswordVisible ? 'text' : 'password'}
+                      id="password"
+                      name="password"
+                      ref={register({
+                        required: {
+                          value: true,
+                          message: 'Password is required',
+                        },
+                        minLength: {
+                          value: 8,
+                          message: 'Password must be at least 8 characters',
+                        },
+                        pattern: {
+                          value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/,
+                          message:
+                            'Password must contain at least one numeric digit, one uppercase and one lowercase letter',
+                        },
+                      })}
+                      autoComplete="new-password"
+                      className={classNames(
+                        'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm',
+                        {
+                          'border-red-300 focus:border-red-600 focus:outline-none focus:ring-red-600':
+                            errors.password,
+                        },
+                      )}
+                    />
+
+                    <PasswordVisible
+                      isPasswordVisible={isPasswordVisible}
+                      setIsPasswordVisible={setIsPasswordVisible}
+                    />
+                    {errors.password && (
+                      <p className="text-sm text-red-600">
+                        {errors.password?.message}
+                      </p>
                     )}
-                  />
-                  {errors.password && (
-                    <p className="text-sm text-red-600">
-                      {errors.password?.message}
-                    </p>
-                  )}
+                  </div>
                 </div>
 
                 <div className="md:col-span-3">
@@ -585,29 +595,35 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                       defaultMessage: 'Repeat Password',
                     })}
                   </label>
-                  <input
-                    type="password"
-                    id="password2"
-                    name="password2"
-                    ref={register({
-                      validate: (value) =>
-                        value === password.current ||
-                        'The passwords do not match',
-                    })}
-                    autoComplete="new-password"
-                    className={classNames(
-                      'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm',
-                      {
-                        'border-red-300 focus:border-red-600 focus:outline-none focus:ring-red-600':
-                          errors.password2,
-                      },
+                  <div className="relative mt-1">
+                    <input
+                      type={isPassword2Visible ? 'text' : 'password'}
+                      id="password2"
+                      name="password2"
+                      ref={register({
+                        validate: (value) =>
+                          value === password.current ||
+                          'The passwords do not match',
+                      })}
+                      autoComplete="new-password"
+                      className={classNames(
+                        'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm',
+                        {
+                          'border-red-300 focus:border-red-600 focus:outline-none focus:ring-red-600':
+                            errors.password2,
+                        },
+                      )}
+                    />
+                    <PasswordVisible
+                      isPasswordVisible={isPassword2Visible}
+                      setIsPasswordVisible={setIsPassword2Visible}
+                    />
+                    {errors.password2 && (
+                      <p className="text-sm text-red-600">
+                        {errors.password2?.message}
+                      </p>
                     )}
-                  />
-                  {errors.password2 && (
-                    <p className="text-sm text-red-600">
-                      {errors.password2?.message}
-                    </p>
-                  )}
+                  </div>
                 </div>
 
                 <div className="md:col-span-6">

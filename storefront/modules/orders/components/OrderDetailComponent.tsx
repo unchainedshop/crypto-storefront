@@ -154,13 +154,13 @@ const OrderDetailComponent = ({ order }) => {
             })}
           </h2>
 
-          <div className="mt-6 grid grid-cols-1 gap-8 divide-y divide-slate-200 border-slate-200 text-sm font-medium text-slate-500 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-6 grid grid-cols-1 gap-8 border-slate-200 text-sm font-medium text-slate-500 md:grid-cols-2 lg:grid-cols-3">
             {order?.items?.map((item) => (
               <Link
                 key={item._id}
                 href={`/product/${item?.product?.texts?.slug}`}
               >
-                <a className="flex w-full rounded-lg border border-t border-b border-slate-200 bg-white shadow-sm dark:bg-slate-600 dark:shadow-slate-100 md:px-0">
+                <a className="flex w-full rounded-lg border border-t border-b border-slate-200 bg-white shadow-sm transition-transform hover:scale-105 hover:border-indigo-600 dark:bg-slate-600 dark:hover:border-sky-400 md:px-0">
                   <div className="flex w-full justify-between p-4">
                     <div className="flex">
                       <div className="relative h-40 w-40 overflow-hidden rounded-lg">

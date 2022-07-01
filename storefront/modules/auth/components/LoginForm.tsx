@@ -1,10 +1,11 @@
 import classNames from 'classnames';
 import Link from 'next/link';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import { toast } from 'react-toastify';
 import LoadingItem from '../../common/components/LoadingItem';
+import PasswordVisible from '../../common/components/PasswordVisible';
 
 import useLoginWithPassword from '../hooks/useLoginWithPassword';
 import useUser from '../hooks/useUser';
@@ -16,6 +17,8 @@ const LoginForm = ({ onLogin = null }) => {
   const { logInWithPassword, error } = useLoginWithPassword();
   const hasErrors = Object.keys(errors).length > 0;
   const { loading } = useUser();
+
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   useEffect(() => {
     if (error?.message?.includes('Invalid credentials')) {
@@ -95,11 +98,11 @@ const LoginForm = ({ onLogin = null }) => {
               >
                 {formatMessage({ id: 'password', defaultMessage: 'Password' })}
               </label>
-              <div className="mt-1">
+              <div className="relative mt-1">
                 <input
                   id="password"
                   name="password"
-                  type="password"
+                  type={isPasswordVisible ? 'text' : 'password'}
                   autoComplete="current-password"
                   ref={register({ required: true })}
                   className={classNames(
@@ -109,6 +112,10 @@ const LoginForm = ({ onLogin = null }) => {
                         errors.password,
                     },
                   )}
+                />
+                <PasswordVisible
+                  isPasswordVisible={isPasswordVisible}
+                  setIsPasswordVisible={setIsPasswordVisible}
                 />
                 {errors.password && (
                   <p className="text-sm text-red-600">
