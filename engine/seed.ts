@@ -56,7 +56,7 @@ export default async (unchainedApi) => {
     );
 
     const currencies = await Promise.all(
-      [UNCHAINED_CURRENCY ? UNCHAINED_CURRENCY.toUpperCase() : 'CHF'].map(
+      [UNCHAINED_CURRENCY ? UNCHAINED_CURRENCY.toUpperCase() : 'ETH'].map(
         async (code) => {
           const currencyId = await modules.currencies.create(
             {
@@ -115,10 +115,12 @@ export default async (unchainedApi) => {
       adminId,
     );
 
+    
+
     const paymentProvider = await modules.payment.paymentProviders.create(
       {
-        adapterKey: 'shop.unchained.invoice',
-        type: PaymentProviderType.INVOICE,
+        adapterKey: 'shop.unchained.payment.cryptopay',
+        type: PaymentProviderType.GENERIC,
         configuration: [],
         created: new Date(),
         authorId: adminId,

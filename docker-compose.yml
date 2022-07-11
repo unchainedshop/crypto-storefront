@@ -6,6 +6,9 @@ services:
      network_mode: "host"        
      depends_on:
       - crypto_engine
+      - geth-eth-node
+     environment:
+      - ETH_RPC_ENDPOINT=http://geth-eth-node:8555
      env_file:
       - './.env.gateway'
   crypto_storefront:
@@ -34,19 +37,15 @@ services:
     image: mongo:latest
     ports:
       - "27017:27017"
-    volumes:
-      - db-data:/data/db
-      - mongo-config:/data/configdb
   redis:
     image: redis:6.2-alpine
     restart: on-failure
     ports:
       - '6379:6379'
     command: redis-server --loglevel debug
-    volumes: 
-      - cache:/data
-volumes:
-  db-data:
-  mongo-config:
-  cache:
-    driver: local
+  geth-eth-node: 
+    image: ethereum/client-go
+    restart: on-failure
+    ports:
+      - '8555:8545'
+    command: --goerli --http  --syncmode "light"    --http.port "8555" --http.corsdomain "*" 
