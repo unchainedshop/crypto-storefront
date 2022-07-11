@@ -8,9 +8,10 @@ services:
       - crypto_engine
       - geth-eth-node
      environment:
-      - ETH_RPC_ENDPOINT=http://geth-eth-node:8555
+       ETH_RPC_ENDPOINT : http://127.0.0.1:8545
      env_file:
       - './.env.gateway'
+    
   crypto_storefront:
     build: ./storefront
     ports:
@@ -47,5 +48,5 @@ services:
     image: ethereum/client-go
     restart: on-failure
     ports:
-      - '8555:8545'
-    command: --goerli --http  --syncmode "light"    --http.port "8555" --http.corsdomain "*" 
+      - "8545:8545"
+    command: --goerli --http  --syncmode "light"   --http.corsdomain "*" --http.addr "0.0.0.0" 

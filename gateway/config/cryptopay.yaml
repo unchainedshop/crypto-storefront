@@ -1,21 +1,24 @@
+
+
 currencies:
   eth:
     rpc-endpoint: ${ETH_RPC_ENDPOINT}
     xpub: ${ETH_EXTENDED_PUBLIC_KEY}
     poa-testnet: True # Running on a a testnet with PoA
     init-block-history: 1000 # How many blocks in the past to consider on the first run
-    link-feed-registry-addr: "0x47Fb2585D2C56Fe188D0E6ec628a38b74fCeeeDf" # Chainlink Feed Registry Address: https://docs.chain.link/docs/feed-registry/
+    link-feed-registry-addr: "0xAa7F6f7f507457a1EE157fE97F6c7DB2BEec5cD0" # Chainlink Feed Registry Address: https://docs.chain.link/docs/feed-registry/
   btc:
-    bcoin-endpoint: ${BCOIN_ENDPOINT}
-    wallet-endpoint: ${BCOIN_WALLET_ENDPOINT}
+    bcoin-endpoint: http://127.0.0.1:18332
+    wallet-endpoint: http://127.0.0.1:18334
     bcoin-apikey: ${BCOIN_API_KEY}
     xpub: ${BTC_EXTENDED_PUBLIC_KEY}
 
 unchained:
-  transaction-webhook-url: ${UNCHAINED_TRANSACTION_WEBHOOK_ENDPOINT}
-  price-webhook-url: ${UNCHAINED_PRCING_WEBHOOK_ENDPOINT}
-  graphql-endpoint: ${UNCHAINED_GRAPHQL_ENDPOINT}
+  transaction-webhook-url: http://127.0.0.1/webhook
+  price-webhook-url: http://127.0.0.1/webhook
+  graphql-endpoint: http://127.0.0.1:4010/graphql
   secret: ${CRYPTOPAY_SHARED_SECRET}
+
 redis:
   host: 127.0.0.1
   port: 6379
