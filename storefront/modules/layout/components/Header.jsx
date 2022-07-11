@@ -12,7 +12,6 @@ import DesktopNavigation from '../../assortment/components/DesktopNavigation';
 import MobileNavigation from '../../assortment/components/MobileNavigation';
 import ThemeToggle from '../../common/components/ThemeToggle';
 import defaultNextImageLoader from '../../common/utils/getDefaultNextImageLoader';
-import CurrencySelector from '../../common/components/CurrencySelector';
 
 import { useAppContext } from '../../common/components/AppContextWrapper';
 
@@ -25,7 +24,6 @@ const Header = () => {
   const router = useRouter();
   const [isNavOpen, setNavOpenState] = useState(false);
   const { formatMessage } = useIntl();
-  const { selectedCurrency, changeCurrency } = useAppContext();
 
   const setNavOpen = (isOpen) => {
     setNavOpenState(isOpen);
@@ -78,10 +76,6 @@ const Header = () => {
             </div>
             <div className="ml-auto mr-4 flex">
               <LoginCart />
-              <CurrencySelector
-                onChange={(e) => changeCurrency(e.target.value)}
-                selectedCurrency={selectedCurrency}
-              />
             </div>
           </div>
           <div className="container flex flex-wrap items-center justify-between px-4 py-2 sm:hidden">
@@ -120,10 +114,6 @@ const Header = () => {
 
             <div className="ml-auto mr-3 flex">
               <LoginCart />
-              <CurrencySelector
-                onChange={(e) => changeCurrency(e.target.value)}
-                selectedCurrency={selectedCurrency}
-              />
             </div>
           </div>
           <ThemeToggle />

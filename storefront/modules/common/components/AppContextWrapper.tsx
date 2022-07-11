@@ -39,7 +39,7 @@ export const AppContextWrapper = ({ children }) => {
   const [chainId, setChainId] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
   const [isCartOpen, toggleCart] = useState(false);
-  const [selectedCurrency, changeCurrency] = useState('');
+  const [selectedCurrency, changeCurrency] = useState('ETH');
 
   const payWithMetaMask = async (orderAddress, orderAmount) => {
     if (!accounts.length) {
