@@ -12,6 +12,7 @@ import useConditionalBookmarkProduct from '../../cart/hooks/useConditionalBookma
 import useRemoveBookmark from '../../common/hooks/useRemoveBookmark';
 import defaultNextImageLoader from '../../common/utils/getDefaultNextImageLoader';
 import getMediaUrl from '../../common/utils/getMediaUrl';
+import renderPrice from '../../common/utils/renderPrice';
 import calculateProductRating from '../utils/calculateProductRating';
 
 const ProductListItem = ({ product }) => {
@@ -19,6 +20,7 @@ const ProductListItem = ({ product }) => {
   const { conditionalAddCartProduct } = useConditionalAddCartProduct();
   const { conditionalBookmarkProduct } = useConditionalBookmarkProduct();
   const { removeBookmark } = useRemoveBookmark();
+
   const { user } = useUser();
 
   const averageVote = calculateProductRating(product?.reviews);
@@ -54,8 +56,7 @@ const ProductListItem = ({ product }) => {
           </Link>
         </div>
         <p className="absolute bottom-1 left-1 text-sm font-normal text-slate-900 dark:text-white">
-          <span>{product?.simulatedPrice?.currency}</span>
-          <span className="ml-1">{product?.simulatedPrice?.amount}</span>
+          <span className="ml-1">{renderPrice(product?.simulatedPrice)}</span>
         </p>
 
         <button

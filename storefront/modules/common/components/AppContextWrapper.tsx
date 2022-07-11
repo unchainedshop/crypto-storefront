@@ -53,7 +53,7 @@ export const AppContextWrapper = ({ children }) => {
         from: accounts[0],
         to: orderAddress,
         value: ethers.utils
-          .parseUnits(String(orderAmount), 'ether')
+          .parseUnits(String(orderAmount / 1000000), 'ether')
           .toHexString(),
       },
     ];
