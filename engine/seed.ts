@@ -6,7 +6,8 @@ import { v4 as uuidv4 } from 'uuid';
 const logger = console;
 const {
   UNCHAINED_COUNTRY,
-  UNCHAINED_CURRENCY,
+  UNCHAINED_CRYPTO_CURRENCY_CODE,
+UNCHAINED_CRYPTO_CURRENCY_CONTRACT_ADDRESS,
   UNCHAINED_LANG,
   UNCHAINED_MAIL_RECIPIENT,
   UNCHAINED_SEED_PASSWORD,
@@ -56,7 +57,7 @@ export default async (unchainedApi) => {
     );
 
     const currencies = await Promise.all(
-      [UNCHAINED_CURRENCY ? UNCHAINED_CURRENCY.toUpperCase() : 'ETH'].map(
+      ['ETH'].map(
         async (code) => {
           const currencyId = await modules.currencies.create(
             {
@@ -73,6 +74,17 @@ export default async (unchainedApi) => {
         },
       ),
     );
+    if(UNCHAINED_CRYPTO_CURRENCY_CODE && UNCHAINED_CRYPTO_CURRENCY_CONTRACT_ADDRESS ) {
+      await modules.currencies.create(
+        {
+          isoCode: UNCHAINED_CRYPTO_CURRENCY_CODE,
+          isActive: true,
+          authorId: adminId,
+          contractAddress: UNCHAINED_CRYPTO_CURRENCY_CONTRACT_ADDRESS
+        },
+        adminId,
+      );
+    }
 
     const countries = await Promise.all(
       [UNCHAINED_COUNTRY ? UNCHAINED_COUNTRY.toUpperCase() : 'CH'].map(

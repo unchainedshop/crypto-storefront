@@ -25,6 +25,8 @@ services:
     build: ./engine
     ports:
       - "4010:3000"
+    environment:
+      - MONGO_URL=mongodb://my-mongoDB
     env_file:
       - './.env.engine'
     healthcheck:
