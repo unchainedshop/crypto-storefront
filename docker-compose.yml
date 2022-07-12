@@ -38,15 +38,43 @@ services:
     image: mongo:latest
     ports:
       - "27017:27017"
+    volumes:
+      - db-data:/data/db
+      - mongo-config:/data/configdb
   redis:
     image: redis:6.2-alpine
     restart: on-failure
     ports:
       - '6379:6379'
     command: redis-server --loglevel debug
+    volumes: 
+      - cache:/data
   geth-eth-node: 
     image: ethereum/client-go
     restart: on-failure
     ports:
       - "8545:8545"
-    command: --goerli --http  --syncmode "light"   --http.corsdomain "*" --http.addr "0.0.0.0" 
+    command:  
+      - --networkid=${GETH_NETWORK_ID:-5}
+      - --http
+      - --http.api
+      - "eth,net,web3"
+      - --http.addr=0.0.0.0
+      - --http.vhosts=*
+      - --http.corsdomain=*
+      - --ws
+      - --ws.origins=*
+      - --ws.addr=0.0.0.0
+      - --ws.api
+      - "eth,net,web3"
+      - --graphql
+      - --graphql.corsdomain=*
+      - --graphql.vhosts=*
+    volumes:                                                                 
+      - geth-goerli:/.goerli
+volumes:
+  db-data: {}
+  mongo-config: {}
+  cache:
+    driver: local
+  geth-goerli: {}
