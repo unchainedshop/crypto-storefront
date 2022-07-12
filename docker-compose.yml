@@ -27,6 +27,10 @@ services:
       - "4010:3000"
     environment:
       - MONGO_URL=mongodb://my-mongoDB
+      - ROOT_URL=http://localhost:4010
+      - EMAIL_WEBSITE_NAME=Unchained
+      - EMAIL_FROM=noreply@unchained.local
+      - EMAIL_WEBSITE_URL=http://localhost:4010
     env_file:
       - './.env.engine'
     healthcheck:
