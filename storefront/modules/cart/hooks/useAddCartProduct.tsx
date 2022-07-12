@@ -7,7 +7,7 @@ const AddCartProductMutation = gql`
     addCartProduct(productId: $productId) {
       _id
       total {
-        amount
+        gweiAmount
         currency
       }
       order {

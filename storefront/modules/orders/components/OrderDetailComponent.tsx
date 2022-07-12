@@ -41,7 +41,10 @@ const OrderDetailComponent = ({ order }) => {
 
     return [];
   };
-
+  console.log(
+    'user?.cart.totaluser?.cart.totaluser?.cart.total',
+    user?.cart.total,
+  );
   useEffect(() => {
     const updateContractAddress = async () => {
       const signedAddress = await signOrderPayment();
@@ -74,7 +77,7 @@ const OrderDetailComponent = ({ order }) => {
                 onClick={() =>
                   payWithMetaMask(
                     paymentAddress.address,
-                    user?.cart.total.amount,
+                    user?.cart.total.gweiAmount,
                   )
                 }
               >

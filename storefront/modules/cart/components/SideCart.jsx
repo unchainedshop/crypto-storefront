@@ -17,14 +17,17 @@ const SideCart = ({ isOpen }) => {
     (acc, item) => {
       return {
         ...acc,
-        amount: acc.amount + (item?.total?.amount || 0),
+        gweiAmount:
+          parseInt(acc.gweiAmount, 10) +
+          parseInt(item?.total?.gweiAmount || 0, 10),
       };
     },
     {
       currency: user?.cart?.itemsTotal?.currency,
-      amount: 0,
+      gweiAmount: 0,
     },
   );
+
   return (
     <>
       <div

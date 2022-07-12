@@ -48,7 +48,7 @@ const CurrentUserFragment = gql`
         emailAddress
       }
       itemsTotal: total(category: ITEMS) {
-        amount
+        gweiAmount
         currency
       }
       items {
@@ -56,7 +56,7 @@ const CurrentUserFragment = gql`
         quantity
 
         total {
-          amount
+          gweiAmount
           currency
         }
         product {
@@ -80,15 +80,15 @@ const CurrentUserFragment = gql`
         }
       }
       taxes: total(category: TAXES) {
-        amount
+        gweiAmount
         currency
       }
       delivery: total(category: DELIVERY) {
-        amount
+        gweiAmount
         currency
       }
       payment: total(category: PAYMENT) {
-        amount
+        gweiAmount
         currency
       }
       deliveryInfo: delivery {
@@ -103,7 +103,7 @@ const CurrentUserFragment = gql`
         }
       }
       total {
-        amount
+        gweiAmount
         currency
       }
       currency {
@@ -129,7 +129,7 @@ const CurrentUserFragment = gql`
         }
         simulatedPrice {
           _id
-          amount
+          gweiAmount
           currency
         }
       }

@@ -27,7 +27,7 @@ const ProductFragment = gql`
         _id
         isTaxable
         isNetPrice
-        amount
+        gweiAmount
         currency
       }
       texts(forceLocale: $forceLocale) {

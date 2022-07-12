@@ -26,13 +26,13 @@ const OrderFragment = gql`
           version
         }
         simulatedPrice(currency: $currency) {
-          amount
+          gweiAmount
           currency
         }
       }
       status
       fee {
-        amount
+        gweiAmount
         currency
       }
       ... on OrderDeliveryShipping {
@@ -44,7 +44,7 @@ const OrderFragment = gql`
     orderNumber
     total {
       isTaxable
-      amount
+      gweiAmount
       currency
     }
     supportedPaymentProviders {
@@ -55,7 +55,7 @@ const OrderFragment = gql`
       _id
       type
       simulatedPrice(currency: $currency) {
-        amount
+        gweiAmount
         currency
       }
     }
@@ -65,7 +65,7 @@ const OrderFragment = gql`
       status
       paid
       fee {
-        amount
+        gweiAmount
         currency
       }
       provider {

@@ -10,6 +10,7 @@ import MetaTags from '../modules/common/components/MetaTags';
 import useRemoveBookmark from '../modules/common/hooks/useRemoveBookmark';
 import defaultNextImageLoader from '../modules/common/utils/getDefaultNextImageLoader';
 import getMediaUrl from '../modules/common/utils/getMediaUrl';
+import renderPrice from '../modules/common/utils/renderPrice';
 
 const bookmarks = () => {
   const { formatMessage } = useIntl();
@@ -80,11 +81,8 @@ const bookmarks = () => {
                           </Link>
                         </div>
                         <p className="absolute bottom-1 left-1 text-sm font-normal text-slate-900 dark:text-white">
-                          <span>
-                            {bookmark.product?.simulatedPrice?.currency}
-                          </span>
                           <span className="ml-1">
-                            {bookmark?.product?.simulatedPrice?.amount}
+                            {renderPrice(bookmark?.product?.simulatedPrice)}
                           </span>
                         </p>
                         <button

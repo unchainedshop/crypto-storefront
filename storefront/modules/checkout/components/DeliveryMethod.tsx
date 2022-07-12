@@ -3,6 +3,7 @@ import { CheckCircleIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
+import renderPrice from '../../common/utils/renderPrice';
 import useSetOrderDeliveryProvider from '../../orders/hooks/setOrderDeliveryProvider';
 
 const DeliveryMethod = ({ user }) => {
@@ -73,9 +74,7 @@ const DeliveryMethod = ({ user }) => {
                         as="span"
                         className="mt-6 text-sm font-medium text-slate-900 dark:text-white"
                       >
-                        {deliveryMethod?.simulatedPrice?.currency}
-                        &nbsp;
-                        {deliveryMethod?.simulatedPrice?.amount}
+                        {renderPrice(deliveryMethod?.simulatedPrice)}
                       </RadioGroup.Description>
                     </div>
                   </div>

@@ -2,13 +2,18 @@ import { ethers } from 'ethers';
 import renderCurrency from './renderCurrency';
 
 const renderPrice = (
-  args: { amount?: number; currency?: string; addBTCFraction?: boolean } = {},
+  args: {
+    amount?: number;
+    currency?: string;
+    addBTCFraction?: boolean;
+    gweiAmount?: string;
+  } = {},
 ): string => {
-  const { amount = 0, currency = null } = args || {};
+  const { amount = 0, currency = null, gweiAmount = '0' } = args || {};
 
   if (currency === 'ETH') {
     return `${currency} ${ethers.utils.formatEther(
-      (parseInt(String(amount), 10) * 1000000000000).toString(),
+      (parseInt(gweiAmount, 10) * 1000000000).toString(),
     )}`;
   }
   return `${renderCurrency(currency, amount / 100)}`;
