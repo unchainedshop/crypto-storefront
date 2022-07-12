@@ -1,4 +1,4 @@
-
+import Price from "./Price";
 
 
 export default {
@@ -9,5 +9,5 @@ export default {
   Query: {
 
   },
-
+Price
 };

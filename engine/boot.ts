@@ -6,6 +6,8 @@ import {
   withAccessToken,
   setAccessToken,
 } from 'meteor/unchained:platform';
+import typeDefs from './api/schema'
+import resolvers from './api/resolvers';
 
 import './plugins'
 import seed from './seed';
@@ -16,8 +18,8 @@ Meteor.startup(async () => {
     playground: true,
     tracing: true,
     context: withAccessToken(),
-    typeDefs: [],
-    resolvers: [],
+    typeDefs: [...typeDefs],
+    resolvers: [resolvers],
     corsOrigins: (_, callback) => {
       callback(null, true);
     },
