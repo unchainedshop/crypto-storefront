@@ -10,7 +10,8 @@
     }
   },
   "scripts": {
-    "lint": "eslint . --cache  --fix --ext=jsx --ext=js",
+    "lint": "eslint . --cache  --fix --ext .ts,.tsx,.js,.jsx ",
+    "format": "npm run lint -- --fix",
     "dev": "UI_ENDPOINT=http://localhost:4000 SERVER_NODE_OPTIONS='-r ./node_env.js' meteor --exclude-archs web.browser.legacy,web.cordova,web.browser --no-release-check --no-lint -p 4010",
     "build": "UI_ENDPOINT=http://localhost:4000 meteor build --server-only --directory .build",
     "debug": "UI_ENDPOINT=http://localhost:4000 SERVER_NODE_OPTIONS='-r ./node_env.js' meteor --exclude-archs web.browser.legacy,web.cordova,web.browser debug -p 4010"
@@ -21,6 +22,7 @@
     "@unchainedshop/controlpanel": "^1.1.2",
     "@unchainedshop/logger": "^1.1.9",
     "apollo-server-express": "^2.25.3",
+    "babel-eslint": "^10.1.0",
     "bcrypt": "^5.0.1",
     "bip32": "^3.0.1",
     "bitcoinjs-lib": "^6.0.1",
@@ -49,8 +51,10 @@
     "@typescript-eslint/eslint-plugin": "^5.25.0",
     "@typescript-eslint/parser": "^5.25.0",
     "@unchainedshop/types": "^1.1.2",
-    "eslint": "^8.16.0",
+    "eslint": "^8.19.0",
+    "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.0.0",
     "prettier": "^2.6.2",
     "typescript": "^4.6.4"

@@ -9,8 +9,10 @@ import {
 import typeDefs from './api/schema'
 import resolvers from './api/resolvers';
 
+
 import './plugins'
 import seed from './seed';
+import cryptoModule from './modules'
 
 Meteor.startup(async () => {
   const unchainedAPI = await startPlatform({
@@ -23,6 +25,9 @@ Meteor.startup(async () => {
     corsOrigins: (_, callback) => {
       callback(null, true);
     },
+    modules: {
+      cryptoModule
+    }, 
     options: {
       orders: {
         ensureUserHasCart: true,

@@ -12,7 +12,7 @@ const CartFragment = gql`
         _id
       }
     }
-    totaltotal(category: ITEMS) {
+    total(category: ITEMS) {
       gweiAmount
       currency
     }

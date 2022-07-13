@@ -31,6 +31,10 @@ class UnchainedDocument extends Document {
         />
         <link rel="preload" type="text/css" href="/api/theme" as="style" />
         <link rel="stylesheet" type="text/css" href="/api/theme" />
+        <link
+          rel="shortcut icon"
+          href="https://unchained.shop/_next/static/media/logo.41b5589a.svg"
+        />
         <Head />
         <link rel="stylesheet" type="text/css" href="/api/custom-styles" />
 

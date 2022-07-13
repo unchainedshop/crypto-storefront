@@ -35,8 +35,6 @@ const ThankYou = () => {
     orderId: router.query?.orderId,
   });
 
-  console.log(order);
-
   return (
     <>
       <MetaTags

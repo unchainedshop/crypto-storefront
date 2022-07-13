@@ -16,7 +16,7 @@ const renderPrice = (
       (parseInt(gweiAmount, 10) * 1000000000).toString(),
     )}`;
   }
-  return `${renderCurrency(currency, amount / 100)}`;
+  return `${currency} ${amount}`;
 };
 
 export default renderPrice;

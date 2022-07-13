@@ -41,10 +41,7 @@ const OrderDetailComponent = ({ order }) => {
 
     return [];
   };
-  console.log(
-    'user?.cart.totaluser?.cart.totaluser?.cart.total',
-    user?.cart.total,
-  );
+
   useEffect(() => {
     const updateContractAddress = async () => {
       const signedAddress = await signOrderPayment();

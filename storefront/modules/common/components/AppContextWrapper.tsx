@@ -72,7 +72,6 @@ export const AppContextWrapper = ({ children }) => {
       setProvider(scopedProvider);
 
       const { chainId } = await scopedProvider.getNetwork();
-      console.log(chainId);
       setChainId(chainId);
 
       ethereum?.on('chainChanged', () => window.location.reload());
