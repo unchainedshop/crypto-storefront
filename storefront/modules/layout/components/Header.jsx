@@ -51,7 +51,7 @@ const Header = () => {
         </div>
       )}
 
-      <header className="sticky top-0 z-[1020] overflow-x-hidden bg-white text-black opacity-80 dark:bg-slate-600 dark:text-white">
+      <header className="sticky top-0 z-[1020] overflow-x-hidden bg-white text-black opacity-100 dark:bg-slate-600 dark:text-white">
         <div className="relative">
           <SideCart isOpen={isCartOpen} />
           <div className="container mx-auto hidden w-full sm:flex sm:flex-wrap sm:items-center sm:justify-between sm:py-2">

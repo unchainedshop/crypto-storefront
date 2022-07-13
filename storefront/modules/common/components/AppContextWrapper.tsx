@@ -7,6 +7,7 @@ import React, {
 } from 'react';
 import { ethers } from 'ethers';
 import ConnectPopup from './ConnectPopup';
+import useChangeCartCurrency from '../hooks/useChangeCartCurrency';
 
 export const AppContext = React.createContext<{
   hasSigner?: boolean;
@@ -39,7 +40,8 @@ export const AppContextWrapper = ({ children }) => {
   const [chainId, setChainId] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
   const [isCartOpen, toggleCart] = useState(false);
-  const [selectedCurrency, changeCurrency] = useState('ETH');
+  const [selectedCurrency, setCurrency] = useState('');
+
 
   const payWithMetaMask = async (orderAddress, orderAmount) => {
     if (!accounts.length) {
@@ -63,6 +65,14 @@ export const AppContextWrapper = ({ children }) => {
     );
   };
 
+  const changeCurrency = async (val) => {
+    if(typeof(window) !== 'undefined') {
+    setCurrency(val)
+      localStorage.setItem('selectedCurrency', val)
+    }
+    
+  }
+
   useEffect(() => {
     (async () => {
       const scopedProvider = ethereum
@@ -80,8 +90,6 @@ export const AppContextWrapper = ({ children }) => {
         setChainId(chainId);
       });
 
-      console.log(scopedProvider);
-
       if (ethereum) {
         const accounts = await ethereum.request({
           method: 'eth_accounts',
@@ -94,9 +102,12 @@ export const AppContextWrapper = ({ children }) => {
         });
       }
     })();
+    (typeof(window) != 'undefined')
+    changeCurrency(localStorage.getItem('selectedCurrency'))
+    
   }, []);
 
-  console.log(accounts);
+  
 
   const doConnect = async () => {
     setModalOpen(false);

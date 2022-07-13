@@ -3,6 +3,8 @@ import { useIntl } from 'react-intl';
 import { toast } from 'react-toastify';
 import OrderPriceSummary from '../../checkout/components/OrderPriceSummary';
 import useCheckoutCartMutation from '../../checkout/hooks/useCheckoutCart';
+import { useAppContext } from '../../common/components/AppContextWrapper';
+import CurrencySelector from '../../common/components/CurrencySelector';
 
 import CartItem from './CartItem';
 
@@ -10,7 +12,7 @@ const ManageCart = ({ user }) => {
   const { formatMessage } = useIntl();
   const { checkoutCart } = useCheckoutCartMutation();
   const { replace } = useRouter();
-
+  const { selectedCurrency, changeCurrency } = useAppContext();
   const handleOnClick = async () => {
     try {
       await checkoutCart({
@@ -45,6 +47,12 @@ const ManageCart = ({ user }) => {
             defaultMessage: 'Items in your cart',
           })}
         </h3>
+        <CurrencySelector
+          onChange={(e) => {
+            changeCurrency(e.target.value);
+          }}
+          selectedCurrency={selectedCurrency}
+        />
         <ul className="divide-y divide-slate-300">
           {(user?.cart?.items || []).map((item) => (
             <CartItem key={item._id} {...item} />

@@ -42,6 +42,10 @@ const CurrentUserFragment = gql`
       billingAddress {
         ...AddressFragment
       }
+      currency {
+        _id
+        isoCode
+      }
 
       contact {
         telNumber
@@ -127,7 +131,7 @@ const CurrentUserFragment = gql`
           label
           version
         }
-        simulatedPrice {
+        simulatedPrice(currency: $currency) {
           _id
           gweiAmount
           currency

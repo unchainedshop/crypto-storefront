@@ -1,5 +1,4 @@
 import { ethers } from 'ethers';
-import renderCurrency from './renderCurrency';
 
 const renderPrice = (
   args: {
@@ -10,13 +9,12 @@ const renderPrice = (
   } = {},
 ): string => {
   const { amount = 0, currency = null, gweiAmount = '0' } = args || {};
-
   if (currency === 'ETH') {
     return `${currency} ${ethers.utils.formatEther(
       (parseInt(gweiAmount, 10) * 1000000000).toString(),
     )}`;
   }
-  return `${currency} ${amount}`;
+  return `${currency ?? ''} ${amount}`;
 };
 
 export default renderPrice;

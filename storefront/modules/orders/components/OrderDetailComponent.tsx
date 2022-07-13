@@ -66,7 +66,7 @@ const OrderDetailComponent = ({ order }) => {
               className="mx-auto"
             />
           </div>
-          {paymentAddress.currency === 'ETH' && hasSigner && (
+          {user.cart.currency === 'ETH' && hasSigner && (
             <div className="flex items-center justify-center">
               <button
                 type="button"
@@ -279,7 +279,7 @@ const OrderDetailComponent = ({ order }) => {
                               defaultMessage: 'Delivered on',
                             })}
                           </span>
-                          <time dateTime={order?.delivery}>
+                          <time dateTime={order?.delivery?.delivered}>
                             {formatDateTime(order?.delivery?.delivered)}
                           </time>
                         </>

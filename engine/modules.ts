@@ -18,14 +18,14 @@ export type CryptoModule = {
         const cryptoModule: CryptoModule = {
         async changeCartCurrency(currency, cartId) {
             const selector = generateDbFilterById(cartId)
-            Orders.update(selector, 
+            Orders.updateOne(selector, 
                             {
                                 $set: {
                                     currency,
                                     context: {currency}
                                 }
                         });
-                        
+
             return Orders.findOne({_id: cartId})
         }
     }

@@ -7,11 +7,14 @@ import renderPrice from '../../common/utils/renderPrice';
 import useUser from '../../auth/hooks/useUser';
 import CartItem from './CartItem';
 import { useAppContext } from '../../common/components/AppContextWrapper';
+import CurrencySelector from '../../common/components/CurrencySelector';
 
 const SideCart = ({ isOpen }) => {
   const { user } = useUser();
   const intl = useIntl();
   const { isCartOpen, toggleCart } = useAppContext();
+
+  const { selectedCurrency, changeCurrency } = useAppContext();
 
   const subtotal = (user?.cart?.items || []).reduce(
     (acc, item) => {
@@ -69,7 +72,7 @@ const SideCart = ({ isOpen }) => {
         <>
           <div
             className={classNames(
-              'fixed top-0 -right-80 z-50 flex h-full w-[300px] flex-col overflow-y-auto bg-white px-1 opacity-100 shadow-md transition dark:bg-slate-600 dark:opacity-100 lg:-right-[450px] lg:w-[400px]',
+              'fixed top-0 -right-80 z-50 flex h-full w-[300px] flex-col overflow-y-auto bg-white  bg-opacity-100 px-1 shadow-md transition dark:bg-slate-600 dark:opacity-100 lg:-right-[450px] lg:w-[400px]',
               {
                 'right-0 lg:right-0': isOpen,
               },
@@ -96,6 +99,10 @@ const SideCart = ({ isOpen }) => {
                 })}
               </h3>
             </div>
+            <CurrencySelector
+              onChange={(e) => changeCurrency(e.target.value)}
+              selectedCurrency={selectedCurrency}
+            />
             <div className="px-2">
               {user?.cart?.items.length === 0 ? (
                 <p>
