@@ -6,8 +6,8 @@ import { v4 as uuidv4 } from 'uuid';
 const logger = console;
 const {
   UNCHAINED_COUNTRY,
-  UNCHAINED_CRYPTO_CURRENCY_CODE,
-UNCHAINED_CRYPTO_CURRENCY_CONTRACT_ADDRESS,
+  UNCHAINED_ERC20_TOKEN_SYMBOL,
+UNCHAINED_ERC20_TOKEN_CONTRACT_ADDRESS,
   UNCHAINED_LANG,
   UNCHAINED_MAIL_RECIPIENT,
   UNCHAINED_SEED_PASSWORD,
@@ -74,13 +74,13 @@ export default async (unchainedApi) => {
         },
       ),
     );
-    if(UNCHAINED_CRYPTO_CURRENCY_CODE && UNCHAINED_CRYPTO_CURRENCY_CONTRACT_ADDRESS ) {
+    if(UNCHAINED_ERC20_TOKEN_SYMBOL && UNCHAINED_ERC20_TOKEN_CONTRACT_ADDRESS ) {
       await modules.currencies.create(
         {
-          isoCode: UNCHAINED_CRYPTO_CURRENCY_CODE,
+          isoCode: UNCHAINED_ERC20_TOKEN_SYMBOL,
           isActive: true,
           authorId: adminId,
-          contractAddress: UNCHAINED_CRYPTO_CURRENCY_CONTRACT_ADDRESS
+          contractAddress: UNCHAINED_ERC20_TOKEN_CONTRACT_ADDRESS
         },
         adminId,
       );

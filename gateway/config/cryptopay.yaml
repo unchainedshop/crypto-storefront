@@ -11,7 +11,7 @@ currencies:
     bcoin-endpoint: ${BCOIN_ENDPOINT}
     wallet-endpoint: ${BCOIN_WALLET_ENDPOINT}
     bcoin-apikey: ${BCOIN_API_KEY}
-    xpub: ${BTC_EXTENDED_PUBLIC_KEY}
+    xpub: ${CRYPTOPAY_BTC_XPUB}
 
 unchained:
   transaction-webhook-url: ${CRYPTOPAY_TRANSACTION_WEBHOOK_URL}
