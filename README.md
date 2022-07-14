@@ -60,28 +60,28 @@ password: whatever value set to UNCHAINED_SEED_PASSWORD by default its 'password
 Below are list of variables available to configure to gain more control of the store
 
 
-| Variable  | Required |   Default   |   Description   |
+| Variable  |   Description   | Required |   Default   |
 :-----------|:------------------|:----------------|:----------------|
-|CRYPTOPAY_ETH_XPUB|   YES  | `None`    | Extended public key of a Ethereum address that will recieve payment made in store  |
-|UNCHAINED_ERC20_TOKEN_CONTRACT_ADDRESS|NO|`NONE`| Contract address a ERC20 token you are accepting payment with in store |
-|UNCHAINED_ERC20_TOKEN_SYMBOL|NO|`NODE`| Symbol/Code of the ERC20 you are accepting payment with. must relate to the contract specified by `UNCHAINED_ERC20_TOKEN_CONTRACT_ADDRESS`|
-|ETH_RPC_ENDPOINT|NO | `http://127.0.0.1:8545` | Synchronized ethereum node where unchained crypto pay listens to any transaction/order made in store |
-|BCOIN_API_KEY|   NO  | `None`    |  private API key of [Bcoin](https://bcoin.io/api-docs/) |
-|CRYPTOPAY_BTC_XPUB|   NO  | `None`    | Extended public key of a Bitcoin address that will recieve payment made in store  |
-|CRYPTOPAY_SECRET| NO    | `secret`  | hashing string used by the unchained cryptopay  gateway and Unchained engine. even though it's not required, we highly recommend you change this value to have a secure connection    |
-|BCOIN_ENDPOINT| NO | `http://127.0.0.1:18332` | [Bcoin](https://bcoin.io/api-docs/) api  `URL` |
-|BCOIN_WALLET_ENDPOINT| NO    |   `http://127.0.0.1:18334`    |   [Bcoin](https://bcoin.io/api-docs/) wallet endpoint |
-|CRYPTOPAY_TRANSACTION_WEBHOOK_URL| NO   | `http://127.0.0.1/webhook` | Used for communication between the engine and gateway when a transaction occurs. Usually not necessary to configure but in the case you have an unchained engine instance running elsewhere you can change this value accordingly |
-|CRYPTOPAY_PRICING_WEBHOOK_URL|   NO  | `http://127.0.0.1/webhook`    | Used for communication between the engine and gateway to get a live feed of currencies rate in order to do accurate conversion for order prices. Usually not necessary to configure but in the case you have an unchained engine instance running elsewhere you can change this value accordingly |
-|UNCHAINED_GRAPHQL_ENDPOINT| NO    | `http://127.0.0.1:4010/graphql`   | Where the actual engine runs and used by the storefront & gateway. Usually not necessary to configure but in the case you have an unchained engine instance running elsewhere you can change this value accordingly |
-|   REDIS_PORT  | NO    | 6379  | Redis is used to store relevant block related data. and this refers to the port in which a running redis instance exposes.  |
-|REDIS_HOST| NO | `127.0.0.1`   |  Redis is used to store relevant block related data. and this refers to the url in which a running redis instance running.   |
-|MONGO_URL| NO    |  `mongodb://my-mongoDB`   | Storage of the store actual data. if you want to use a different database than what is provided by default.   |
-|ROOT_URL| NO    |  `http://localhost:4010`  |   Endpoint for the Admin panel.   |
-|EMAIL_WEBSITE_NAME| NO    |   `Unchained` | Used when generating an email for various resons like order confirmation, password reset, user enrollment etc...|
-|EMAIL_WEBSITE_URL|   NO  |   `http://localhost:4010` |   Used when generating an email for various resons like order confirmation, password reset, user enrollment etc...|
-|UNCHAINED_SEED_PASSWORD| NO    | `password`    | Initial password for the admin panel. it's not required but we highly recommend you change it as soon as you open your app for the first time.    |
-|GETH_NETWORK_ID| NO    | `5 (goerli)` | Ethereum network you want to list transactions on. Default set to `Goerli`.    |
+|CRYPTOPAY_ETH_XPUB| Extended public key of a Ethereum address that will recieve payment made in store  |YES|`None`|
+|UNCHAINED_ERC20_TOKEN_CONTRACT_ADDRESS| Contract address a ERC20 token you are accepting payment with in store |NO|`NONE`|
+|UNCHAINED_ERC20_TOKEN_SYMBOL| Symbol/Code of the ERC20 you are accepting payment with. must relate to the contract specified by `UNCHAINED_ERC20_TOKEN_CONTRACT_ADDRESS`|NO|`NODE`|
+|ETH_RPC_ENDPOINT| Synchronized ethereum node where unchained crypto pay listens to any transaction/order made in store |NO | `http://127.0.0.1:8545` |
+|BCOIN_API_KEY| private API key of [Bcoin](https://bcoin.io/api-docs/) |NO|`None`|
+|CRYPTOPAY_BTC_XPUB| Extended public key of a Bitcoin address that will recieve payment made in store  |NO|`None`|
+|CRYPTOPAY_SECRET| hashing string used by the unchained cryptopay  gateway and Unchained engine. even though it's not required, we highly recommend you change this value to have a secure connection    |NO|`secret`|
+|BCOIN_ENDPOINT| [Bcoin](https://bcoin.io/api-docs/) api  `URL` |NO|`http://127.0.0.1:18332`|
+|BCOIN_WALLET_ENDPOINT|   [Bcoin](https://bcoin.io/api-docs/) wallet endpoint |NO|`http://127.0.0.1:18334`|
+|CRYPTOPAY_TRANSACTION_WEBHOOK_URL| Used for communication between the engine and gateway when a transaction occurs. Usually not necessary to configure but in the case you have an unchained engine instance running elsewhere you can change this value accordingly |NO | `http://127.0.0.1/webhook`|
+|CRYPTOPAY_PRICING_WEBHOOK_URL|Used for communication between the engine and gateway to get a live feed of currencies rate in order to do accurate conversion for order prices. Usually not necessary to configure but in the case you have an unchained engine instance running elsewhere you can change this value accordingly |NO|`http://127.0.0.1/webhook` |
+|UNCHAINED_GRAPHQL_ENDPOINT| Where the actual engine runs and used by the storefront & gateway. Usually not necessary to configure but in the case you have an unchained engine instance running elsewhere you can change this value accordingly |NO|`http://127.0.0.1:4010/graphql`|
+|   REDIS_PORT | Redis is used to store relevant block related data. and this refers to the port in which a running redis instance exposes. |NO|6379|
+|REDIS_HOST|Redis is used to store relevant block related data. and this refers to the url in which a running redis instance running.|NO|`127.0.0.1`|
+|MONGO_URL|Storage of the store actual data. if you want to use a different database than what is provided by default.|NO|  `mongodb://my-mongoDB`   |
+|ROOT_URL|  Endpoint for the Admin panel.   | NO|  `http://localhost:4010`  |
+|EMAIL_WEBSITE_NAME| Used when generating an email for various resons like order confirmation, password reset, user enrollment etc...| NO|   `Unchained` |
+|EMAIL_WEBSITE_URL| Used when generating an email for various resons like order confirmation, password reset, user enrollment etc...| NO|   `http://localhost:4010` |
+|UNCHAINED_SEED_PASSWORD| Initial password for the admin panel. it's not required but we highly recommend you change it as soon as you open your app for the first time.|NO|`password`|
+|GETH_NETWORK_ID| Ethereum network you want to list transactions on. Default set to `Goerli`.|NO| `5 (goerli)`|
 
 
 

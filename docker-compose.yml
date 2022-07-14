@@ -43,6 +43,7 @@ services:
       UNCHAINED_SEED_PASSWORD: ${UNCHAINED_SEED_PASSWORD:-password}
       EMAIL_WEBSITE_URL: ${EMAIL_WEBSITE_URL:-http://localhost:4010}
       CRYPTOPAY_SECRET: ${CRYPTOPAY_SECRET:-secret}
+      CRYPTOPAY_BTC_XPUB: ${CRYPTOPAY_BTC_XPUB:-""}
     env_file:
       - .env
       
