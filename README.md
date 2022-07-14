@@ -14,6 +14,7 @@ There are additional environment you can set to change the default value and all
 .env
 
 CRYPTOPAY_ETH_XPUB=
+UNCHAINED_SEED_PASSWORD= (optional)(recommended)
 UNCHAINED_CRYPTO_CURRENCY_CODE= (optional)
 UNCHAINED_CRYPTO_CURRENCY_CONTRACT_ADDRESS= (optional)
 
