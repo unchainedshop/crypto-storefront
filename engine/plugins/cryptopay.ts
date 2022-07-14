@@ -166,9 +166,9 @@ const Cryptopay: IPaymentAdapter = {
           });
         }
 
-        console.log(`Before set  CRYPTOPAY_ETH_XPUBCRYPTOPAY_ETH_XPUBCRYPTOPAY_ETH_XPUBCRYPTOPAY_ETH_XPUB CRYPTOPAY_ETH_XPUBCRYPTOPAY_ETH_XPUBCRYPTOPAY_ETH_XPUB`, CRYPTOPAY_ETH_XPUB )
+        
         if (CRYPTOPAY_ETH_XPUB) {
-          console.log(`CRYPTOPAY_ETH_XPUBCRYPTOPAY_ETH_XPUBCRYPTOPAY_ETH_XPUBCRYPTOPAY_ETH_XPUB CRYPTOPAY_ETH_XPUBCRYPTOPAY_ETH_XPUBCRYPTOPAY_ETH_XPUB`, CRYPTOPAY_ETH_XPUB )
+        
           const hardenedMaster = ethers.utils.HDNode.fromExtendedKey(CRYPTOPAY_ETH_XPUB);
           const ethDerivationNumber = await modules.orders.payments.countOrderPaymentsByContextData({
             context: { cryptoAddresses: { currency: CryptopayCurrencies.ETH }},
@@ -196,21 +196,3 @@ const Cryptopay: IPaymentAdapter = {
 };
 
 PaymentDirector.registerAdapter(Cryptopay);
-
-
-{
-	"data": {
-		"me": {
-			"_id": "oLR1r9v90eZBQNTyk",
-			"currentClient": {
-				"_id": "WU0000032878",
-				"name": "Testspitex VMA",
-				"isPrivateCustomer": false,
-				"isInstitution": true,
-				"cart": null,
-				"__typename": "PublicareClient"
-			},
-			"__typename": "User"
-		}
-	}
-}
