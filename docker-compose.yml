@@ -8,9 +8,12 @@ services:
       - crypto_engine
       - geth-eth-node
      environment:
-       ETH_RPC_ENDPOINT : http://127.0.0.1:8545
+        ETH_RPC_ENDPOINT: ${ETH_RPC_ENDPOINT:-http://127.0.0.1:8545}
+        BCOIN_API_KEY: ${BCOIN_API_KEY:-""}
+        BTC_EXTENDED_PUBLIC_KEY: ${BTC_EXTENDED_PUBLIC_KEY:-""}
+        CRYPTOPAY_SHARED_SECRET: ${CRYPTOPAY_SHARED_SECRET:-secret}
      env_file:
-      - './.env.gateway'
+      - .env
     
   crypto_storefront:
     build: ./storefront
@@ -26,13 +29,15 @@ services:
     ports:
       - "4010:3000"
     environment:
-      - MONGO_URL=mongodb://my-mongoDB
-      - ROOT_URL=http://localhost:4010
-      - EMAIL_WEBSITE_NAME=Unchained
-      - EMAIL_FROM=noreply@unchained.local
-      - EMAIL_WEBSITE_URL=http://localhost:4010
+      MONGO_URL: ${MONGO_URL:-mongodb://my-mongoDB}
+      ROOT_URL: ${ROOT_URL:-http://localhost:4010}
+      EMAIL_WEBSITE_NAME: ${EMAIL_WEBSITE_NAME:-Unchained}
+      EMAIL_FROM: ${EMAIL_FROM:-noreply@unchained.local}
+      UNCHAINED_SEED_PASSWORD: ${UNCHAINED_SEED_PASSWORD=:password}
+      EMAIL_WEBSITE_URL: ${EMAIL_WEBSITE_URL:-http://localhost:4010}
     env_file:
-      - './.env.engine'
+      - .env
+      
     healthcheck:
       test: >-
         curl -f http://localhost:3000/graphql/healthcheck || exit 1

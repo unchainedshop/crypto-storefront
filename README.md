@@ -10,22 +10,18 @@ and install it for your platform.
 Next there are few environments you must set to fire up your store. go to the root director of your project and provide the required fields for each file accordingly.
 
 ```
-.env.engine
+.env
 
 CRYPTOPAY_ETH_XPUB=
 UNCHAINED_CRYPTO_CURRENCY_CODE= (optional)
 UNCHAINED_CRYPTO_CURRENCY_CONTRACT_ADDRESS= (optional)
-UNCHAINED_SEED_PASSWORD= 
+ 
+CRYPTOPAY_ETH_XPUB
 
-```
-
-```
-.env.gateway
-ETH_EXTENDED_PUBLIC_KEY=
 ```
 
 ### Definition
-- `CRYPTOPAY_ETH_XPUB` & `ETH_EXTENDED_PUBLIC_KEY` - the extended ethereum address of the account recieving payments in the store. the gateway will process every block in the blockchain for transactions to this account.
+- `CRYPTOPAY_ETH_XPUB` - the extended ethereum address of the account recieving payments in the store. the gateway will process every block in the blockchain for transactions to this account.
 - `UNCHAINED_SEED_PASSWORD` this is the initial password the admin account will be set to.
 - UNCHAINED_CRYPTO_CURRENCY_CONTRACT_ADDRESS  - Holds the address of an ERC20 token. if the store accepts a particular token for payment for example `SHIB` you set its address using to this env. 
  it's optional and you can set it anytime even after the store is deployed.
