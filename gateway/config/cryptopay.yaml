@@ -14,8 +14,8 @@ currencies:
     xpub: ${CRYPTOPAY_BTC_XPUB}
 
 unchained:
-  transaction-webhook-url: ${CRYPTOPAY_TRANSACTION_WEBHOOK_URL}
-  price-webhook-url: ${CRYPTOPAY_PRICING_WEBHOOK_URL}
+  transaction-webhook-url: ${ROOT_URL}${CRYPTOPAY_WEBHOOK_PATH}
+  price-webhook-url: ${ROOT_URL}${CRYPTOPAY_PRICING_WEBHOOK_PATH}
   graphql-endpoint: ${UNCHAINED_GRAPHQL_ENDPOINT}
   secret: ${CRYPTOPAY_SECRET}
 

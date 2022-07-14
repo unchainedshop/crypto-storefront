@@ -14,14 +14,14 @@ services:
         CRYPTOPAY_SECRET: ${CRYPTOPAY_SECRET:-secret}
         BCOIN_ENDPOINT: ${BCOIN_ENDPOINT:-http://127.0.0.1:18332}
         BCOIN_WALLET_ENDPOINT: ${BCOIN_WALLET_ENDPOINT:-http://127.0.0.1:18334}
-        CRYPTOPAY_TRANSACTION_WEBHOOK_URL: ${UNCHAINED_TRANSACTION_WEBHOOK_URL:-http://127.0.0.1/webhook} 
-        CRYPTOPAY_PRICING_WEBHOOK_URL: ${CRYPTOPAY_PRICING_WEBHOOK_URL:-http://127.0.0.1/webhook}
+        CRYPTOPAY_WEBHOOK_PATH: ${CRYPTOPAY_WEBHOOK_PATH:-/graphql/cryptopay} 
+        CRYPTOPAY_PRICING_WEBHOOK_PATH: ${CRYPTOPAY_PRICING_WEBHOOK_PATH:-/graphql/cryptopay-pricing}
         UNCHAINED_GRAPHQL_ENDPOINT: ${UNCHAINED_GRAPHQL_ENDPOINT:-http://127.0.0.1:4010/graphql}
+        ROOT_URL: ${ROOT_URL:-http://127.0.0.1:4010}
         REDIS_PORT: ${REDIS_PORT:-6379}
         REDIS_HOST: ${REDIS_HOST:-127.0.0.1}
      env_file:
       - .env
-    
   crypto_storefront:
     build: ./storefront
     ports:
@@ -44,6 +44,8 @@ services:
       EMAIL_WEBSITE_URL: ${EMAIL_WEBSITE_URL:-http://localhost:4010}
       CRYPTOPAY_SECRET: ${CRYPTOPAY_SECRET:-secret}
       CRYPTOPAY_BTC_XPUB: ${CRYPTOPAY_BTC_XPUB:-""}
+      CRYPTOPAY_WEBHOOK_PATH: ${CRYPTOPAY_WEBHOOK_PATH:-/graphql/cryptopay} 
+      CRYPTOPAY_PRICING_WEBHOOK_PATH: ${CRYPTOPAY_PRICING_WEBHOOK_PATH:-/graphql/cryptopay-pricing}
     env_file:
       - .env
       
