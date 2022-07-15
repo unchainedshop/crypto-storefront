@@ -14,10 +14,9 @@ services:
         CRYPTOPAY_SECRET: ${CRYPTOPAY_SECRET:-secret}
         BCOIN_ENDPOINT: ${BCOIN_ENDPOINT:-http://127.0.0.1:18332}
         BCOIN_WALLET_ENDPOINT: ${BCOIN_WALLET_ENDPOINT:-http://127.0.0.1:18334}
-        CRYPTOPAY_WEBHOOK_PATH: ${CRYPTOPAY_WEBHOOK_PATH:-/graphql/cryptopay} 
-        CRYPTOPAY_PRICING_WEBHOOK_PATH: ${CRYPTOPAY_PRICING_WEBHOOK_PATH:-/graphql/cryptopay-pricing}
+        UNCHAINED_CRYPTOPAY_WEBHOOK_PATH: ${UNCHAINED_CRYPTOPAY_WEBHOOK_PATH:-http://127.0.0.1:4010/graphql/cryptopay} 
+        UNCHAINED_CRYPTOPAY_PRICING_WEBHOOK_PATH: ${UNCHAINED_CRYPTOPAY_PRICING_WEBHOOK_PATH:-http://127.0.0.1:4010/graphql/cryptopay-pricing}
         UNCHAINED_GRAPHQL_ENDPOINT: ${UNCHAINED_GRAPHQL_ENDPOINT:-http://127.0.0.1:4010/graphql}
-        ROOT_URL: ${ROOT_URL:-http://127.0.0.1:4010}
         REDIS_PORT: ${REDIS_PORT:-6379}
         REDIS_HOST: ${REDIS_HOST:-127.0.0.1}
      env_file:
@@ -78,7 +77,7 @@ services:
     ports:
       - "8545:8545"
     command:  
-      - --networkid=${GETH_NETWORK_ID:-5}
+      - --goerli
       - --http
       - --http.api
       - "eth,net,web3"
