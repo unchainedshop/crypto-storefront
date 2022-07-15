@@ -8,7 +8,7 @@ services:
       - crypto_engine
       - geth-eth-node
      environment:
-        ETH_RPC_ENDPOINT: ${ETH_RPC_ENDPOINT:-http://127.0.0.1:8545}
+        ETH_RPC_ENDPOINT: ${ETH_RPC_ENDPOINT:-http://127.0.0.1:8555}
         BCOIN_API_KEY: ${BCOIN_API_KEY}
         CRYPTOPAY_BTC_XPUB: ${CRYPTOPAY_BTC_XPUB}
         CRYPTOPAY_SECRET: ${CRYPTOPAY_SECRET:-secret}
@@ -19,6 +19,7 @@ services:
         UNCHAINED_GRAPHQL_ENDPOINT: ${UNCHAINED_GRAPHQL_ENDPOINT:-http://127.0.0.1:4010/graphql}
         REDIS_PORT: ${REDIS_PORT:-6379}
         REDIS_HOST: ${REDIS_HOST:-127.0.0.1}
+
      env_file:
       - .env
   crypto_storefront:
@@ -75,25 +76,18 @@ services:
     image: ethereum/client-go
     restart: on-failure
     ports:
-      - "8545:8545"
+      - "8555:8555"
     command:  
       - --goerli
       - --http
-      - --http.api
-      - "eth,net,web3"
       - --http.addr=0.0.0.0
       - --http.vhosts=*
       - --http.corsdomain=*
-      - --ws
-      - --ws.origins=*
-      - --ws.addr=0.0.0.0
-      - --ws.api
-      - "eth,net,web3"
-      - --graphql
-      - --graphql.corsdomain=*
-      - --graphql.vhosts=*
+      - --syncmode=light 
+      - --http.port=8555
     volumes:                                                                 
       - geth-goerli:/.goerli
+      - $HOME/ethereum:/root
 volumes:
   db-data: {}
   mongo-config: {}

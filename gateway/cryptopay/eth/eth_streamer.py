@@ -23,6 +23,12 @@ class EthStreamer:
         )
         self.w3 = Web3(Web3.HTTPProvider(rpc_endpoint))
         
+        if(self.w3.isConnected()):
+            print("Connected to ethereum RPC node at ", rpc_endpoint, " successfully", end="\r"  )
+            print("Chain ID: ", self.w3.eth.chainId,  end="\r" )
+        else:
+            print("Error connecting to RPC endpoint")
+        
         if eth_config["poa-testnet"]:
             self.w3.middleware_onion.inject(geth_poa_middleware, layer=0)
         self.init_block_history = eth_config["init-block-history"]
@@ -104,8 +110,7 @@ class EthStreamer:
     def process_blocks(self):
         print("Started processing block...")
         while True:
-            
-            curr_block = self.w3.eth.get_block("latest").number            
+            curr_block = self.w3.eth.get_block("latest").number
             checked_block = self.redis.get("eth_checkedblock")
             print("Processing block from ", checked_block , " to ", curr_block)
             if checked_block is None:
