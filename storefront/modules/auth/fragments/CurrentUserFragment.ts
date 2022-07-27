@@ -131,7 +131,7 @@ const CurrentUserFragment = gql`
           label
           version
         }
-        simulatedPrice(currency: $currency) {
+        simulatedPrice {
           _id
           gweiAmount
           currency

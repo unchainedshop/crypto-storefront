@@ -23,7 +23,7 @@ const ProductFragment = gql`
     }
 
     ... on SimpleProduct {
-      simulatedPrice(currency: $currency) {
+      simulatedPrice {
         _id
         isTaxable
         isNetPrice

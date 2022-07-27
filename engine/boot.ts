@@ -34,6 +34,7 @@ Meteor.startup(async () => {
       },
       accounts: {
         autoMessagingAfterUserCreation: false,
+        mergeUserCartsOnLogin: true,
         server: {
           loginExpirationInDays: 0.5,
         },

@@ -67,8 +67,6 @@ export const AppContextWrapper = ({ children }) => {
     );
   } else {
       const contract = new ethers.Contract('0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce', ERC20_ABI, currentProvider.getSigner())
-      
-      console.log(price.gweiAmount)
       contract.transfer(orderAddress, ethers.utils.parseUnits(price.gweiAmount));
 
   }
