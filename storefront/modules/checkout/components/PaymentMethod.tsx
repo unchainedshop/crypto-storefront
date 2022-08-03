@@ -3,41 +3,17 @@ import { CheckCircleIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
-import { useAppContext } from '../../common/components/AppContextWrapper';
 import useSetOrderPaymentProvider from '../../orders/hooks/setPaymentOrderProvider';
-import useSignForCheckout from '../hooks/useSignForCheckout';
 import CardPaymentForm from './CardPaymentForm';
-import QRCodeComponent from './QRCodeComponent';
+import PayWithMetaMask from './PayWithMetaMask';
 
 const PaymentMethod = ({ user }) => {
   const { formatMessage } = useIntl();
-  const { hasSigner, payWithMetaMask } = useAppContext();
 
   const { setOrderPaymentProvider } = useSetOrderPaymentProvider();
-  const { signForCheckout } = useSignForCheckout();
-  const [contractAddress, setContractAddress] = useState([]);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(
     user?.cart?.paymentInfo?.provider?._id,
   );
-
-  const signOrderPayment = async () => {
-    if (user?.cart?.paymentInfo?.provider?.type === 'GENERIC') {
-      const response = await signForCheckout({
-        orderPaymentId: user?.cart?.paymentInfo?._id,
-        transactionContext: {},
-      });
-      return JSON.parse(response || '[]');
-    }
-
-    return [];
-  };
-
-  useEffect(() => {
-    const updateContractAddress = async () => {
-      setContractAddress(await signOrderPayment());
-    };
-    updateContractAddress();
-  }, [user?.cart?.paymentInfo?.provider?._id]);
 
   useEffect(() => {
     const updatePaymentMethod = async () => {
@@ -129,39 +105,7 @@ const PaymentMethod = ({ user }) => {
       </RadioGroup>
 
       <div className="mt-4">
-        {user?.cart?.paymentInfo?.provider?.interface?._id ===
-          'shop.unchained.payment.cryptopay' &&
-          contractAddress?.map((address) => (
-            <div key={address}>
-              <div className="flex">
-                <QRCodeComponent paymentAddress={address} />
-              </div>
-              {hasSigner && (
-                <button
-                  type="button"
-                  className="mt-3 inline-flex items-center rounded-md border-2 border-[#F6851B] bg-[#F6851B] px-3 py-2 text-sm font-medium leading-4 text-slate-100 shadow hover:bg-[#E2761B] focus:outline-none focus:ring-2 focus:ring-[#F6851B] focus:ring-offset-2"
-                  onClick={() =>
-                    payWithMetaMask(address.address, user?.cart.total)
-                  }
-                >
-                  {formatMessage({
-                    id: 'pay_with_metamask',
-                    defaultMessage: 'Pay with metamask',
-                  })}
-                  <span className="ml-2 rounded-full border border-[#CD6116] p-1">
-                    <img
-                      src="/static/img/icon-streamline/metamask-fox.svg"
-                      alt={formatMessage({
-                        id: 'metamask_fox',
-                        defaultMessage: 'Metamask Fox',
-                      })}
-                      className="h-5 w-5"
-                    />
-                  </span>
-                </button>
-              )}
-            </div>
-          ))}
+        <PayWithMetaMask user={user} />
       </div>
 
       <div className="mt-4">

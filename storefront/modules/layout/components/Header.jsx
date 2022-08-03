@@ -74,7 +74,7 @@ const Header = () => {
                 </a>
               </Link>
             </div>
-            <div className="ml-auto mr-4 flex">
+            <div className="mr-10 flex">
               <LoginCart />
             </div>
           </div>
@@ -112,7 +112,7 @@ const Header = () => {
               </Link>
             </div>
 
-            <div className="ml-auto mr-3 flex">
+            <div className="mr-8 flex">
               <LoginCart />
             </div>
           </div>
