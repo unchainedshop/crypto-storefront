@@ -1,6 +1,5 @@
 import React from 'react';
 
-import classNames from 'classnames';
 import MegaDropdownColumn from './MegaDropdownColumn';
 import { useDesktopNavigationContext } from './DesktopNavigationContext';
 
@@ -37,13 +36,7 @@ const MegaDropdown = ({ dataInHoverPath, ...rest }) => {
 
   return (
     <div
-      className={classNames(
-        'nav--main__mega invisible absolute left-24 right-24 top-14 flex overflow-hidden opacity-100 shadow-md delay-150',
-        {
-          'visible overflow-visible bg-white opacity-100 dark:bg-slate-500':
-            dataInHoverPath,
-        },
-      )}
+      className="nav--main__mega rounded-md bg-white dark:bg-slate-500"
       onMouseEnter={() => {
         if (!isTouching) setHoverPath(rest?.path);
       }}

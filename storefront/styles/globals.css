@@ -3,27 +3,12 @@
 @tailwind utilities;
 @import '~react-image-gallery/styles/css/image-gallery.css';
 
-.nav--main {
-  display: none;
-}
-
-@media (min-width: 768px) {
-  .nav--main {
-    display: flex;
-  }
-
-  .nav--main__item {
-    position: relative;
-  }
-
-  .nav--main__item[data-in-hover-path='true'] {
-    position: relative;
-  }
-}
-
 .nav--main__mega {
   display: flex;
   position: absolute;
+  top: 4rem;
+  left: 1rem;
+  width: calc(100% - 2rem);
   visibility: hidden;
   overflow: hidden;
   box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.15);
@@ -34,7 +19,6 @@
   visibility: visible;
   opacity: 1;
   overflow: visible;
-  /* background-color: white; */
 }
 
 .mega-link {
