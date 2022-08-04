@@ -109,7 +109,6 @@
   bottom: 0;
   left: 0;
   visibility: hidden;
-  background-color: rgba(255, 255, 255, 0.4);
   transform: translate3d(-300px, 0, 0);
   transition-property: transform, visibility, background-color;
   transition-timing-function: cubic-bezier(0.61, 0.01, 0.42, 1);
@@ -118,7 +117,6 @@
 }
 
 .mobile-menu-holder[data-is-open='true'] .mobile-menu {
-  background-color: rgba(255, 255, 255, 1);
   visibility: visible;
   transform: translate3d(0, 0, 0);
   width: 300px;

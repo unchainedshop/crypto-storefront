@@ -120,7 +120,7 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                   <div>
                     <a
                       href="#"
-                      className="inline-flex w-full justify-center rounded-md border border-slate-300 bg-white py-2 px-4 text-sm font-medium text-slate-500 shadow-sm hover:bg-slate-50 dark:bg-slate-400"
+                      className="inline-flex w-full justify-center rounded-md border border-slate-300 bg-white py-2 px-4 text-sm font-medium text-slate-500 shadow-sm hover:bg-slate-50"
                     >
                       <span className="sr-only">
                         {formatMessage({

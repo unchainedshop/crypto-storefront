@@ -35,19 +35,19 @@ const Subtree = ({
 
   const levelClassMap = [
     'text-xl p-3',
-    'pl-3 text-base py-3',
-    'pl-4 text-base py-3',
-    'pl-5 text-base py-3',
+    'pl-8 text-base py-3',
+    'pl-12 text-base py-3',
+    'pl-16 text-base py-3',
   ];
   return Object.keys(children).length ? (
     <div key={pageId} className="border-t border-color-grey-lightest">
       <button
         aria-label="Expand"
         type="button"
-        className="flex w-full cursor-pointer appearance-none items-center justify-between border-0 bg-transparent p-0 text-left uppercase text-inherit"
+        className="flex w-full cursor-pointer appearance-none items-center justify-between border-0 bg-transparent p-0 text-left uppercase text-inherit hover:bg-slate-100 dark:hover:bg-slate-500"
         onClick={() => setShowSubtree(!showSubtree)}
       >
-        <div className={levelClassMap[level]}>
+        <div className={`${levelClassMap[level]}`}>
           <Thumbnail media={media} />
           {navigationTitle}
         </div>
@@ -61,7 +61,7 @@ const Subtree = ({
         <div>
           <Link href={createPathFromArray(path)}>
             <a
-              className={`link block border-t border-color-grey-lightest uppercase ${
+              className={`link block border-t border-color-grey-lightest uppercase text-indigo-600 hover:text-indigo-500 dark:text-sky-400 dark:hover:text-sky-500 ${
                 levelClassMap[level + 1]
               }`}
             >
@@ -94,7 +94,7 @@ const Subtree = ({
   ) : (
     <Link href={createPathFromArray(path)}>
       <a
-        className={`block border-t border-color-grey-lightest uppercase ${levelClassMap[level]}`}
+        className={`block border-t border-color-grey-lightest uppercase hover:bg-slate-100 dark:hover:bg-slate-500 ${levelClassMap[level]}`}
       >
         <Thumbnail media={media} />
         {navigationTitle}
@@ -108,10 +108,7 @@ const MobileNavigation = ({ doClose, isNavOpen }) => {
   const { assortmentTree } = useCategoriesTree({ root: 'shop' });
 
   return (
-    <div
-      className="mobile-menu-holder dark:bg-slate-500 dark:text-slate-900"
-      data-is-open={isNavOpen}
-    >
+    <div className="mobile-menu-holder " data-is-open={isNavOpen}>
       <button
         aria-label="close"
         type="button"
@@ -122,28 +119,32 @@ const MobileNavigation = ({ doClose, isNavOpen }) => {
           {intl.formatMessage({ id: 'close', defaultMessage: 'Close' })}
         </span>
       </button>
-      <nav id="menu" className="mobile-menu">
-        <div>
+      <nav
+        id="menu"
+        className="mobile-menu bg-white dark:bg-slate-600 dark:text-white"
+      >
+        <div className="relative">
           <button
             aria-label="close"
             type="button"
-            className="flex w-full cursor-pointer appearance-none items-center border-0 bg-transparent p-3 text-left text-inherit"
+            className="hover:bg-red-60 absolute top-0 -right-0 flex cursor-pointer appearance-none items-center rounded-full border-0 bg-transparent p-1 hover:bg-red-200 hover:text-red-400 active:text-red-600"
             onClick={doClose}
           >
-            <XIcon className="mr-3 inline-flex h-4 w-5 select-none items-center justify-center align-middle" />
-            <small className="ml-2">
+            <XIcon className="h-5 w-5 select-none" />
+            <small className="sr-only">
               {intl.formatMessage({ id: 'close', defaultMessage: 'Close' })}
             </small>
           </button>
 
           <Link href="/">
-            <a className="ml-3 mb-3 flex cursor-pointer items-center">
-              <HomeIcon className="mr-3 inline-flex h-4 w-5 select-none items-center justify-center align-middle" />
-
-              {intl.formatMessage({
-                id: 'back_to_website',
-                defaultMessage: 'Back to website',
-              })}
+            <a className="ml-3 flex cursor-pointer items-baseline py-2 text-indigo-600 hover:text-indigo-500 dark:text-sky-400 dark:hover:text-sky-500">
+              <HomeIcon className="mr-3  h-4 w-5 select-none " />
+              <span className="text-lg font-medium">
+                {intl.formatMessage({
+                  id: 'back_to_website',
+                  defaultMessage: 'Back to website',
+                })}
+              </span>
             </a>
           </Link>
           {Object.entries(assortmentTree.children).map(
@@ -160,7 +161,7 @@ const MobileNavigation = ({ doClose, isNavOpen }) => {
           )}
         </div>
 
-        <div className="my-3 ml-3 pt-3">
+        <div className="my-3 border-t border-color-grey-lightest pl-3 pt-3">
           {Object.entries(theme.locales)?.map(([lang]) => (
             <button
               key={lang}

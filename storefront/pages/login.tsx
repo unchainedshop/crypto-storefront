@@ -19,9 +19,9 @@ const LogIn = () => {
       <MetaTags
         title={formatMessage({ id: 'log_in', defaultMessage: 'Log In' })}
       />
-      <div className="flex flex-col justify-center py-12 px-4 sm:px-16">
-        <div className="rounded-md border-2 bg-white pt-8 shadow-md dark:bg-slate-600">
-          <div className="sm:mx-auto sm:w-full sm:max-w-md">
+      <div className="w-full py-12">
+        <div className="rounded-md border-2 bg-white pt-8 shadow-md dark:bg-slate-600 sm:mx-auto sm:max-w-2xl">
+          <div className="sm:mx-auto sm:max-w-md">
             <div className="relative mx-auto h-10 w-36 rounded">
               <Image
                 src={theme.assets.logo}

@@ -35,7 +35,7 @@ const OrderListItem = ({ order }) => {
   return (
     <Link href={`orders/${order?._id}`}>
       <a className="w-full">
-        <div className="w-full py-6 hover:bg-slate-400 hover:text-white sm:grid sm:w-5/6 sm:grid-cols-6 sm:gap-x-6 lg:gap-x-8">
+        <div className="w-full py-6 px-2 hover:bg-slate-400 hover:text-white sm:grid sm:grid-cols-6 sm:gap-x-6 lg:gap-x-8">
           <div className="flex justify-between sm:block">
             <dt className="font-medium text-slate-900 dark:text-slate-100 sm:hidden">
               {formatMessage({
