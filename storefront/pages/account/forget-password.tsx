@@ -31,16 +31,16 @@ const PasswordForget = () => {
           defaultMessage: 'Forgot your password?',
         })}
       />
-      <div>
+      <div className="px-4 sm:px-0">
         {loading && <LoadingItem />}
         {emailSent && <div className="text-center"> {emailSent} </div>}
         {!loading && !emailSent && (
-          <div className="mx-auto w-full sm:max-w-md md:max-w-lg lg:max-w-xl">
+          <div className="mx-auto mt-10 w-full rounded-md bg-white p-6 dark:bg-slate-500 sm:max-w-md md:max-w-lg lg:max-w-xl">
             <div className="mx-auto">
               <div>
                 <LockClosedIcon className="mx-auto h-24 w-24 text-slate-900" />
               </div>
-              <h1 className="text-center text-6xl font-bold text-slate-900">
+              <h1 className="text-center text-6xl font-bold text-slate-900 dark:text-slate-300">
                 {formatMessage({
                   id: 'forgot_password',
                   defaultMessage: 'Forgot your password?',
@@ -59,14 +59,14 @@ const PasswordForget = () => {
                 >
                   {formatMessage({ id: 'email', defaultMessage: 'Email' })}
                 </label>
-                <div className="mt-1 bg-white">
+                <div className="mt-1">
                   <input
                     type="email"
                     id="email"
                     name="email"
                     autoComplete="email"
                     ref={register({ required: true })}
-                    className="block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm"
+                    className="block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:bg-slate-600 dark:text-slate-600 sm:text-sm"
                   />
                   <span className="error-message form-error text-center">
                     {error && error.message}

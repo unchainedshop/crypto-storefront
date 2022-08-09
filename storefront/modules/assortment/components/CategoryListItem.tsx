@@ -12,7 +12,7 @@ const CategoryListItem = ({ category }) => {
           <>
             <div
               aria-hidden="true"
-              className="aspect-w-3 aspect-h-2 relative overflow-hidden rounded-lg group-hover:opacity-75 lg:aspect-w-5 lg:aspect-h-6"
+              className="aspect-w-3 aspect-h-2 relative overflow-hidden rounded-lg  group-hover:opacity-75 lg:aspect-w-5 lg:aspect-h-6"
             >
               <Image
                 src={getMediaUrl(category)}

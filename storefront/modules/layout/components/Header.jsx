@@ -51,10 +51,10 @@ const Header = () => {
         </div>
       )}
 
-      <header className="sticky top-0 z-[1020] overflow-x-hidden bg-white text-black opacity-100 dark:bg-slate-600 dark:text-white">
+      <header className="sticky top-0 z-[1020] overflow-visible bg-white text-black opacity-100 dark:bg-slate-600 dark:text-white">
         <div className="relative">
           <SideCart isOpen={isCartOpen} />
-          <div className="container mx-auto hidden w-full sm:flex sm:flex-wrap sm:items-center sm:justify-between sm:py-2">
+          <div className="container relative mx-auto hidden w-full sm:flex sm:flex-wrap sm:items-center sm:justify-between sm:py-2">
             <div className="flex items-center justify-start">
               <DesktopNavigation />
               <Link href="/">
@@ -74,7 +74,7 @@ const Header = () => {
                 </a>
               </Link>
             </div>
-            <div className="ml-auto mr-4 flex">
+            <div className="mr-10 flex">
               <LoginCart />
             </div>
           </div>
@@ -112,7 +112,7 @@ const Header = () => {
               </Link>
             </div>
 
-            <div className="ml-auto mr-3 flex">
+            <div className="mr-8 flex">
               <LoginCart />
             </div>
           </div>

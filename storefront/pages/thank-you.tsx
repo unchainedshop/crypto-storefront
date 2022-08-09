@@ -12,6 +12,8 @@ import OrderPriceSummary from '../modules/checkout/components/OrderPriceSummary'
 import useFormatDateTime from '../modules/common/utils/useFormatDateTime';
 import defaultNextImageLoader from '../modules/common/utils/defaultNextImageLoader';
 import renderPrice from '../modules/common/utils/renderPrice';
+import PayWithMetaMask from '../modules/checkout/components/PayWithMetaMask';
+import useUser from '../modules/auth/hooks/useUser';
 
 const {
   publicRuntimeConfig: { theme },
@@ -27,6 +29,7 @@ function getFlagEmoji(countryCode) {
 
 const ThankYou = () => {
   const router = useRouter();
+  const { user } = useUser();
   const { formatMessage } = useIntl();
   const { formatDateTime } = useFormatDateTime();
 
@@ -86,49 +89,61 @@ const ThankYou = () => {
                     'It has reached us and an email with the order placement  confirmation is on its way. To avoid any potential  miscommunication, please check your spam, perhaps the email landed  there.',
                 })}
               </p>
-
-              <FormattedMessage
-                tagName="dl"
-                id="thank_you_order_number"
-                defaultMessage="<dl> <dt> Your Order Number is: </dt> <dd>
+              <div className="md:grid md:grid-cols-2 md:gap-2">
+                <div>
+                  <FormattedMessage
+                    tagName="dl"
+                    id="thank_you_order_number"
+                    defaultMessage="<dl> <dt> Your Order Number is: </dt> <dd>
                             {orderNumber}
                           </dd> </dl> "
-                values={{
-                  dl: (chunks) => (
-                    <dl className="mt-8 text-sm font-medium">{chunks}</dl>
-                  ),
-                  dt: (chunks) => (
-                    <dt className="text-slate-900 dark:text-white">{chunks}</dt>
-                  ),
-                  dd: (chunks) => (
-                    <dd className="mt-2 text-indigo-600 dark:text-sky-400">
-                      {chunks}
-                    </dd>
-                  ),
-                  orderNumber: order.orderNumber,
-                }}
-              />
-              <FormattedMessage
-                tagName="dl"
-                id="thank_you_order_date"
-                defaultMessage="<dl> <dt> The Date you placed the order is: </dt> <dd>
+                    values={{
+                      dl: (chunks) => (
+                        <dl className="mt-8 text-sm font-medium">{chunks}</dl>
+                      ),
+                      dt: (chunks) => (
+                        <dt className="text-slate-900 dark:text-white">
+                          {chunks}
+                        </dt>
+                      ),
+                      dd: (chunks) => (
+                        <dd className="mt-2 text-indigo-600 dark:text-sky-400">
+                          {chunks}
+                        </dd>
+                      ),
+                      orderNumber: order.orderNumber,
+                    }}
+                  />
+                  <FormattedMessage
+                    tagName="dl"
+                    id="thank_you_order_date"
+                    defaultMessage="<dl> <dt> The Date you placed the order is: </dt> <dd>
                           {orderDate}
                           </dd> </dl> "
-                values={{
-                  dl: (chunks) => (
-                    <dl className="mt-8 text-sm font-medium">{chunks}</dl>
-                  ),
-                  dt: (chunks) => (
-                    <dt className="text-slate-900 dark:text-white">{chunks}</dt>
-                  ),
-                  dd: (chunks) => (
-                    <dd className="mt-2 text-indigo-600 dark:text-sky-400">
-                      {chunks}
-                    </dd>
-                  ),
-                  orderDate: formatDateTime(order.created),
-                }}
-              />
+                    values={{
+                      dl: (chunks) => (
+                        <dl className="mt-8 text-sm font-medium">{chunks}</dl>
+                      ),
+                      dt: (chunks) => (
+                        <dt className="text-slate-900 dark:text-white">
+                          {chunks}
+                        </dt>
+                      ),
+                      dd: (chunks) => (
+                        <dd className="mt-2 text-indigo-600 dark:text-sky-400">
+                          {chunks}
+                        </dd>
+                      ),
+                      orderDate: formatDateTime(order.created),
+                    }}
+                  />
+                </div>
+                {order?.status === 'PENDING' && (
+                  <div>
+                    <PayWithMetaMask user={user} />
+                  </div>
+                )}
+              </div>
               <div className="text-slate-700 dark:text-slate-300">
                 <div className="mt-4 rounded-lg border border-slate-300 bg-white shadow-sm dark:bg-slate-500">
                   <ul className="divide-y divide-slate-300">

@@ -10,7 +10,7 @@ const OrderButton = () => {
     <Link href="/orders">
       <a className="flex items-center gap-x-2">
         <CollectionIcon className="h-6 w-6" />
-        <span className="hidden md:block">
+        <span className="hidden lg:block">
           {formatMessage({ id: 'my_orders', defaultMessage: 'My orders' })}
         </span>
       </a>

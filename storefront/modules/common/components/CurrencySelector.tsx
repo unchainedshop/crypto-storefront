@@ -13,7 +13,7 @@ const CurrencySelector = ({ onChange, selectedCurrency, className = '' }) => {
   return (
     <>
       <select
-        className={`mx-3 rounded border-slate-300 py-1 dark:bg-slate-600 dark:text-slate-100 ${className}`}
+        className={`m-3 rounded border-slate-300 py-1 dark:bg-slate-600 dark:text-slate-100 ${className}`}
         onChange={handleCurrencyChange}
         value={selectedCurrency}
         key={selectedCurrency}

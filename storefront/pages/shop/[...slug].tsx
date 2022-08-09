@@ -61,7 +61,7 @@ const CategoryDetail = () => {
         url={currentUrl}
         imageUrl={getMediaUrl({ media })}
       />
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap px-4 sm:px-0">
         <div className="relative w-full flex-3 pl-1">
           <AssortmentBreadcrumbs
             paths={assortmentPaths}

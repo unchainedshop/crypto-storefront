@@ -62,7 +62,7 @@ const DesktopNavigation = () => {
         <div key="shop" className="inline-block">
           <Link href="/shop">
             <a
-              className="nav--main__item relative flex items-center py-4"
+              className="nav--main__item flex items-center py-4"
               data-in-hover-path={hoverPath.includes(assortmentTree.slug)}
               ref={ref}
               onMouseEnter={() => {
