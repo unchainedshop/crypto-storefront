@@ -83,8 +83,9 @@ services:
       - --http.addr=0.0.0.0
       - --http.vhosts=*
       - --http.corsdomain=*
-      - --syncmode=light 
+      - --syncmode=snap 
       - --http.port=8555
+      - --ipcdisable
     volumes:                                                                 
       - geth-goerli:/.goerli
       - $HOME/ethereum:/root
