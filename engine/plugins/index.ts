@@ -8,10 +8,15 @@ import "@unchainedshop/plugins/pricing/order-payment";
 import "@unchainedshop/plugins/pricing/product-catalog-price";
 import "@unchainedshop/plugins/pricing/product-discount";
 import "@unchainedshop/plugins/pricing/product-swiss-tax";
+import setupCryptopayPricing from '@unchainedshop/plugins/pricing/product-price-cryptopay';
 
 import "@unchainedshop/plugins/filters/strict-equal";
 import "@unchainedshop/plugins/filters/local-search";
 
+import '@unchainedshop/plugins/worker/BulkImportWorker';
+import '@unchainedshop/plugins/worker/ZombieKillerWorker';
+import '@unchainedshop/plugins/worker/GenerateOrderWorker';
+import '@unchainedshop/plugins/worker/MessageWorker';
 import "@unchainedshop/plugins/worker/external";
 import "@unchainedshop/plugins/worker/http-request";
 import "@unchainedshop/plugins/worker/heartbeat";
@@ -25,7 +30,9 @@ import "@unchainedshop/plugins/events/node-event-emitter";
 
 import '@unchainedshop/plugins/delivery/send-message';
 
+import setupCryptopay from '@unchainedshop/plugins/payment/cryptopay';
+
 import { configureGridFSFileUploadModule } from "@unchainedshop/plugins/files/gridfs";
 export * from './cryptopay';
 
-export { configureGridFSFileUploadModule, setupGridFSWebhook };
+export { setupCryptopay, setupCryptopayPricing, configureGridFSFileUploadModule, setupGridFSWebhook };

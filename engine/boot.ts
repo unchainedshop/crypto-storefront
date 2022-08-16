@@ -6,7 +6,7 @@ import { startPlatform, withAccessToken, setAccessToken } from '@unchainedshop/p
 import loginWithSingleSignOn from './login-with-single-sign-on';
 import seed from './seed';
 import cryptoModule from './modules'
-import { setupGridFSWebhook, configureGridFSFileUploadModule } from './plugins';
+import { setupCryptopay, setupCryptopayPricing, setupGridFSWebhook, configureGridFSFileUploadModule } from './plugins';
 import typeDefs from './api/schema';
 import resolvers from './api/resolvers';
 
@@ -53,8 +53,8 @@ const start = async () => {
   // until here
 
   setupGridFSWebhook(app);
-  // setupCryptopay(app);
-  // setupCryptopayPricing(app);
+  setupCryptopay(app);
+  setupCryptopayPricing(app);
 
   await app.listen({ port: process.env.PORT || 3000 });
   console.log(`🚀 Server ready at http://localhost:${process.env.PORT || 3000}`);
