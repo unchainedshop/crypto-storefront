@@ -7,6 +7,8 @@ import loginWithSingleSignOn from './login-with-single-sign-on';
 import seed from './seed';
 import cryptoModule from './modules'
 import { setupGridFSWebhook, configureGridFSFileUploadModule } from './plugins';
+import typeDefs from './api/schema';
+import resolvers from './api/resolvers';
 
 const start = async () => {
   const app = express();
@@ -16,6 +18,8 @@ const start = async () => {
     introspection: true,
     playground: true,
     tracing: true,
+    typeDefs,
+    resolvers: [resolvers],
     modules: {
       cryptoModule,
       gridfsFileUploads: {

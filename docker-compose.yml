@@ -30,11 +30,11 @@ services:
       - crypto_engine
     restart: on-failure
     environment:
-      UNCHAINED_ENDPOINT : http://crypto_engine:3000/graphql
+      UNCHAINED_ENDPOINT : http://crypto_engine:4010/graphql
   crypto_engine:
     build: ./engine
     ports:
-      - "4010:3000"
+      - "4010:4010"
     environment:
       MONGO_URL: ${MONGO_URL:-mongodb://my-mongoDB}
       ROOT_URL: ${ROOT_URL:-http://localhost:4010}
@@ -49,10 +49,9 @@ services:
       CRYPTOPAY_ETH_XPUB: ${CRYPTOPAY_ETH_XPUB}
     env_file:
       - .env
-      
     healthcheck:
       test: >-
-        curl -f http://localhost:3000/graphql/healthcheck || exit 1
+        curl -f http://localhost:4010/graphql/healthcheck || exit 1
       start_period: 10s
       timeout: 5s
     depends_on:

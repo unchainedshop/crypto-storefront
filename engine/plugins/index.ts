@@ -20,10 +20,12 @@ import "@unchainedshop/plugins/worker/sms";
 import "@unchainedshop/plugins/worker/external";
 
 import "@unchainedshop/plugins/files/gridfs/gridfs-adapter";
-import "@unchainedshop/plugins/files/gridfs/gridfs-webhook";
+import setupGridFSWebhook from "@unchainedshop/plugins/files/gridfs/gridfs-webhook";
 import "@unchainedshop/plugins/events/node-event-emitter";
 
 import '@unchainedshop/plugins/delivery/send-message';
 
-export * from "@unchainedshop/plugins/files/gridfs";
+import { configureGridFSFileUploadModule } from "@unchainedshop/plugins/files/gridfs";
 export * from './cryptopay';
+
+export { configureGridFSFileUploadModule, setupGridFSWebhook };
