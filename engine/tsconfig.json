@@ -1,23 +1,33 @@
 {
+  "ts-node": {
+    // It is faster to skip typechecking.
+    // Remove if you want ts-node to do typechecking.
+    "transpileOnly": true,
+    "esm": true
+  },
   "compilerOptions": {
-    "noEmit": true,
-    "strict": false,
     "allowJs": true,
-    "baseUrl": ".",
-    "downlevelIteration": true,
-    "types": [
-      "meteor-typings"
-    ],
-    "lib": [
-      "es2018",
-      "dom",
-      "esnext"
-    ],
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
     "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["esnext"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noImplicitReturns": true,
+    "noUnusedLocals": false,
+    "outDir": "lib",
+    "preserveWatchOutput": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "target": "esnext",
+    "types": ["node"],
+    "baseUrl": ".", // This must be specified if "paths" is.
     "paths": {
-      "meteor/unchained:*": [
-        "./node_modules/@unchainedshop/types/index.d.ts"
-      ]
+      "@unchainedshop/*": ["node_modules/@unchainedshop/types/index.d.ts"]
     }
-  }
+  },
+  "include": ["./*.ts"],
+  "exclude": ["node_modules"]
 }

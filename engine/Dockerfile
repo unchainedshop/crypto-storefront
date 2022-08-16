@@ -1,46 +1,33 @@
-FROM geoffreybooth/meteor-base:2.7.1 as bundler
+FROM node:16 as bundler
 
 # Install app dependencies
 RUN mkdir -p /source
 WORKDIR /source
-ADD package.json /source/
-ADD package-lock.json /source/
 
-RUN  NODE_ENV=development meteor npm install
+ADD package* /source/
+RUN NODE_ENV=development npm install
 
-# Build app
 ADD . /source/
-RUN meteor build --server-only --allow-superuser --directory /
 
-FROM node:14 as runtime 
+# Build
+RUN npm run build || :
+RUN rm -Rf node_modules
 
-RUN useradd -u 501 -d /home/meteor meteor
-
-RUN mkdir /unchained-uploads && \
-  chmod 777 /unchained-uploads
-
-VOLUME /unchained-uploads
-
-RUN apt-get update && apt-get install -y curl pdftk
-
-# Install app dependencies
-COPY --from=bundler /bundle/programs/server/package* /webapp/programs/server/
-COPY --from=bundler /source/file_env.js  /webapp
-WORKDIR /webapp/programs/server
-RUN NODE_ENV=production npm install 
-
-
+FROM node:16-alpine as runtime
 
 # Copy the app
-COPY --from=bundler /bundle /webapp/
-RUN NODE_ENV=production npm run install 
 WORKDIR /webapp
+COPY --from=bundler /source /webapp
+RUN NODE_ENV=production npm install --omit=dev
 
-ENV PORT 3000
+ARG GIT_COMMIT="n/a"
+RUN echo "${GIT_COMMIT}" > /webapp/version.txt
+
+ENV PORT 4010
 ENV NODE_ENV production
-ENV FILE_STORAGE_PATH /unchained-uploads
 
-EXPOSE 3000
+HEALTHCHECK --start-period=10s --interval=20s --timeout=2s \
+  CMD curl -f http://localhost:4010/graphql -H 'content-type: application/json' --data-binary '{"operationName":null,"variables":{},"query":"{\n  shopInfo {\n    _id\n  }\n}\n"}' || exit
+
 EXPOSE 4010
-USER meteor
-CMD node -r ./file_env.js main.js
+CMD npm start

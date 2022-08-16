@@ -1,62 +1,73 @@
 {
-  "name": "unchained-cryptopay-engine",
-  "description": "Crypto pay node support by unchained engine",
-  "version": "0.0.1",
-  "license": "ISC",
-  "meteor": {
-    "mainModule": {
-      "client": false,
-      "server": "boot.ts"
-    }
+  "name": "example-kitchensink",
+  "description": "Kitchensink for Unchained Engine",
+  "private": true,
+  "version": "1.2.12",
+  "license": "EUPL-1.2",
+  "type": "module",
+  "homepage": "https://unchained.shop",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unchainedshop/unchained.git"
+  },
+  "contributors": [
+    "Vedran Rudelj <vedran@unchained.shop> (https://unchained.shop)",
+    "Pascal Kaufmann <pascal@unchained.shop> (https://unchained.shop)",
+    "Marco Wettstein <maw@panter.ch>",
+    "Simon Emanuel Schmid <simon@unchained.shop> (https://unchained.shop)",
+    "Mikael Araya Mengistu <mikaeln@unchained.shop> (https://unchained.shop)"
+  ],
+  "bugs": {
+    "url": "https://github.com/unchainedshop/unchained/issues"
+  },
+  "engineStrict": true,
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=7.0.0"
   },
   "scripts": {
-    "lint": "eslint . --cache  --fix --ext .ts,.tsx,.js,.jsx ",
-    "format": "npm run lint -- --fix",
-    "dev": "UI_ENDPOINT=http://localhost:4000 SERVER_NODE_OPTIONS='-r ./node_env.js' meteor --exclude-archs web.browser.legacy,web.cordova,web.browser --no-release-check --no-lint -p 4010",
-    "build": "UI_ENDPOINT=http://localhost:4000 meteor build --server-only --directory .build",
-    "debug": "UI_ENDPOINT=http://localhost:4000 SERVER_NODE_OPTIONS='-r ./node_env.js' meteor --exclude-archs web.browser.legacy,web.cordova,web.browser debug -p 4010"
+    "lint": "prettier -w .",
+    "clean": "rm -rf lib",
+    "build": "npm run clean && tsc",
+    "start": "node --es-module-specifier-resolution node lib/boot.js",
+    "dev:run": "node --es-module-specifier-resolution node --loader ts-node/esm boot.ts",
+    "dev": "nodemon --delay 2500ms --watch '../../packages' --watch '.' -i lib -e js,mjs,json,ts --exec \"npm run dev:run\""
   },
   "dependencies": {
-    "@babel/runtime": "^7.17.9",
     "@paypal/checkout-server-sdk": "^1.0.3",
-    "@unchainedshop/controlpanel": "^1.1.2",
-    "@unchainedshop/logger": "^1.1.9",
+    "@unchainedshop/api": "1.x",
+    "@unchainedshop/client-oauth2": "^4.3.3",
+    "@unchainedshop/core-delivery": "1.x",
+    "@unchainedshop/core-payment": "1.x",
+    "@unchainedshop/platform": "1.x",
+    "@unchainedshop/plugins": "1.x",
+    "@unchainedshop/types": "^1.2.13",
+    "JSONStream": "^1.3.5",
     "apollo-server-express": "^2.25.3",
-    "babel-eslint": "^10.1.0",
-    "bcrypt": "^5.0.1",
     "bip32": "^3.0.1",
     "bitcoinjs-lib": "^6.0.1",
     "body-parser": "^1.20.0",
-    "client-oauth2": "github:unchainedshop/js-client-oauth2#master",
-    "cookie": "^0.4.2",
+    "cookie": "^0.5.0",
     "dotenv-extended": "^2.9.0",
-    "ethers": "^5.6.6",
+    "ethers": "^5.6.9",
+    "event-iterator": "^2.0.0",
+    "express": "^4.18.1",
     "graphql": "^15.8.0",
-    "graphql-scalars": "^1.17.0",
-    "graphql-upload": "^13.0.0",
-    "isomorphic-unfetch": "^3.1.0",
-    "locale": "^0.1.0",
-    "meteor-node-stubs": "^1.2.3",
-    "moment": "^2.29.3",
-    "mongodb": "^4.5.0",
-    "postfinancecheckout": "^3.0.5",
-    "simpl-schema": "^1.12.0",
+    "mongodb": "^4.6.0",
+    "node-fetch": "^3.2.10",
+    "nodemailer": "^6.7.7",
+    "open": "^8.4.0",
     "stripe": "^8.222.0",
-    "tiny-secp256k1": "^1.1.6",
-    "twilio": "^3.77.1",
-    "uuid": "^8.3.2",
-    "xml-js": "^1.6.11"
+    "tiny-secp256k1": "^2.2.1",
+    "twilio": "^3.77.3",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.25.0",
-    "@typescript-eslint/parser": "^5.25.0",
-    "@unchainedshop/types": "^1.1.2",
-    "eslint": "^8.19.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-prettier": "^4.0.0",
+    "@types/node": "^16.11.48",
+    "mongodb-memory-server": "^8.7.2",
+    "nodemon": "^2.0.19",
     "prettier": "^2.6.2",
-    "typescript": "^4.6.4"
+    "ts-node": "^10.8.2",
+    "typescript": "^4.7.4"
   }
 }

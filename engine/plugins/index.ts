@@ -1,32 +1,29 @@
-import "meteor/unchained:core-delivery/plugins/free-delivery";
-import "meteor/unchained:core-delivery/plugins/delivery-swiss-tax";
+import "@unchainedshop/plugins/pricing/free-delivery";
+import "@unchainedshop/plugins/pricing/delivery-swiss-tax";
+import "@unchainedshop/plugins/pricing/free-payment";
+import "@unchainedshop/plugins/pricing/order-items";
+import "@unchainedshop/plugins/pricing/order-discount";
+import "@unchainedshop/plugins/pricing/order-delivery";
+import "@unchainedshop/plugins/pricing/order-payment";
+import "@unchainedshop/plugins/pricing/product-catalog-price";
+import "@unchainedshop/plugins/pricing/product-discount";
+import "@unchainedshop/plugins/pricing/product-swiss-tax";
 
-import "meteor/unchained:core-payment/plugins/free-payment";
+import "@unchainedshop/plugins/filters/strict-equal";
+import "@unchainedshop/plugins/filters/local-search";
 
-import "meteor/unchained:core-orders/plugins/order-items";
-import "meteor/unchained:core-orders/plugins/order-discount";
-import "meteor/unchained:core-orders/plugins/order-delivery";
-import "meteor/unchained:core-orders/plugins/order-payment";
+import "@unchainedshop/plugins/worker/external";
+import "@unchainedshop/plugins/worker/http-request";
+import "@unchainedshop/plugins/worker/heartbeat";
+import "@unchainedshop/plugins/worker/email";
+import "@unchainedshop/plugins/worker/sms";
+import "@unchainedshop/plugins/worker/external";
 
-import "meteor/unchained:core-products/plugins/product-catalog-price";
-import "meteor/unchained:core-products/plugins/product-discount";
-import "meteor/unchained:core-products/plugins/product-swiss-tax";
+import "@unchainedshop/plugins/files/gridfs/gridfs-adapter";
+import "@unchainedshop/plugins/files/gridfs/gridfs-webhook";
+import "@unchainedshop/plugins/events/node-event-emitter";
 
-import "meteor/unchained:core-filters/plugins/strict-equal";
-import "meteor/unchained:core-filters/plugins/local-search";
+import '@unchainedshop/plugins/delivery/send-message';
 
-import "meteor/unchained:core-worker/plugins/external";
-import "meteor/unchained:core-worker/plugins/http-request";
-import "meteor/unchained:core-worker/plugins/heartbeat";
-import "meteor/unchained:core-worker/plugins/email";
-import "meteor/unchained:core-worker/plugins/sms";
-import "meteor/unchained:core-worker/plugins/external";
-
-import "meteor/unchained:file-upload/plugins/gridfs/gridfs-adapter";
-import "meteor/unchained:file-upload/plugins/gridfs/gridfs-webhook";
-import "meteor/unchained:events/plugins/node-event-emitter";
-
-
-export * from "meteor/unchained:file-upload/plugins/gridfs";
-import './cryptopay';
-import 'meteor/unchained:core-delivery/plugins/send-message';
+export * from "@unchainedshop/plugins/files/gridfs";
+export * from './cryptopay';

@@ -1,7 +1,7 @@
 import type { Order } from '@unchainedshop/types/orders';
 import type { Db } from '@unchainedshop/types/common';
-import { OrdersCollection } from 'meteor/unchained:core-orders/src/db/OrdersCollection';
-import { generateDbFilterById } from 'meteor/unchained:utils';
+import { OrdersCollection } from '@unchainedshop/core-orders/db/OrdersCollection';
+import { generateDbFilterById } from '@unchainedshop/utils';
 export type CryptoModule = {
 
     changeCartCurrency: (currency: string, cartId: string) =>  Promise<Array<Order>>

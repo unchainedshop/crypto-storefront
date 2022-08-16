@@ -1,5 +1,4 @@
-/node_modules
-.tmp
-.build
+node_modules
 .env
-*.pfx
+lib
+.db

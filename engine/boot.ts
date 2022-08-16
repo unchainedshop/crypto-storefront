@@ -1,51 +1,59 @@
-import { Meteor } from 'meteor/meteor';
-import { embedControlpanelInMeteorWebApp } from "@unchainedshop/controlpanel";
-import { WebApp } from "meteor/webapp";
-import {
-  startPlatform,
-  withAccessToken,
-  setAccessToken,
-} from 'meteor/unchained:platform';
-import typeDefs from './api/schema'
-import resolvers from './api/resolvers';
+import './load_env';
+import express from 'express';
 
+import { startPlatform, withAccessToken, setAccessToken } from '@unchainedshop/platform';
 
-import './plugins'
+import loginWithSingleSignOn from './login-with-single-sign-on';
 import seed from './seed';
 import cryptoModule from './modules'
+import { setupGridFSWebhook, configureGridFSFileUploadModule } from './plugins';
 
-Meteor.startup(async () => {
+const start = async () => {
+  const app = express();
+
   const unchainedAPI = await startPlatform({
+    expressApp: app,
     introspection: true,
     playground: true,
     tracing: true,
-    context: withAccessToken(),
-    typeDefs: [...typeDefs],
-    resolvers: [resolvers],
-    corsOrigins: (_, callback) => {
-      callback(null, true);
-    },
     modules: {
-      cryptoModule
-    }, 
+      cryptoModule,
+      gridfsFileUploads: {
+        configure: configureGridFSFileUploadModule,
+      },
+    },
     options: {
       orders: {
-        ensureUserHasCart: true,
+        ensureUserHasCart: true
       },
       accounts: {
         autoMessagingAfterUserCreation: false,
         mergeUserCartsOnLogin: true,
         server: {
           loginExpirationInDays: 0.5,
-        },
+        }
       },
     },
-    
-
+    context: withAccessToken(),
   });
+
   await seed(unchainedAPI);
   await setAccessToken(unchainedAPI, 'admin', process.env.UNCHAINED_SECRET);
-  embedControlpanelInMeteorWebApp(WebApp);
 
-  
-});
+  // The following lines will activate SSO from Unchained Cloud to your instance,
+  // if you want to further secure your app and close this rabbit hole,
+  // remove the following lines
+  const singleSignOn = loginWithSingleSignOn(unchainedAPI);
+  app.use('/', singleSignOn);
+  app.use('/.well-known/unchained/cloud-sso', singleSignOn);
+  // until here
+
+  setupGridFSWebhook(app);
+  // setupCryptopay(app);
+  // setupCryptopayPricing(app);
+
+  await app.listen({ port: process.env.PORT || 3000 });
+  console.log(`🚀 Server ready at http://localhost:${process.env.PORT || 3000}`);
+};
+
+start();

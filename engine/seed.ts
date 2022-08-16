@@ -1,23 +1,21 @@
-import { hashPassword } from 'meteor/unchained:api';
-import { DeliveryProviderType } from 'meteor/unchained:core-delivery';
-import { PaymentProviderType } from 'meteor/unchained:core-payment';
+import { hashPassword } from '@unchainedshop/api';
+import { DeliveryProviderType } from '@unchainedshop/core-delivery';
+import { PaymentProviderType } from '@unchainedshop/core-payment';
 import { v4 as uuidv4 } from 'uuid';
 
 const logger = console;
 const {
   UNCHAINED_COUNTRY,
-  UNCHAINED_ERC20_TOKEN_SYMBOL,
-UNCHAINED_ERC20_TOKEN_CONTRACT_ADDRESS,
   UNCHAINED_LANG,
   UNCHAINED_MAIL_RECIPIENT,
   UNCHAINED_SEED_PASSWORD,
+  UNCHAINED_ERC20_TOKEN_SYMBOL,
+  UNCHAINED_ERC20_TOKEN_CONTRACT_ADDRESS,
   EMAIL_FROM,
 } = process.env;
 
 const seedPassword =
-  UNCHAINED_SEED_PASSWORD === 'generate'
-    ? uuidv4().split('-').pop()
-    : UNCHAINED_SEED_PASSWORD;
+  UNCHAINED_SEED_PASSWORD === 'generate' ? uuidv4().split('-').pop() : UNCHAINED_SEED_PASSWORD;
 
 export default async (unchainedApi) => {
   const { modules } = unchainedApi;
@@ -40,40 +38,37 @@ export default async (unchainedApi) => {
     );
 
     const languages = await Promise.all(
-      [UNCHAINED_LANG ? UNCHAINED_LANG.toLowerCase() : 'de'].map(
-        async (code) => {
-          const languageId = await modules.languages.create(
-            {
-              isoCode: code,
-              isActive: true,
-              authorId: adminId,
-            },
-            adminId,
-          );
-          const language = await modules.languages.findLanguage({ languageId });
-          return language.isoCode;
-        },
-      ),
+      [UNCHAINED_LANG ? UNCHAINED_LANG.toLowerCase() : 'en'].map(async (code) => {
+        const languageId = await modules.languages.create(
+          {
+            isoCode: code,
+            isActive: true,
+            authorId: adminId,
+          },
+          adminId,
+        );
+        const language = await modules.languages.findLanguage({ languageId });
+        return language.isoCode;
+      }),
     );
 
     const currencies = await Promise.all(
-      ['ETH'].map(
-        async (code) => {
-          const currencyId = await modules.currencies.create(
-            {
-              isoCode: code,
-              isActive: true,
-              authorId: adminId,
-            },
-            adminId,
-          );
-          const currency = await modules.currencies.findCurrency({
-            currencyId,
-          });
-          return currency;
-        },
-      ),
+      ['ETH'].map(async (code) => {
+        const currencyId = await modules.currencies.create(
+          {
+            isoCode: code,
+            isActive: true,
+            authorId: adminId,
+          },
+          adminId,
+        );
+        const currency = await modules.currencies.findCurrency({
+          currencyId,
+        });
+        return currency;
+      }),
     );
+
     if(UNCHAINED_ERC20_TOKEN_SYMBOL && UNCHAINED_ERC20_TOKEN_CONTRACT_ADDRESS ) {
       await modules.currencies.create(
         {
@@ -87,25 +82,20 @@ export default async (unchainedApi) => {
     }
 
     const countries = await Promise.all(
-      [UNCHAINED_COUNTRY ? UNCHAINED_COUNTRY.toUpperCase() : 'CH'].map(
-        async (code, key) => {
-          const countryId = await modules.countries.create(
-            {
-              isoCode: code,
-              isActive: true,
-              authorId: adminId,
-              defaultCurrencyId: currencies[key]._id,
-            },
-            adminId,
-          );
-          const country = await modules.countries.findCountry({ countryId });
-          return country.isoCode;
-        },
-      ),
+      [UNCHAINED_COUNTRY ? UNCHAINED_COUNTRY.toUpperCase() : 'CH'].map(async (code, key) => {
+        const countryId = await modules.countries.create(
+          {
+            isoCode: code,
+            isActive: true,
+            authorId: adminId,
+            defaultCurrencyId: currencies[key]._id,
+          },
+          adminId,
+        );
+        const country = await modules.countries.findCountry({ countryId });
+        return country.isoCode;
+      }),
     );
-
-
-
 
     const deliveryProvider = await modules.delivery.create(
       {
@@ -127,8 +117,6 @@ export default async (unchainedApi) => {
       adminId,
     );
 
-    
-
     const paymentProvider = await modules.payment.paymentProviders.create(
       {
         adapterKey: 'shop.unchained.payment.cryptopay',
@@ -145,11 +133,9 @@ export default async (unchainedApi) => {
       \ncountries: ${countries.join(',')}
       \ncurrencies: ${currencies.map((c) => c.isoCode).join(',')}
       \nlanguages: ${languages.join(',')}
-      \ndeliveryProvider: ${deliveryProvider?._id} (${
-      deliveryProvider?.adapterKey
-    })\npaymentProvider: ${paymentProvider?._id} (${
-      paymentProvider?.adapterKey
-    })
+      \ndeliveryProvider: ${deliveryProvider._id} (${deliveryProvider.adapterKey})\npaymentProvider: ${
+      paymentProvider._id
+    } (${paymentProvider.adapterKey})
       \nuser: admin@unchained.local / ${seedPassword}`);
   } catch (e) {
     logger.error(e);
