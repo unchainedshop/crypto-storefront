@@ -32,11 +32,11 @@ const ThankYou = () => {
   const { user } = useUser();
   const { formatMessage } = useIntl();
   const { formatDateTime } = useFormatDateTime();
-
-  if (!router.query.orderId) return '';
   const { order } = useOrderDetail({
     orderId: router.query?.orderId,
   });
+
+  if (!router.query.orderId) return '';
 
   return (
     <>
