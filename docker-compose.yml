@@ -76,18 +76,50 @@ services:
     restart: on-failure
     ports:
       - "8555:8555"
+      - "8551:8551"
     command:  
       - --goerli
       - --http
       - --http.addr=0.0.0.0
       - --http.vhosts=*
       - --http.corsdomain=*
-      - --syncmode=snap 
+      - --authrpc.addr=0.0.0.0
+      - --authrpc.port=8551
+      - --authrpc.vhosts=*
+      - --syncmode=snap
       - --http.port=8555
       - --ipcdisable
     volumes:                                                                 
       - geth-goerli:/.goerli
       - $HOME/ethereum:/root
+
+  nimbus-eth-consensus-node:
+    image: statusim/nimbus-eth2:multiarch-v22.7.0
+    restart: unless-stopped
+    stop_grace_period: 1m
+    ports:
+      - 9000:9000/tcp
+      - 9000:9000/udp
+      - 127.0.0.1:9190:9190/tcp
+      - 127.0.0.1:8008:8008/tcp
+    #   - "127.0.0.1:5052:5052"
+    command:
+      - --network=prater
+      - --data-dir=/home/user/nimbus-eth2/build/data/shared_prater_0
+      - --web3-url=ws://geth-eth-node:8551
+      # --jwt-secret=/root/.geth/.ethereum/prater/geth/jwtsecret
+      - --log-level=info
+      - --tcp-port=9000
+      - --udp-port=9000
+      - --rpc
+      - --rpc-address=0.0.0.0
+      - --rpc-port=9190
+      - --metrics
+      - --metrics-address=0.0.0.0
+      - --metrics-port=8008
+    volumes:                                                                 
+      - $HOME/.nimbus:/home/user/nimbus-eth2/build/data
+      - $HOME/ethereum:/root/.geth
 volumes:
   db-data: {}
   mongo-config: {}
