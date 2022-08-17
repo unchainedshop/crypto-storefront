@@ -3,6 +3,10 @@
 @tailwind utilities;
 @import '~react-image-gallery/styles/css/image-gallery.css';
 
+.isOpen {
+  right: 0 !important;
+}
+
 .nav--main__mega {
   display: flex;
   position: absolute;
