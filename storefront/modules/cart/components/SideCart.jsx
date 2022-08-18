@@ -74,7 +74,7 @@ const SideCart = ({ isOpen }) => {
             className={classNames(
               'fixed top-0 -right-80 z-50 flex h-full w-[300px] flex-col overflow-y-auto bg-white  bg-opacity-100 px-1 shadow-md transition dark:bg-slate-600 dark:opacity-100 lg:-right-[450px] lg:w-[400px]',
               {
-                'right-0 lg:right-0': isOpen,
+                'isOpen lg:right-0': isOpen,
               },
             )}
           >

@@ -12,7 +12,6 @@ import useSignForCheckout from '../../checkout/hooks/useSignForCheckout';
 import getMediaUrl from '../../common/utils/getMediaUrl';
 import defaultNextImageLoader from '../../common/utils/getDefaultNextImageLoader';
 import { useAppContext } from '../../common/components/AppContextWrapper';
-import Accordion from '../../common/components/Accordion';
 
 function getFlagEmoji(countryCode) {
   const codePoints = countryCode
@@ -50,52 +49,6 @@ const OrderDetailComponent = ({ order }) => {
     updateContractAddress();
   }, [order?.payment?._id]);
 
-  const data =
-    paymentAddresses.map((paymentAddress) => ({
-      header: (
-        <div className="text-center font-bold text-slate-600 dark:text-slate-200">
-          {paymentAddress.currency}
-        </div>
-      ),
-      body: (
-        <div className="mx-auto">
-          <div id="faq-0">
-            <QRCodeComponent
-              paymentAddress={paymentAddress}
-              currencyClassName="hidden"
-              className="mx-auto"
-            />
-          </div>
-          {user.cart.currency === 'ETH' && hasSigner && (
-            <div className="flex items-center justify-center">
-              <button
-                type="button"
-                className="inline-flex items-center rounded-md border-2 border-[#F6851B] bg-[#F6851B] px-3 py-2 text-sm font-medium leading-4 text-slate-100 shadow hover:bg-[#E2761B] focus:outline-none focus:ring-2 focus:ring-[#F6851B] focus:ring-offset-2"
-                onClick={() =>
-                  payWithMetaMask(paymentAddress.address, user?.cart.total)
-                }
-              >
-                {formatMessage({
-                  id: 'pay_with_metamask',
-                  defaultMessage: 'Pay with metamask',
-                })}
-                <span className="ml-2 rounded-full border border-[#CD6116] p-1">
-                  <img
-                    src="/static/img/icon-streamline/metamask-fox.svg"
-                    alt={formatMessage({
-                      id: 'metamask_fox',
-                      defaultMessage: 'Metamask Fox',
-                    })}
-                    className="h-5 w-5"
-                  />
-                </span>
-              </button>
-            </div>
-          )}
-        </div>
-      ),
-    })) || [];
-
   return (
     <div className="bg-slate-50 dark:bg-slate-600">
       <div className="mx-auto max-w-full px-4 pt-16 sm:py-24 sm:px-6 lg:max-w-full lg:px-8">
@@ -108,15 +61,6 @@ const OrderDetailComponent = ({ order }) => {
               })}
               <span>{order?.orderNumber}</span>
             </h1>
-            <Link href="#">
-              <a className="hidden text-sm font-medium text-indigo-600 hover:text-indigo-500 dark:text-sky-500 dark:hover:text-sky-400 sm:block">
-                {formatMessage({
-                  id: 'invoice',
-                  defaultMessage: 'View invoice',
-                })}
-                <span aria-hidden="true"> &rarr;</span>
-              </a>
-            </Link>
           </div>
           <p className="text-sm text-slate-600 dark:text-slate-300">
             {formatMessage({
@@ -381,62 +325,104 @@ const OrderDetailComponent = ({ order }) => {
                     defaultMessage: 'Payment information',
                   })}
                 </dt>
-
-                {order?.status === 'OPEN' || order?.status === 'PENDING' ? (
-                  <Accordion
-                    data={data}
-                    headerCSS="inline-flex items-center justify-between w-full px-2 py-1 rounded-lg border border-slate-200 shadow-md text-sm font-medium text-slate-700 hover:bg-slate-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-400 focus:border-indigo-400"
-                  />
-                ) : (
-                  <dd className="-ml-4 -mt-1">
-                    <div className="ml-4 mt-4">
-                      <p className="sr-only">
-                        {order?.payment?.provider?.interface?.label}
-                      </p>
-                    </div>
-                    <div className="ml-4 mt-4">
-                      <p className="text-slate-500 dark:text-slate-300">
-                        {order?.payment?.provider?.interface?.label}
-                        &nbsp;&nbsp;
-                        {order?.payment?.provider?.interface?.version}
-                      </p>
-                    </div>
-                    <div className="ml-4 mt-4">
-                      <p className="text-slate-500 dark:text-slate-300">
-                        <span>{order?.payment?.provider?.type}</span>
-                        <span className="mx-2 inline-flex items-center rounded-full bg-green-100 px-3 py-0.5 text-sm font-medium text-green-800">
-                          {order?.payment?.status}
-                        </span>
-                      </p>
-                    </div>
-                    <div className="ml-4 mt-4">
-                      <p className="text-slate-600 dark:text-slate-300">
-                        {renderPrice(order?.payment?.fee)}
-                      </p>
-                    </div>
-                    <div className="ml-4 mt-4">
-                      <p>
-                        {order?.payment?.paid ? (
-                          <>
-                            <CheckCircleIcon
-                              className="h-5 w-5 text-green-500"
-                              aria-hidden="true"
+                <div className="flex items-center gap-2">
+                  {order?.status === 'PENDING' ? (
+                    paymentAddresses.map((paymentAddress) => (
+                      <div>
+                        <div className="text-center text-lg font-bold text-slate-600 dark:text-slate-200">
+                          {paymentAddress.currency}
+                        </div>
+                        <div className="mx-auto">
+                          <div id="faq-0">
+                            <QRCodeComponent
+                              paymentAddress={paymentAddress}
+                              currencyClassName="hidden"
+                              className="mx-auto"
                             />
-                            <span className="mx-2">
-                              {formatMessage({
-                                id: 'paid_on',
-                                defaultMessage: 'paid on',
-                              })}
-                            </span>
-                            <time dateTime={order?.paid}>
-                              {formatDateTime(order?.payment?.paid)}
-                            </time>
-                          </>
-                        ) : null}
-                      </p>
-                    </div>
-                  </dd>
-                )}
+                          </div>
+                          {hasSigner && (
+                            <div className="flex items-center justify-center">
+                              <button
+                                type="button"
+                                className="inline-flex items-center rounded-md border-2 border-[#F6851B] bg-[#F6851B] px-3 py-2 text-sm font-medium leading-4 text-slate-100 shadow hover:bg-[#E2761B] focus:outline-none focus:ring-2 focus:ring-[#F6851B] focus:ring-offset-2"
+                                onClick={() =>
+                                  payWithMetaMask(
+                                    paymentAddress.address,
+                                    user?.cart.total,
+                                  )
+                                }
+                              >
+                                {formatMessage({
+                                  id: 'pay_with_metamask',
+                                  defaultMessage: 'Pay with metamask',
+                                })}
+                                <span className="ml-2 rounded-full border border-[#CD6116] p-1">
+                                  <img
+                                    src="/static/img/icon-streamline/metamask-fox.svg"
+                                    alt={formatMessage({
+                                      id: 'metamask_fox',
+                                      defaultMessage: 'Metamask Fox',
+                                    })}
+                                    className="h-5 w-5"
+                                  />
+                                </span>
+                              </button>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <dd className="-ml-4 -mt-1">
+                      <div className="ml-4 mt-4">
+                        <p className="sr-only">
+                          {order?.payment?.provider?.interface?.label}
+                        </p>
+                      </div>
+                      <div className="ml-4 mt-4">
+                        <p className="text-slate-500 dark:text-slate-300">
+                          {order?.payment?.provider?.interface?.label}
+                          &nbsp;&nbsp;
+                          {order?.payment?.provider?.interface?.version}
+                        </p>
+                      </div>
+                      <div className="ml-4 mt-4">
+                        <p className="text-slate-500 dark:text-slate-300">
+                          <span>{order?.payment?.provider?.type}</span>
+                          <span className="mx-2 inline-flex items-center rounded-full bg-green-100 px-3 py-0.5 text-sm font-medium text-green-800">
+                            {order?.payment?.status}
+                          </span>
+                        </p>
+                      </div>
+                      <div className="ml-4 mt-4">
+                        <p className="text-slate-600 dark:text-slate-300">
+                          {renderPrice(order?.payment?.fee)}
+                        </p>
+                      </div>
+                      <div className="ml-4 mt-4">
+                        <p>
+                          {order?.payment?.paid ? (
+                            <>
+                              <CheckCircleIcon
+                                className="h-5 w-5 text-green-500"
+                                aria-hidden="true"
+                              />
+                              <span className="mx-2">
+                                {formatMessage({
+                                  id: 'paid_on',
+                                  defaultMessage: 'paid on',
+                                })}
+                              </span>
+                              <time dateTime={order?.paid}>
+                                {formatDateTime(order?.payment?.paid)}
+                              </time>
+                            </>
+                          ) : null}
+                        </p>
+                      </div>
+                    </dd>
+                  )}
+                </div>
               </div>
             </dl>
 

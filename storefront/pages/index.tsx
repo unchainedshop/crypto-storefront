@@ -90,7 +90,7 @@ const Home = () => {
                       <Image
                         src={
                           getMediaUrl(assortment?.media) ||
-                          catagories[index]?.media
+                          'placeholder-product.png'
                         }
                         alt={
                           assortment.texts.description || assortment.texts.title
@@ -99,7 +99,7 @@ const Home = () => {
                         objectFit="cover"
                         objectPosition="center"
                         placeholder="blur"
-                        blurDataURL="/placeholder.png"
+                        blurDataURL="/placeholder-product.png"
                         className={classNames(
                           'object-cover object-center group-hover:opacity-75',
                           {

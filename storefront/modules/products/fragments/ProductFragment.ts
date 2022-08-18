@@ -21,9 +21,20 @@ const ProductFragment = gql`
       title
       review
     }
-
+    ... on PlanProduct {
+      texts(forceLocale: $forceLocale) {
+        _id
+        title
+        subtitle
+        description
+        slug
+        labels
+        vendor
+        brand
+      }
+    }
     ... on SimpleProduct {
-      simulatedPrice {
+      simulatedPrice(currency: $currency) {
         _id
         isTaxable
         isNetPrice
