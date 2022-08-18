@@ -3,6 +3,7 @@ import { useIntl } from 'react-intl';
 import { useAppContext } from '../../common/components/AppContextWrapper';
 
 import ProductFragment from '../../products/fragments/ProductFragment';
+import SimpleProductPrice from '../../products/fragments/SimpleProductPrice';
 import AssortmentFragment from '../fragments/assortment';
 import AssortmentMediaFragment from '../fragments/AssortmentMedia';
 import AssortmentPathFragment from '../fragments/AssortmentPath';
@@ -13,7 +14,6 @@ export const AssortmentsProductsQuery = gql`
     $forceLocale: String
     $offset: Int
     $limit: Int
-    $currency: String
   ) {
     assortment(slug: $slugs) {
       ...AssortmentFragment
@@ -28,11 +28,13 @@ export const AssortmentsProductsQuery = gql`
         productsCount
         products(offset: $offset, limit: $limit) {
           ...ProductFragment
+          ...SimpleProductPrice
         }
       }
       productAssignments {
         product {
           ...ProductFragment
+          ...SimpleProductPrice
         }
       }
     }
@@ -41,6 +43,7 @@ export const AssortmentsProductsQuery = gql`
   ${ProductFragment}
   ${AssortmentPathFragment}
   ${AssortmentMediaFragment}
+  ${SimpleProductPrice}
 `;
 
 const useAssortmentProducts = (
@@ -53,7 +56,6 @@ const useAssortmentProducts = (
   },
 ) => {
   const intl = useIntl();
-  const { selectedCurrency } = useAppContext();
 
   const { data, loading, error, fetchMore } = useQuery(
     AssortmentsProductsQuery,
@@ -62,7 +64,6 @@ const useAssortmentProducts = (
         includeLeaves,
         slugs,
         forceLocale: intl.locale,
-        currency: selectedCurrency,
         offset: 0,
         limit: 10,
       },

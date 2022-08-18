@@ -34,13 +34,6 @@ const ProductFragment = gql`
       }
     }
     ... on SimpleProduct {
-      simulatedPrice(currency: $currency) {
-        _id
-        isTaxable
-        isNetPrice
-        gweiAmount
-        currency
-      }
       texts(forceLocale: $forceLocale) {
         _id
         title

@@ -2,6 +2,8 @@ import { gql } from '@apollo/client';
 
 import AddressFragment from '../../common/fragments/AddressFragment';
 import ProductFragment from '../../products/fragments/ProductFragment';
+import SimpleProductPrice from '../../products/fragments/SimpleProductPrice';
+import SimpleProductPriceCurrency from '../../products/fragments/SimpleProductPriceCurrency';
 
 const CurrentUserFragment = gql`
   fragment CurrentUserFragment on User {
@@ -28,6 +30,7 @@ const CurrentUserFragment = gql`
       created
       product {
         ...ProductFragment
+        ...SimpleProductPrice
       }
     }
 
@@ -65,6 +68,7 @@ const CurrentUserFragment = gql`
         }
         product {
           ...ProductFragment
+          ...SimpleProductPriceCurrency
         }
       }
       paymentInfo: payment {
@@ -141,6 +145,8 @@ const CurrentUserFragment = gql`
   }
   ${ProductFragment}
   ${AddressFragment}
+  ${SimpleProductPrice}
+  ${SimpleProductPriceCurrency}
 `;
 
 export default CurrentUserFragment;

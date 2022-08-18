@@ -5,14 +5,16 @@ import { useAppContext } from '../../common/components/AppContextWrapper';
 
 import ProductFragment from '../fragments/ProductFragment';
 import ProductReviewsFragment from '../fragments/ProductReviewsFragment';
+import SimpleProductPrice from '../fragments/SimpleProductPrice';
 
 const ProductDetailQuery = gql`
-  query Product($slug: String, $forceLocale: String, $currency: String) {
+  query Product($slug: String, $forceLocale: String) {
     product(slug: $slug) {
       assortmentPaths {
         ...ProductAssortmentPathFragment
       }
       ...ProductFragment
+      ...SimpleProductPrice
       reviews {
         ...ProductReviewsFragment
       }
@@ -21,6 +23,7 @@ const ProductDetailQuery = gql`
   ${ProductFragment}
   ${ProductAssortmentPathFragment}
   ${ProductReviewsFragment}
+  ${SimpleProductPrice}
 `;
 
 const useProductDetail = ({ slug }) => {
