@@ -16,14 +16,12 @@ const PaymentMethod = ({ user }) => {
   );
 
   useEffect(() => {
-    const updatePaymentMethod = async () => {
-      await setOrderPaymentProvider({
+    if (selectedPaymentMethod) {
+      setOrderPaymentProvider({
         orderId: user?.cart?._id,
         paymentProviderId: selectedPaymentMethod,
       });
-    };
-
-    updatePaymentMethod();
+    }
   }, [selectedPaymentMethod]);
 
   return (

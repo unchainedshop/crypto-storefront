@@ -16,7 +16,7 @@ class EthStreamer:
         self, eth_config, redis_config, unchained_config, erc20_contract_addresses
     ):
         rpc_endpoint = eth_config["rpc-endpoint"]
-        
+
         self.redis = redis.Redis(host=redis_config["host"], port=redis_config["port"])
         self.hook = WebHook(
             unchained_config["transaction-webhook-url"], unchained_config["secret"]
@@ -28,7 +28,7 @@ class EthStreamer:
             print("Chain ID: ", self.w3.eth.chainId,  end="\r" )
         else:
             print("Error connecting to RPC endpoint")
-        
+
         if eth_config["poa-testnet"]:
             self.w3.middleware_onion.inject(geth_poa_middleware, layer=0)
         self.init_block_history = eth_config["init-block-history"]

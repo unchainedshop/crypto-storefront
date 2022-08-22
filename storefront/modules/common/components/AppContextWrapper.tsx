@@ -37,7 +37,6 @@ export const AppContextWrapper = ({ children }) => {
   const [currentProvider, setProvider] =
     useState<ethers.providers.Web3Provider>();
   const [accounts, setAccounts] = useState<string[]>([]);
-  const [chainId, setChainId] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
   const [isCartOpen, toggleCart] = useState(false);
   const [selectedCurrency, setCurrency] = useState('');
@@ -86,16 +85,10 @@ export const AppContextWrapper = ({ children }) => {
         ? new ethers.providers.Web3Provider(ethereum)
         : null;
         
+      if (!scopedProvider) return;
       setProvider(scopedProvider);
 
-      const { chainId } = await scopedProvider.getNetwork();
-      setChainId(chainId);
-
       ethereum?.on('chainChanged', () => window.location.reload());
-
-      scopedProvider.on('chainChanged', (chainId) => {
-        setChainId(chainId);
-      });
 
       if (ethereum) {
         const accounts = await ethereum.request({
