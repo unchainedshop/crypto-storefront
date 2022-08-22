@@ -54,13 +54,12 @@ const CartItem = ({ _id, quantity, product, enableUpdate = true }) => {
     <li className="flex py-6 px-4 sm:px-6" key={_id}>
       <div className="relative h-20 w-20 flex-shrink-0 rounded-md">
         <Image
-          src={`${
-            getMediaUrl(product) || '/static/img/sun-glass-placeholder.jpeg'
-          }`}
+          src={getMediaUrl(product) || '/placeholder-product.png'}
           alt={product?.texts?.title}
           layout="fill"
-          objectFit="contain"
-          quality={100}
+          placeholder="blur"
+          blurDataURL="/placeholder.png"
+          objectFit="cover"
           loader={defaultNextImageLoader}
         />
       </div>

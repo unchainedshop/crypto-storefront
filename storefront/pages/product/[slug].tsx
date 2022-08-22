@@ -92,16 +92,6 @@ const Detail = () => {
                 />
               ) : (
                 <div className="relative h-full w-full">
-                  {/* <Image
-                    loading="lazy"
-                    src="/static/img/sun-glass-placeholder.jpeg"
-                    alt="sun-glass-placeholder"
-                    layout="fill"
-                    quality={100}
-                    objectFit="cover"
-                    objectPosition="center"
-                    loader={defaultNextImageLoader}
-                  /> */}
                   <PhotographIcon className="absolute inset-0 h-full w-full text-slate-200 dark:text-slate-500" />
                 </div>
               )}
