@@ -12,7 +12,7 @@ class WebHook:
             "contract": contract_address,
             "decimals": decimals,
             "address": rcpt_address,
-            "amount": amount,
+            "amount": str(amount),
             "secret": self.secret,
         }
         try:

@@ -13,7 +13,6 @@ import BIP32Factory from "bip32";
 import * as ecc from "tiny-secp256k1";
 import * as bitcoin from "bitcoinjs-lib";
 import { createLogger } from "@unchainedshop/logger";
-import { UnchainedAPI } from "@unchainedshop/types/api";
 
 const logger = createLogger("unchained:core-payment:cryptopay");
 
@@ -25,6 +24,7 @@ const {
   CRYPTOPAY_BTC_TESTNET = false,
   CRYPTOPAY_MAX_RATE_AGE = "360", // seconds
   CRYPTOPAY_MAX_CONV_DIFF = "0.01",
+  CRYPTOPAY_DERIVATION_START = 0,
 } = process.env;
 
 enum CryptopayCurrencies { // eslint-disable-line
@@ -88,25 +88,37 @@ export default (app) => {
           currency: order.currency,
         });
         const totalAmount = pricing?.total({ useNetPrice: false }).amount;
-        let convertedAmount: number;
+        let convertedAmount: bigint;
         if (order.currency === currency) {
-          convertedAmount = amount / 10 ** (decimals - 8); // All crypto native prices denoted with 8 decimals
+          // 1 ETH = 10^18 WEI
+          const bAmount = BigInt(amount);
+
+          // HACK: As long as we don't support BigInt in Unchained we convert the WEI amount to Gwei and then use Int.
+          convertedAmount = bAmount / BigInt(10 ** 9);
         } else {
           // Need to convert
-          const rate =
-            await resolvedContext.modules.products.prices.rates.getRate(
-              order.currency,
-              contract && contract !== "" ? contract : currency, // Convert to the smart contract if given
-              MAX_RATE_AGE
-            );
-          if (rate) {
-            // We assume that we are converting to a fiat currency here (with 2 decimals).
-            // Paying an order with prices in crypto in another crypto is not supported.
-            convertedAmount = Math.round(
-              (amount / 10 ** decimals) * rate * 100
-            );
-          }
+          logger.warn(
+            `Cryptopay Plugin: OrderPayment ${orderPayment._id} not marked as paid. We can't accept other crypto currencies than ETC/BTC atm ${convertedAmount}`
+          );
+          response.end(JSON.stringify({ success: false }));
+          return;
+
+          // const rate =
+          //   await resolvedContext.modules.products.prices.rates.getRate(
+          //     order.currency,
+          //     contract && contract !== "" ? contract : currency, // Convert to the smart contract if given
+          //     MAX_RATE_AGE
+          //   );
+          // if (rate) {
+          //   // We assume that we are converting to a fiat currency here (with 2 decimals).
+          //   // Paying an order with prices in crypto in another crypto is not supported.
+          //   convertedAmount = Math.round(
+          //     (amount / 10 ** decimals) * rate * 100
+          //   );
+          // }
         }
+
+        console.log({ totalAmount, convertedAmount, amount });
         if (
           convertedAmount &&
           convertedAmount >= totalAmount * (1 - MAX_ALLOWED_DIFF)
@@ -173,18 +185,15 @@ const Cryptopay: IPaymentAdapter = {
 
       sign: async () => {
         const { orderPayment } = params.paymentContext;
-        if (orderPayment?.context.length) {
+        if (orderPayment?.context?.cryptoAddresses?.length) {
           // Do not derive address a second time for order payment, return existing address
-          const existingAddresses = orderPayment.context.filter(
+          const existingAddresses = orderPayment.context?.cryptoAddresses?.filter(
             (c) => c.currency
           );
           if (existingAddresses) {
             return JSON.stringify(existingAddresses);
           }
         }
-
-        const order = await modules.orders.findOrder({ orderId: orderPayment.orderId });
-        console.log(order);
 
         const cryptoAddresses: {
           currency: CryptopayCurrencies;
@@ -201,7 +210,7 @@ const Cryptopay: IPaymentAdapter = {
               context: {
                 "cryptoAddresses.currency": CryptopayCurrencies.BTC,
               }
-            });
+            }) + CRYPTOPAY_DERIVATION_START;
           const child = hardenedMaster.derivePath(`0/${btcDerivationNumber}`);
           cryptoAddresses.push({
             currency: CryptopayCurrencies.BTC,
