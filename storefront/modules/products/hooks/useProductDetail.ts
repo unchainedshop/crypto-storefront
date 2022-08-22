@@ -8,7 +8,7 @@ import ProductReviewsFragment from '../fragments/ProductReviewsFragment';
 import SimpleProductPrice from '../fragments/SimpleProductPrice';
 
 const ProductDetailQuery = gql`
-  query Product($slug: String, $forceLocale: String) {
+  query Product($slug: String, $forceLocale: String, $currency: String) {
     product(slug: $slug) {
       assortmentPaths {
         ...ProductAssortmentPathFragment

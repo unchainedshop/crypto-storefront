@@ -1,6 +1,5 @@
 import { useQuery, gql } from '@apollo/client';
 import { useIntl } from 'react-intl';
-import { useAppContext } from '../../common/components/AppContextWrapper';
 
 import ProductFragment from '../../products/fragments/ProductFragment';
 import SimpleProductPrice from '../../products/fragments/SimpleProductPrice';
@@ -13,6 +12,7 @@ export const AssortmentsProductsQuery = gql`
     $slugs: String!
     $forceLocale: String
     $offset: Int
+    $currency: String
     $limit: Int
   ) {
     assortment(slug: $slugs) {

@@ -10,6 +10,7 @@ const CreateUserMutation = gql`
     $password: String!
     $profile: UserProfileInput
     $forceLocale: String
+    $currency: String
   ) {
     createUser(email: $email, plainPassword: $password, profile: $profile) {
       id
