@@ -1,27 +1,28 @@
 version: '3.6'
 services:
   crypto_gateway:
-     restart: always
-     build: './gateway'
-     network_mode: "host"        
-     depends_on:
+    restart: always
+    build: './gateway'
+    network_mode: "host"
+    depends_on:
       - crypto_engine
       - geth-eth-node
-     environment:
-        ETH_RPC_ENDPOINT: ${ETH_RPC_ENDPOINT:-http://127.0.0.1:8555}
-        BCOIN_API_KEY: ${BCOIN_API_KEY}
-        CRYPTOPAY_BTC_XPUB: ${CRYPTOPAY_BTC_XPUB}
-        CRYPTOPAY_SECRET: ${CRYPTOPAY_SECRET:-secret}
-        BCOIN_ENDPOINT: ${BCOIN_ENDPOINT:-http://127.0.0.1:18332}
-        BCOIN_WALLET_ENDPOINT: ${BCOIN_WALLET_ENDPOINT:-http://127.0.0.1:18334}
-        UNCHAINED_CRYPTOPAY_WEBHOOK_PATH: ${UNCHAINED_CRYPTOPAY_WEBHOOK_PATH:-http://127.0.0.1:4010/graphql/cryptopay} 
-        UNCHAINED_CRYPTOPAY_PRICING_WEBHOOK_PATH: ${UNCHAINED_CRYPTOPAY_PRICING_WEBHOOK_PATH:-http://127.0.0.1:4010/graphql/cryptopay-pricing}
-        UNCHAINED_GRAPHQL_ENDPOINT: ${UNCHAINED_GRAPHQL_ENDPOINT:-http://127.0.0.1:4010/graphql}
-        REDIS_PORT: ${REDIS_PORT:-6379}
-        REDIS_HOST: ${REDIS_HOST:-127.0.0.1}
-
-     env_file:
+    environment:
+      ETH_RPC_ENDPOINT: ${ETH_RPC_ENDPOINT:-http://127.0.0.1:8555}
+      BCOIN_API_KEY: ${BCOIN_API_KEY}
+      CRYPTOPAY_BTC_XPUB: ${CRYPTOPAY_BTC_XPUB}
+      CRYPTOPAY_ETH_XPUB: ${CRYPTOPAY_ETH_XPUB}
+      CRYPTOPAY_SECRET: ${CRYPTOPAY_SECRET:-secret}
+      BCOIN_ENDPOINT: ${BCOIN_ENDPOINT:-http://127.0.0.1:18332}
+      BCOIN_WALLET_ENDPOINT: ${BCOIN_WALLET_ENDPOINT:-http://127.0.0.1:18334}
+      UNCHAINED_CRYPTOPAY_WEBHOOK_PATH: ${UNCHAINED_CRYPTOPAY_WEBHOOK_PATH:-http://127.0.0.1:4010/graphql/cryptopay}
+      UNCHAINED_CRYPTOPAY_PRICING_WEBHOOK_PATH: ${UNCHAINED_CRYPTOPAY_PRICING_WEBHOOK_PATH:-http://127.0.0.1:4010/graphql/cryptopay-pricing}
+      UNCHAINED_GRAPHQL_ENDPOINT: ${UNCHAINED_GRAPHQL_ENDPOINT:-http://127.0.0.1:4010/graphql}
+      REDIS_PORT: ${REDIS_PORT:-6379}
+      REDIS_HOST: ${REDIS_HOST:-127.0.0.1}
+    env_file:
       - .env
+
   crypto_storefront:
     build: ./storefront
     ports:
@@ -30,7 +31,8 @@ services:
       - crypto_engine
     restart: on-failure
     environment:
-      UNCHAINED_ENDPOINT : http://crypto_engine:4010/graphql
+      UNCHAINED_ENDPOINT: http://crypto_engine:4010/graphql
+
   crypto_engine:
     build: ./engine
     ports:
@@ -44,18 +46,19 @@ services:
       EMAIL_WEBSITE_URL: ${EMAIL_WEBSITE_URL:-http://localhost:4010}
       CRYPTOPAY_SECRET: ${CRYPTOPAY_SECRET:-secret}
       CRYPTOPAY_BTC_XPUB: ${CRYPTOPAY_BTC_XPUB}
-      CRYPTOPAY_WEBHOOK_PATH: ${CRYPTOPAY_WEBHOOK_PATH:-/graphql/cryptopay} 
-      CRYPTOPAY_PRICING_WEBHOOK_PATH: ${CRYPTOPAY_PRICING_WEBHOOK_PATH:-/graphql/cryptopay-pricing}
       CRYPTOPAY_ETH_XPUB: ${CRYPTOPAY_ETH_XPUB}
+      CRYPTOPAY_WEBHOOK_PATH: ${CRYPTOPAY_WEBHOOK_PATH:-/graphql/cryptopay}
+      CRYPTOPAY_PRICING_WEBHOOK_PATH: ${CRYPTOPAY_PRICING_WEBHOOK_PATH:-/graphql/cryptopay-pricing}
     env_file:
       - .env
     healthcheck:
       test: >-
-        curl -f http://localhost:4010/graphql/healthcheck || exit 1
-      start_period: 10s
-      timeout: 5s
+        curl -XPOST http://localhost:4010/graphql -H 'content-type: application/json' --data-raw '{"operationName":null,"variables":{},"query":"{shopInfo{_id}}"}' || exit 1
+      start_period: 3s
+      timeout: 3s
     depends_on:
       - my-mongoDB
+
   my-mongoDB:
     image: mongo:latest
     ports:
@@ -69,15 +72,15 @@ services:
     ports:
       - '6379:6379'
     command: redis-server --loglevel debug
-    volumes: 
+    volumes:
       - cache:/data
-  geth-eth-node: 
+  geth-eth-node:
     image: ethereum/client-go
     restart: on-failure
     ports:
       - "8555:8555"
       - "8551:8551"
-    command:  
+    command:
       - --goerli
       - --http
       - --http.addr=0.0.0.0
@@ -89,7 +92,7 @@ services:
       - --syncmode=snap
       - --http.port=8555
       - --ipcdisable
-    volumes:                                                                 
+    volumes:
       - geth-goerli:/.goerli
       - $HOME/ethereum:/root
 
@@ -117,7 +120,7 @@ services:
       - --metrics
       - --metrics-address=0.0.0.0
       - --metrics-port=8008
-    volumes:                                                                 
+    volumes:
       - $HOME/.nimbus:/home/user/nimbus-eth2/build/data
       - $HOME/ethereum:/root/.geth
 volumes:
