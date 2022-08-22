@@ -4,10 +4,11 @@ import { useAppContext } from '../../common/components/AppContextWrapper';
 import useSignForCheckout from '../hooks/useSignForCheckout';
 import QRCodeComponent from './QRCodeComponent';
 
-const PayWithMetaMask = ({ user }) => {
+const PayWithMetaMask = ({ user, showQr = false }) => {
   const { formatMessage } = useIntl();
   const [contractAddress, setContractAddress] = useState([]);
   const { hasSigner, payWithMetaMask } = useAppContext();
+
   const { signForCheckout } = useSignForCheckout();
 
   const signOrderPayment = async () => {
@@ -35,16 +36,18 @@ const PayWithMetaMask = ({ user }) => {
         'shop.unchained.payment.cryptopay' &&
         contractAddress?.map((address) => (
           <div key={address}>
-            <div className="flex">
-              <QRCodeComponent paymentAddress={address} />
-            </div>
+            {showQr && (
+              <div className="flex">
+                <QRCodeComponent paymentAddress={address} />
+              </div>
+            )}
             {hasSigner && (
               <button
                 type="button"
-                className="mt-3 inline-flex items-center rounded-md border-2 border-[#F6851B] bg-[#F6851B] px-3 py-2 text-sm font-medium leading-4 text-slate-100 shadow hover:bg-[#E2761B] focus:outline-none focus:ring-2 focus:ring-[#F6851B] focus:ring-offset-2"
-                onClick={() =>
-                  payWithMetaMask(address.address, user?.cart.total)
-                }
+                className=" mt-3 inline-flex w-full items-center justify-center rounded-md border-2 border-[#F6851B] bg-[#F6851B] px-3 py-2 text-center text-sm font-medium leading-4 text-slate-100 shadow hover:bg-[#E2761B] focus:outline-none focus:ring-2 focus:ring-[#F6851B] focus:ring-offset-2"
+                onClick={() => {
+                  payWithMetaMask(address.address, user?.cart.total);
+                }}
               >
                 {formatMessage({
                   id: 'pay_with_metamask',
