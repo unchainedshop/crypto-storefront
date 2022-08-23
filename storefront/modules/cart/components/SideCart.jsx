@@ -157,7 +157,10 @@ const SideCart = ({ isOpen }) => {
                 </a>
               </Link>
               <div className="mt-4">
-                <PayWithMetaMask user={user} />
+                <PayWithMetaMask
+                  user={user}
+                  onComplete={() => toggleCart(false)}
+                />
               </div>
               <Link
                 href={`${
