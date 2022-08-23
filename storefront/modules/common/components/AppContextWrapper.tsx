@@ -7,7 +7,18 @@ import React, {
 import { ethers } from 'ethers';
 import ConnectPopup from './ConnectPopup';
 
+
 import ERC20_ABI from '../data/erc20ABI.json'
+import { toast } from 'react-toastify';
+import { useIntl } from 'react-intl';
+import LoadingItem from './LoadingItem';
+
+const METAMASK_ERROR = {
+  4001: 'Payment Canceled',
+  32602: 'Invalid data provided',
+  32603: 'Internal server error'
+}
+
 
 export const AppContext = React.createContext<{
   hasSigner?: boolean;
@@ -41,6 +52,8 @@ export const AppContextWrapper = ({ children }) => {
   const [isCartOpen, toggleCart] = useState(false);
   const [selectedCurrency, setCurrency] = useState('');
   const [showBackDrop, setShowBackDrop] = useState(false);
+  const [processing, setProcessing] = useState(false)
+  const {formatMessage} = useIntl()
 
   const payWithMetaMask = async (orderAddress, price) => {
 
@@ -63,40 +76,46 @@ export const AppContextWrapper = ({ children }) => {
       },
     ];
     
-     await currentProvider.provider.send(
+    await currentProvider.provider.send(
       { method: 'eth_sendTransaction', params },
-      (error, respose) => {
-        setShowBackDrop(false)
+      async (error, response) => {
+        
         if(error && error.code) {
-          if(error.code === 4001) {
-            alert('Payment Canceled')
+          if(Object.keys(METAMASK_ERROR).includes(error.code.toString())) {
+            alert(METAMASK_ERROR[error.code])
           }
+          setShowBackDrop(false)
+          return
         }
-        console.log('error   ', error)
-        console.log('response  ', respose)
-
+        
+        if((response.result.match(/^0x/))) {
+        setProcessing(true)
+        const interval = setInterval(async () => {
+          const transaction = await currentProvider.getTransactionReceipt(response.result);
+          if (transaction) {
+            console.log(transaction);
+            setShowBackDrop(false)
+            setProcessing(false)
+            clearInterval(interval);
+          }
+        }, 1000);
+          
+        }
       },
-    );
-    currentProvider.on('transactionHash', (hash) => {
-      console.log('inside transaction hash ', hash)
-    })
 
-    currentProvider.on('confirmation', (confirmation, reciept) => {
-      console.log('inside confirmation ', reciept)
-      console.log('inside confirmation ', confirmation)
-    })
-    currentProvider.on('receipt', (hash) => {
-      console.log('inside reciept ', hash)
-    })
-    currentProvider.on('error', (hash) => {
-      console.log('inside error ', hash)
-    })
+      
+    )
+    
+    
   } else {
       const contract = new ethers.Contract('0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce', ERC20_ABI, currentProvider.getSigner())
       contract.transfer(orderAddress, ethers.utils.parseUnits(price.gweiAmount));
+    
 
   }
   };
+
+  console.log(processing)
 
   const changeCurrency = async (val) => {
     if(typeof(window) !== 'undefined') {
@@ -112,10 +131,13 @@ export const AppContextWrapper = ({ children }) => {
         ? new ethers.providers.Web3Provider(ethereum)
         : null;
         
-      if (!scopedProvider) return;
+      if (!scopedProvider){
+
+      }
       setProvider(scopedProvider);
 
       ethereum?.on('chainChanged', () => window.location.reload());
+      
 
       if (ethereum) {
         const accounts = await ethereum.request({
@@ -160,9 +182,28 @@ export const AppContextWrapper = ({ children }) => {
         payWithMetaMask,
       }}
     >
-      {showBackDrop && (
-        <div className="fixed top-0 left-0 h-full w-full bg-black  opacity-90 z-50" />
-      )}
+      
+      {showBackDrop &&
+      <div className="align-items-center fixed top-0 left-0 right-0 bottom-0 z-[100000] flex justify-center bg-color-light-dark opacity-95">
+        {processing &&
+        <div className="absolute mx-auto mt-40 w-1/4 max-w-lg bg-white p-5">
+          
+        <p>
+            {formatMessage({
+              id: 'processing_payment',
+              defaultMessage:
+                'Processing payment, this might take few seconds to a minute',
+                
+            })}
+            
+            <img  src='/static/img/spinner-icon.gif'/>
+          </p>
+
+
+        </div>
+}
+        </div>
+}
       <ConnectPopup isOpen={modalOpen} connect={doConnect} />
       {children}
     </AppContext.Provider>
