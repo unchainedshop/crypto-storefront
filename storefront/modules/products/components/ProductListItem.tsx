@@ -38,17 +38,13 @@ const ProductListItem = ({ product }) => {
             <a className="">
               <div className="h-full py-5 text-center">
                 <Image
-                  loading="lazy"
-                  src={`${
-                    getMediaUrl(product) ||
-                    '/static/img/sun-glass-placeholder.jpeg'
-                  }`}
+                  src={getMediaUrl(product) || '/placeholder-product.png'}
                   alt={product?.texts?.title}
-                  width="500"
-                  height="300"
-                  quality={100}
-                  layout="responsive"
-                  objectFit="contain"
+                  layout="fill"
+                  placeholder="blur"
+                  blurDataURL="placeholder.png"
+                  objectFit="cover"
+                  className="h-full w-full"
                   loader={defaultNextImageLoader}
                 />
               </div>

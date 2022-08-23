@@ -8,6 +8,7 @@ import useUser from '../../auth/hooks/useUser';
 import CartItem from './CartItem';
 import { useAppContext } from '../../common/components/AppContextWrapper';
 import CurrencySelector from '../../common/components/CurrencySelector';
+import PayWithMetaMask from '../../checkout/components/PayWithMetaMask';
 
 const SideCart = ({ isOpen }) => {
   const { user } = useUser();
@@ -155,6 +156,12 @@ const SideCart = ({ isOpen }) => {
                   })}
                 </a>
               </Link>
+              <div className="mt-4">
+                <PayWithMetaMask
+                  user={user}
+                  onComplete={() => toggleCart(false)}
+                />
+              </div>
               <Link
                 href={`${
                   localStorage.getItem('lastVisitedCategory') || '/shop'
