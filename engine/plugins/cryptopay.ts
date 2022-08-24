@@ -22,18 +22,13 @@ const {
   CRYPTOPAY_BTC_XPUB,
   CRYPTOPAY_ETH_XPUB,
   CRYPTOPAY_BTC_TESTNET = false,
-  CRYPTOPAY_MAX_RATE_AGE = "360", // seconds
-  CRYPTOPAY_MAX_CONV_DIFF = "0.01",
-  CRYPTOPAY_DERIVATION_START = 0,
+  CRYPTOPAY_DERIVATION_START = "0",
 } = process.env;
 
 enum CryptopayCurrencies { // eslint-disable-line
   BTC = "BTC",
   ETH = "ETH",
 }
-
-const MAX_RATE_AGE = parseInt(CRYPTOPAY_MAX_RATE_AGE, 10);
-const MAX_ALLOWED_DIFF = parseFloat(CRYPTOPAY_MAX_CONV_DIFF); // Accept payments when the converted amount differs by adapterActions much (in percent)
 
 export default (app) => {
   useMiddlewareWithCurrentContext(
@@ -94,7 +89,7 @@ export default (app) => {
           const bAmount = BigInt(amount);
 
           // HACK: As long as we don't support BigInt in Unchained we convert the WEI amount to Gwei and then use Int.
-          convertedAmount = bAmount / BigInt(10 ** 9);
+          convertedAmount = bAmount / BigInt(10 ** 8);
         } else {
           // Need to convert
           logger.warn(
@@ -118,10 +113,10 @@ export default (app) => {
           // }
         }
 
-        console.log({ totalAmount, convertedAmount, amount });
+        console.log({ currency, address, decimals, totalAmount, convertedAmount, amount });
         if (
           convertedAmount &&
-          convertedAmount >= totalAmount * (1 - MAX_ALLOWED_DIFF)
+          convertedAmount >= totalAmount
         ) {
           await resolvedContext.modules.orders.checkout(
             order._id,
@@ -210,7 +205,7 @@ const Cryptopay: IPaymentAdapter = {
               context: {
                 "cryptoAddresses.currency": CryptopayCurrencies.BTC,
               }
-            }) + CRYPTOPAY_DERIVATION_START;
+            }) + parseInt(CRYPTOPAY_DERIVATION_START, 10);
           const child = hardenedMaster.derivePath(`0/${btcDerivationNumber}`);
           cryptoAddresses.push({
             currency: CryptopayCurrencies.BTC,
@@ -228,7 +223,7 @@ const Cryptopay: IPaymentAdapter = {
               context: {
                 "cryptoAddresses.currency": CryptopayCurrencies.ETH,
               }
-            });
+            }) + parseInt(CRYPTOPAY_DERIVATION_START, 10);
 
           cryptoAddresses.push({
             currency: CryptopayCurrencies.ETH,
