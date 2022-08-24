@@ -38,11 +38,13 @@ const ManageCart = ({ user }) => {
       console.log(error.message);
     }
   };
-  const { cart } = user;
+
   const canCheckout =
-    cart?.billingAddress.addressLine &&
-    cart?.billingAddress.city &&
-    cart?.contact?.emailAddress;
+    user &&
+    user?.cart &&
+    user?.cart?.billingAddress.addressLine &&
+    user?.cart?.billingAddress.city &&
+    user?.cart?.contact?.emailAddress;
 
   return (
     <div className="text-slate-700 dark:text-slate-300">
