@@ -2,7 +2,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
-import { MinusIcon, PlusIcon, TrashIcon } from '@heroicons/react/solid';
+import {
+  MinusIcon,
+  PhotographIcon,
+  PlusIcon,
+  TrashIcon,
+} from '@heroicons/react/solid';
 import { useIntl } from 'react-intl';
 import getMediaUrl from '../../common/utils/getMediaUrl';
 import renderPrice from '../../common/utils/renderPrice';
@@ -53,15 +58,21 @@ const CartItem = ({ _id, quantity, product, enableUpdate = true }) => {
   return (
     <li className="flex py-6 px-4 sm:px-6" key={_id}>
       <div className="relative h-20 w-20 flex-shrink-0 rounded-md">
-        <Image
-          src={getMediaUrl(product) || '/placeholder-product.png'}
-          alt={product?.texts?.title}
-          layout="fill"
-          placeholder="blur"
-          blurDataURL="/placeholder.png"
-          objectFit="cover"
-          loader={defaultNextImageLoader}
-        />
+        {getMediaUrl(product) ? (
+          <Image
+            src={getMediaUrl(product)}
+            alt={product?.texts?.title}
+            layout="fill"
+            placeholder="blur"
+            blurDataURL="/placeholder.png"
+            objectFit="cover"
+            loader={defaultNextImageLoader}
+          />
+        ) : (
+          <div className="relative h-full w-full">
+            <PhotographIcon className="absolute inset-0 h-full w-full text-slate-200  dark:text-slate-500" />
+          </div>
+        )}
       </div>
 
       <div className="ml-6 flex flex-1 flex-col">

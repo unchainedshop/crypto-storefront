@@ -29,7 +29,7 @@ const QRCodeComponent = ({
   };
 
   return paymentAddress ? (
-    <div className="relative">
+    <div className="relative ">
       <div
         className={classNames(
           'my-2 text-center text-lg font-bold text-slate-600 dark:text-slate-200',

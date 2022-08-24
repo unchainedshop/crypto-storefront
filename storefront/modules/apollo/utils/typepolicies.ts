@@ -2,16 +2,6 @@ import { offsetLimitPagination } from '@apollo/client/utilities';
 
 /* eslint-disable no-underscore-dangle */
 export const keyMappings: any = {
-  SimpleProduct: {
-    fields: {
-      simulatedPrice: {
-        keyArgs: ['currency'],
-        merge(_, incoming, options) {
-          return { ...incoming };
-        },
-      },
-    },
-  },
   Price: {
     fields: {
       simulatedPrice: {
@@ -117,7 +107,7 @@ export const keyMappings: any = {
     orders: {
       keyArgs: ['limit', 'includeCarts', 'offset', 'queryString', 'currency'],
       merge(existing = [], incoming) {
-        return [...incoming];
+        return [...existing, ...incoming];
       },
     },
   },

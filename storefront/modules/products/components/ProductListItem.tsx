@@ -1,5 +1,5 @@
 import { ShoppingCartIcon } from '@heroicons/react/outline';
-import { BookmarkIcon, StarIcon } from '@heroicons/react/solid';
+import { BookmarkIcon, PhotographIcon, StarIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -33,20 +33,26 @@ const ProductListItem = ({ product }) => {
   return (
     <>
       <div className="relative">
-        <div className="aspect-w-1 aspect-h-1 overflow-hidden rounded-lg bg-slate-200 group-hover:opacity-75 dark:bg-slate-500">
+        <div className="aspect-w-1 aspect-h-1 overflow-hidden rounded-lg  text-slate-200 group-hover:opacity-75 dark:bg-slate-500">
           <Link href={`/product/${product?.texts?.slug}`}>
             <a className="">
               <div className="h-full py-5 text-center">
-                <Image
-                  src={getMediaUrl(product) || '/placeholder-product.png'}
-                  alt={product?.texts?.title}
-                  layout="fill"
-                  placeholder="blur"
-                  blurDataURL="placeholder.png"
-                  objectFit="cover"
-                  className="h-full w-full"
-                  loader={defaultNextImageLoader}
-                />
+                {getMediaUrl(product) ? (
+                  <Image
+                    src={getMediaUrl(product)}
+                    alt={product?.texts?.title}
+                    layout="fill"
+                    placeholder="blur"
+                    blurDataURL="placeholder.png"
+                    objectFit="cover"
+                    className="h-full w-full"
+                    loader={defaultNextImageLoader}
+                  />
+                ) : (
+                  <div className="relative h-full w-full">
+                    <PhotographIcon className="absolute inset-0 h-full w-full  dark:text-slate-500" />
+                  </div>
+                )}
               </div>
             </a>
           </Link>
