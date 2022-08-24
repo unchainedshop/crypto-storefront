@@ -7,17 +7,6 @@ const OrderPriceSummary = ({ order }) => {
     <dl className="space-y-6 border-t border-slate-200 py-6 px-4 sm:px-6">
       <div className="flex items-center justify-between">
         <dt className="text-sm">
-          {formatMessage({
-            id: 'subtotal_vat',
-            defaultMessage: 'Subtotal(vat included) 7.7%',
-          })}
-        </dt>
-        <dd className="text-sm font-medium text-slate-900 dark:text-white">
-          {renderPrice(order?.itemsTotal || order?.total)}
-        </dd>
-      </div>
-      <div className="flex items-center justify-between">
-        <dt className="text-sm">
           {formatMessage({ id: 'shipping', defaultMessage: 'Shipping' })}
         </dt>
         <dd className="text-sm font-medium text-slate-900 dark:text-white">
