@@ -5,6 +5,7 @@ import { useIntl } from 'react-intl';
 import Link from 'next/link';
 import Image from 'next/image';
 import classNames from 'classnames';
+import { PhotographIcon } from '@heroicons/react/solid';
 import useAssortments from '../modules/assortment/hooks/useAssortments';
 import LoadingItem from '../modules/common/components/LoadingItem';
 import MetaTags from '../modules/common/components/MetaTags';
@@ -87,28 +88,32 @@ const Home = () => {
                         },
                       )}
                     >
-                      <Image
-                        src={
-                          getMediaUrl(assortment?.media) ||
-                          'placeholder-product.png'
-                        }
-                        alt={
-                          assortment.texts.description || assortment.texts.title
-                        }
-                        layout="fill"
-                        objectFit="cover"
-                        objectPosition="center"
-                        placeholder="blur"
-                        blurDataURL="/placeholder-product.png"
-                        className={classNames(
-                          'object-cover object-center group-hover:opacity-75',
-                          {
-                            'sm:absolute sm:inset-0 sm:h-full sm:w-full':
-                              catagories[index]?.hasClass,
-                          },
-                        )}
-                        loader={defaultNextImageLoader}
-                      />
+                      {getMediaUrl(assortment?.media) ? (
+                        <Image
+                          src={getMediaUrl(assortment?.media)}
+                          alt={
+                            assortment.texts.description ||
+                            assortment.texts.title
+                          }
+                          layout="fill"
+                          objectFit="cover"
+                          objectPosition="center"
+                          placeholder="blur"
+                          blurDataURL="/placeholder-product.png"
+                          className={classNames(
+                            'object-cover object-center group-hover:opacity-75',
+                            {
+                              'sm:absolute sm:inset-0 sm:h-full sm:w-full':
+                                catagories[index]?.hasClass,
+                            },
+                          )}
+                          loader={defaultNextImageLoader}
+                        />
+                      ) : (
+                        <div className="relative h-full w-full">
+                          <PhotographIcon className="absolute inset-0 h-full w-full text-slate-200  dark:text-slate-500" />
+                        </div>
+                      )}
                       <div
                         aria-hidden="true"
                         className="bg-gradient-to-b from-transparent to-black opacity-50"

@@ -29,9 +29,14 @@ const ProductDetailQuery = gql`
 const useProductDetail = ({ slug }) => {
   const intl = useIntl();
   const { selectedCurrency } = useAppContext();
+
   const { data, loading, error } = useQuery(ProductDetailQuery, {
     skip: !slug,
-    variables: { slug, forceLocale: intl.locale, currency: selectedCurrency },
+    variables: {
+      slug,
+      forceLocale: intl.locale,
+      currency: selectedCurrency || 'ETH',
+    },
   });
 
   const paths = (data?.product?.assortmentPaths || []).flat().pop()?.links;

@@ -24,7 +24,7 @@ export const AppContext = React.createContext<{
   accounts?: string[];
 
   connect: () => Promise<void>;
-  selectedCurrency: string;
+  selectedCurrency?: string;
   changeCurrency: (val) => void;
   isCartOpen: boolean;
   toggleCart?: (val) => void;
@@ -32,9 +32,7 @@ export const AppContext = React.createContext<{
 }>({
   accounts: [],
   connect: () => null,
-
-  selectedCurrency: '',
-  changeCurrency: () => null,
+  changeCurrency: () => {},
   isCartOpen: false,
   toggleCart: () => null,
 });
@@ -49,7 +47,7 @@ export const AppContextWrapper = ({ children }) => {
   const [accounts, setAccounts] = useState<string[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [isCartOpen, toggleCart] = useState(false);
-  const [selectedCurrency, setCurrency] = useState('');
+  const [selectedCurrency, setCurrency] = useState('ETH');
   const [status, setStatus] = useState({metaMaskOpen: false , isWaitingForConfirmation: false, isError: false, message: ''})
   const {formatMessage} = useIntl()
   const router = useRouter()
@@ -88,7 +86,7 @@ export const AppContextWrapper = ({ children }) => {
             setStatus({...status, metaMaskOpen: false})
           }, 3000)
           
-          return
+          return false
         }
         
         if((response.result.match(/^0x/))) {
@@ -98,7 +96,7 @@ export const AppContextWrapper = ({ children }) => {
           if (transaction) {
             setStatus({...status, isWaitingForConfirmation: false, metaMaskOpen: false})
             clearInterval(interval);
-            router.push({pathname: 'thank-you', query: {
+            router.push({pathname: '/thank-you', query: {
               orderId
             }})
           }
@@ -122,8 +120,8 @@ export const AppContextWrapper = ({ children }) => {
   
 
   const changeCurrency = async (val) => {
-    if(typeof(window) !== 'undefined') {
-    setCurrency(val)
+    if(typeof window !== 'undefined') {
+    setCurrency(val ?? 'ETH')
       localStorage.setItem('selectedCurrency', val)
     }
     
@@ -155,7 +153,7 @@ export const AppContextWrapper = ({ children }) => {
         });
       }
     })();
-    (typeof(window) != 'undefined')
+    if(typeof(window) != 'undefined')
     changeCurrency(localStorage.getItem('selectedCurrency'))
     
   }, []);

@@ -12,6 +12,8 @@ import OrderPriceSummary from '../modules/checkout/components/OrderPriceSummary'
 import useFormatDateTime from '../modules/common/utils/useFormatDateTime';
 import defaultNextImageLoader from '../modules/common/utils/defaultNextImageLoader';
 import renderPrice from '../modules/common/utils/renderPrice';
+import PayWithMetaMask from '../modules/checkout/components/PayWithMetaMask';
+import useUser from '../modules/auth/hooks/useUser';
 
 const {
   publicRuntimeConfig: { theme },
@@ -27,6 +29,7 @@ function getFlagEmoji(countryCode) {
 
 const ThankYou = () => {
   const router = useRouter();
+  const { user } = useUser();
   const { formatMessage } = useIntl();
   const { formatDateTime } = useFormatDateTime();
   const { order } = useOrderDetail({
@@ -242,7 +245,9 @@ const ThankYou = () => {
                   </dd>
                 </div>
               </dl>
-
+              <div className="text-center">
+                <PayWithMetaMask disableMetamask showQr user={user} />
+              </div>
               <div className="mt-8 border-t border-slate-200 py-6 text-center">
                 <Link href="/shop">
                   <a className="text-sm font-medium text-indigo-600 hover:text-indigo-500 dark:text-sky-400 dark:hover:text-sky-500">
