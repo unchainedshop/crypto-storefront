@@ -91,7 +91,7 @@ const SignUp = () => {
       />
       <div className="lg:grid lg:grid-cols-2">
         <div className="mt-2 px-4">
-          <Tab tabItems={tabOptions} defaultTab="login">
+          <Tab tabItems={tabOptions} defaultTab="guest_checkout">
             <GetCurrentTab />
           </Tab>
         </div>
