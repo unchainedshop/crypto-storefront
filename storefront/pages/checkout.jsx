@@ -16,7 +16,7 @@ const GetCurrentTab = ({ selectedView }) => {
 
   const onLogin = () => router.replace('/review');
 
-  if (selectedView === 'signup') {
+  if (selectedView === 'guest_checkout') {
     return (
       <div className="mt-2 w-full rounded-md border-2 bg-white px-4 py-4 shadow dark:bg-slate-600 sm:px-6 md:px-8 lg:mt-0 lg:px-10 xl:px-12">
         <h2 className="mx-auto w-2/3 text-center text-2xl font-bold text-slate-700 dark:text-slate-300">
@@ -69,10 +69,10 @@ const SignUp = () => {
     },
 
     {
-      id: 'signup',
+      id: 'guest_checkout',
       title: formatMessage({
-        id: 'signup',
-        defaultMessage: 'Sign up',
+        id: 'guest_checkout',
+        defaultMessage: 'Guest checkout',
       }),
       Icon: <LogoutIcon className="h-5 w-5" />,
     },
@@ -91,7 +91,7 @@ const SignUp = () => {
       />
       <div className="lg:grid lg:grid-cols-2">
         <div className="mt-2 px-4">
-          <Tab tabItems={tabOptions} defaultTab="login">
+          <Tab tabItems={tabOptions} defaultTab="guest_checkout">
             <GetCurrentTab />
           </Tab>
         </div>

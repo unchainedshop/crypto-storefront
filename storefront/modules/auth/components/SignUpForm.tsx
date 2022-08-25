@@ -64,7 +64,6 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
           regionCode,
           countryCode,
         },
-        customFields: [{ contactNumber: telNumber }],
       },
     };
     try {

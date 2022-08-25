@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { useIntl } from 'react-intl';
 import { toast } from 'react-toastify';
@@ -38,6 +39,13 @@ const ManageCart = ({ user }) => {
     }
   };
 
+  const canCheckout =
+    user &&
+    user?.cart &&
+    user?.cart?.billingAddress.addressLine &&
+    user?.cart?.billingAddress.city &&
+    user?.cart?.contact?.emailAddress;
+
   return (
     <div className="text-slate-700 dark:text-slate-300">
       <div className="mt-4 rounded-lg border border-slate-300 bg-white shadow-sm dark:bg-slate-500">
@@ -61,10 +69,26 @@ const ManageCart = ({ user }) => {
         <OrderPriceSummary order={user?.cart} />
 
         <div className="border-t border-slate-200 py-6 px-4 sm:px-6">
+          {!canCheckout ? (
+            <p className="p-5 text-center font-bold text-red-400">
+              {formatMessage({
+                id: 'required_info_missing_for_checkout',
+                defaultMessage:
+                  'Billing address missing and email are required for successful checkout, please provide this information',
+              })}
+            </p>
+          ) : null}
           <button
+            disabled={!canCheckout}
             type="submit"
             onClick={handleOnClick}
-            className="w-full rounded-md border border-transparent bg-indigo-600 py-3 px-4 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-50"
+            className={classNames(
+              'w-full rounded-md border border-transparent bg-indigo-600 py-3 px-4 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-50',
+              {
+                'bg-indigo-200': !canCheckout,
+                'hover:bg-indigo-200': !canCheckout,
+              },
+            )}
           >
             {formatMessage({
               id: 'confirm',

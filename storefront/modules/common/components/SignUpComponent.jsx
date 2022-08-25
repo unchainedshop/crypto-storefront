@@ -83,7 +83,7 @@ const SignUpComponent = () => {
       width: 'half',
     },
     {
-      name: 'address',
+      name: 'addressLine',
       type: 'text',
       label: formatMessage({
         id: 'address',
@@ -181,36 +181,6 @@ const SignUpComponent = () => {
         }),
       },
     },
-    // {
-    //   name: 'password',
-    //   type: 'password',
-    //   label: formatMessage({
-    //     id: 'password',
-    //     defaultMessage: 'Password',
-    //   }),
-    //   autoComplete: 'new-password',
-    //   validator: {
-    //     required: formatMessage({
-    //       id: 'error_password',
-    //       defaultMessage: 'Password is required',
-    //     }),
-    //   },
-    //   width: 'half',
-    // },
-    // {
-    //   name: 'password2',
-    //   type: 'password',
-    //   label: formatMessage({
-    //     id: 'repeat_password',
-    //     defaultMessage: 'Repeat password',
-    //   }),
-    //   autoComplete: 'new-password',
-    //   // validator: {
-    //   //   validate: (value) =>
-    //   //     value === password.current || 'The passwords do not match',
-    //   // },
-    //   width: 'half',
-    // },
   ];
 
   const onSubmit = async ({
@@ -499,16 +469,6 @@ const SignUpComponent = () => {
         <ErrorDisplay error={formError} />
 
         <div className="md:col-span-6">
-          {/* {error?.message?.includes('Navision auth failed') && (
-            <div className="bg-red-300 text-red-600">
-              {error.message}
-              {formatMessage({
-                id: 'error',
-                defaultMessage: ', Try again later',
-              })}
-            </div>
-          )} */}
-
           <button
             type="submit"
             disabled={hasErrors}
