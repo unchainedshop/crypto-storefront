@@ -51,7 +51,7 @@ class LinkFeeder:
                     self.conversion_types[token][base_currency] = ConversionTypes.NONE
 
     def call_hook(self, base_currency, token, exchange_rate, timestamp) -> bool:
-        """Call hook when there was a ETH transaction. The ETH balance at block height block_number is sent to the engine."""
+        """Call hook when there was a ETH transaction. The exchange rate is sent to the engine."""
         self.hook.fire_price_update(base_currency, token, exchange_rate, timestamp)
 
     def process_feed(self):

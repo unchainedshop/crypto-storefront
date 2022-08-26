@@ -69,7 +69,7 @@ class EthStreamer:
             # Check if hook for address already fired. If so, check if increased
             amount_fired = self.redis.get("eth_{}".format(address))
             if amount_fired is None or balance > int(amount_fired):
-                res = self.hook.fire_payment("ETH", None, 18, address, balance)
+                res = self.hook.fire_payment("ETH", None, 18, address, balance, block_number)
                 if res:
                     self.redis.set("eth_{}".format(address), balance)
                     return True
@@ -94,7 +94,7 @@ class EthStreamer:
             )
             if amount_fired is None or balance > int(amount_fired):
                 res = self.hook.fire_payment(
-                    "ETH", contract_address, decimals, rcpt_address, balance
+                    "ETH", contract_address, decimals, rcpt_address, balance, block_number
                 )
                 if res:
                     self.redis.set(

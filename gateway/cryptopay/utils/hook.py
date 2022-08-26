@@ -6,7 +6,7 @@ class WebHook:
         self.hook_url = hook_url
         self.secret = secret
 
-    def fire_payment(self, currency, contract_address, decimals, rcpt_address, amount):
+    def fire_payment(self, currency, contract_address, decimals, rcpt_address, amount, block):
         data = {
             "currency": currency,
             "contract": contract_address,
@@ -14,6 +14,7 @@ class WebHook:
             "address": rcpt_address,
             "amount": str(amount),
             "secret": self.secret,
+            "blockHeight": block,
         }
         try:
             res = requests.post(self.hook_url, json=data).json()
