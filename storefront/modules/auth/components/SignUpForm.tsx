@@ -97,12 +97,6 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
             <h2 className="mt-6 text-3xl font-extrabold text-slate-900 dark:text-slate-100">
               {formatMessage({ id: 'welcome', defaultMessage: 'Welcome' })}
             </h2>
-            <p className="mt-2 text-sm text-slate-600 dark:text-slate-200">
-              {formatMessage({
-                id: 'create_account',
-                defaultMessage: 'Create account for free',
-              })}
-            </p>
           </div>
 
           <div className="mt-8">
@@ -396,7 +390,7 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                       type="tel"
                       name="telNumber"
                       autoComplete="tel"
-                      ref={register({ required: true })}
+                      ref={register({ required: false })}
                       className={classNames(
                         'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm',
                         {
@@ -683,14 +677,6 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
             loader={defaultNextImageLoader}
           />
         </span>
-        <div className="absolute top-1/2 left-0 w-full">
-          <h1 className="mx-auto w-2/3 text-center text-6xl font-bold text-slate-700 dark:text-slate-300">
-            {formatMessage({
-              id: 'create_account_and_shop',
-              defaultMessage: 'Create an account and enjoy shopping',
-            })}
-          </h1>
-        </div>
       </div>
     </div>
   );

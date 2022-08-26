@@ -119,12 +119,12 @@ const SignUpComponent = () => {
         id: 'telNumber',
         defaultMessage: 'Telephone',
       }),
-      validator: {
-        required: formatMessage({
-          id: 'error_telephone',
-          defaultMessage: 'Telephone is required',
-        }),
-      },
+      // validator: {
+      //   required: formatMessage({
+      //     id: 'error_telephone',
+      //     defaultMessage: 'Telephone is required',
+      //   }),
+      // },
       width: 'half',
     },
     {
@@ -426,46 +426,6 @@ const SignUpComponent = () => {
           ''
         )}
 
-        <div className="lg:col-span-6">
-          <div className="relative flex items-start">
-            <div className="flex h-5 items-center">
-              <input
-                type="checkbox"
-                id="conditions"
-                name="conditions"
-                ref={register({
-                  required: formatMessage({
-                    id: 'error_conditions',
-                    defaultMessage: 'Term conditions is required',
-                  }),
-                })}
-                className={classNames(
-                  'h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500',
-                  {
-                    'border-red-300': errors.conditions,
-                  },
-                )}
-              />
-            </div>
-            <div className="ml-3 text-sm">
-              <label
-                htmlFor="conditions"
-                className="font-medium text-slate-700 dark:text-slate-300"
-                // eslint-disable-next-line react/no-danger
-                dangerouslySetInnerHTML={{
-                  __html: formatMessage({
-                    id: 'i_have_read_term',
-                    defaultMessage: 'I have read term',
-                  }),
-                }}
-              />
-            </div>
-          </div>
-          {errors.conditions && (
-            <p className="text-sm text-red-600">{errors.conditions.message}</p>
-          )}
-        </div>
-
         <ErrorDisplay error={formError} />
 
         <div className="md:col-span-6">
@@ -475,8 +435,8 @@ const SignUpComponent = () => {
             className="flex w-full justify-center rounded-md border border-transparent bg-slate-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
           >
             {formatMessage({
-              id: 'register',
-              defaultMessage: 'Register',
+              id: 'guest_checkout_submit_button',
+              defaultMessage: 'Continue to Payment',
             })}
           </button>
         </div>

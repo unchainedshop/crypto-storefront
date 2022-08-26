@@ -128,15 +128,6 @@
   "country": {
     "defaultMessage": "Country"
   },
-  "create_account": {
-    "defaultMessage": "Create account for free"
-  },
-  "create_account_and_shop": {
-    "defaultMessage": "Create an account and enjoy shopping"
-  },
-  "create_an_account": {
-    "defaultMessage": "Create an account"
-  },
   "current_password": {
     "defaultMessage": "Current password"
   },

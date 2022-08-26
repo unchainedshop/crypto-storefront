@@ -140,7 +140,7 @@ const DeliveryAddressEditable = ({ user }) => {
         defaultMessage: 'Telephone',
       }),
       type: 'text',
-      validator: { required: 'Telephone Number must be provided.' },
+      validator: { required: false },
       full: false,
     },
     {
