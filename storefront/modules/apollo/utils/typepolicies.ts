@@ -48,7 +48,7 @@ export const keyMappings: any = {
           return [...existing, ...incoming];
         },
       },
-      currencies: {
+      SupportedCurrencies: {
         keyArgs: ['limit', 'includeInactive', 'offset', 'queryString'],
         merge(existing = [], incoming) {
           return [...existing, ...incoming];

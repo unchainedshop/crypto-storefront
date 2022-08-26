@@ -110,7 +110,7 @@ const Home = () => {
                           loader={defaultNextImageLoader}
                         />
                       ) : (
-                        <div className="relative h-full w-full">
+                        <div>
                           <PhotographIcon className="absolute inset-0 h-full w-full text-slate-200  dark:text-slate-500" />
                         </div>
                       )}

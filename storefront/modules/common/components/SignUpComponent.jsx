@@ -143,7 +143,7 @@ const SignUpComponent = () => {
       width: 'third',
     },
     {
-      name: 'region',
+      name: 'regionCode',
       type: 'text',
       label: formatMessage({
         id: 'region',
@@ -153,7 +153,7 @@ const SignUpComponent = () => {
       width: 'third',
     },
     {
-      name: 'country',
+      name: 'countryCode',
       type: 'country',
       label: formatMessage({
         id: 'country',
@@ -196,6 +196,7 @@ const SignUpComponent = () => {
     account,
     password,
     password2,
+    regionCode,
   }) => {
     if (account) {
       if (password !== password2) {
@@ -229,6 +230,7 @@ const SignUpComponent = () => {
               postalCode,
               city,
               countryCode,
+              regionCode,
             },
           },
         });
@@ -247,6 +249,7 @@ const SignUpComponent = () => {
         postalCode,
         city,
         countryCode,
+        regionCode,
       },
     });
 
