@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -33,7 +32,7 @@ const ErrorDisplay = ({ error }) => {
   );
 };
 
-const SignUpComponent = () => {
+const SignUp = () => {
   const router = useRouter();
   const { formatMessage } = useIntl();
   const { updateCart } = useUpdateCart();
@@ -119,12 +118,6 @@ const SignUpComponent = () => {
         id: 'telNumber',
         defaultMessage: 'Telephone',
       }),
-      // validator: {
-      //   required: formatMessage({
-      //     id: 'error_telephone',
-      //     defaultMessage: 'Telephone is required',
-      //   }),
-      // },
       width: 'half',
     },
     {
@@ -253,7 +246,7 @@ const SignUpComponent = () => {
       },
     });
 
-    router.replace('/review');
+    router.replace({ pathname: '/review', query: { newSignUp: 'true' } });
     return true;
   };
 
@@ -448,4 +441,4 @@ const SignUpComponent = () => {
   );
 };
 
-export default SignUpComponent;
+export default SignUp;

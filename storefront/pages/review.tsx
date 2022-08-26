@@ -19,7 +19,9 @@ import PaymentMethod from '../modules/checkout/components/PaymentMethod';
 const Review = () => {
   const { user, loading } = useUser();
   const { formatMessage } = useIntl();
+
   const router = useRouter();
+  const [isFromSignUp, setIsFromSignUp] = useState(false);
 
   const { updateOrderDeliveryAddress } = useUpdateOrderDeliveryShipping();
   const { updateCart } = useUpdateCart();
@@ -31,7 +33,11 @@ const Review = () => {
     if (!loading && user?.cart && !user.cart.contact?.emailAddress) {
       router.replace({ pathname: '/checkout' });
     }
+    setIsFromSignUp(!!router.query?.newSignUp);
   }, [user]);
+  useEffect(() => {
+    setIsFromSignUp(!!router.query?.newSignUp);
+  }, []);
 
   const setBillingSameAsDelivery = () => {
     updateCart({
@@ -94,7 +100,6 @@ const Review = () => {
             <DatatransStatusGate>
               <div className="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16">
                 <div>
-                  {/* Delivery address */}
                   <div>
                     <h2 className="text-lg font-medium text-slate-900 dark:text-white">
                       {formatMessage({
@@ -102,13 +107,24 @@ const Review = () => {
                         defaultMessage: 'Delivery address',
                       })}
                     </h2>
-                    <DeliveryAddressEditable user={user} />
+                    {!isFromSignUp ? (
+                      <DeliveryAddressEditable user={user} />
+                    ) : (
+                      <button
+                        type="submit"
+                        onClick={() => setIsFromSignUp(!isFromSignUp)}
+                        className="w-50 rounded-md border border-transparent bg-indigo-600 py-3 px-4 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-50"
+                      >
+                        {formatMessage({
+                          id: 'edit_delivery_address',
+                          defaultMessage: 'Edit delivery address',
+                        })}
+                      </button>
+                    )}
                   </div>
 
-                  {/* Delivery Method */}
                   <DeliveryMethod user={user} />
 
-                  {/* Billing Address */}
                   <div className="mt-10 border-t border-slate-200 pt-10">
                     <h4 className="mt-5 text-slate-900 dark:text-white">
                       {formatMessage({
@@ -142,7 +158,6 @@ const Review = () => {
                     />
                   </div>
 
-                  {/* Payment */}
                   <PaymentMethod user={user} />
                 </div>
 

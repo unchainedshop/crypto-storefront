@@ -23,6 +23,12 @@
   "about_detail": {
     "defaultMessage": "About Detail"
   },
+  "accept_terms_popup_header": {
+    "defaultMessage": "Accept Terms and Conditions"
+  },
+  "accept_terms_popup_subtitle": {
+    "defaultMessage": "By connecting my wallet to this webapp, I confirm that I have read and understood the"
+  },
   "account": {
     "defaultMessage": "Account"
   },
@@ -36,7 +42,7 @@
     "defaultMessage": "Add to cart"
   },
   "address": {
-    "defaultMessage": "Address"
+    "defaultMessage": "address"
   },
   "address2_optional": {
     "defaultMessage": "Optional"
@@ -92,6 +98,9 @@
   "checkout": {
     "defaultMessage": "Checkout"
   },
+  "checkout_as_guest": {
+    "defaultMessage": "Checkout as Guest"
+  },
   "choose_language": {
     "defaultMessage": "Choose language"
   },
@@ -110,6 +119,9 @@
   "confirm": {
     "defaultMessage": "Confirm order"
   },
+  "confirm_and_connect": {
+    "defaultMessage": "Confirm and Connect"
+  },
   "confirm_order": {
     "defaultMessage": "OK, ok, ok. Just let me pay"
   },
@@ -127,6 +139,9 @@
   },
   "country": {
     "defaultMessage": "Country"
+  },
+  "create_an_account": {
+    "defaultMessage": "Create an account"
   },
   "current_password": {
     "defaultMessage": "Current password"
@@ -167,7 +182,13 @@
   "download": {
     "defaultMessage": "Download"
   },
+  "edit_delivery_address": {
+    "defaultMessage": "Edit delivery address"
+  },
   "email": {
+    "defaultMessage": "Email"
+  },
+  "emailAddress": {
     "defaultMessage": "Email"
   },
   "email_exists": {
@@ -185,6 +206,9 @@
   "email_verifying": {
     "defaultMessage": "Verifying your email address"
   },
+  "enter_delivery_address": {
+    "defaultMessage": "Enter delivery address"
+  },
   "error": {
     "defaultMessage": ", Try again later"
   },
@@ -197,8 +221,11 @@
   "error_city": {
     "defaultMessage": "City is required"
   },
+  "error_country": {
+    "defaultMessage": "Country is Required"
+  },
   "error_email": {
-    "defaultMessage": "Email is required"
+    "defaultMessage": "Email is Required"
   },
   "error_firstName": {
     "defaultMessage": "First Name is required"
@@ -207,6 +234,9 @@
     "defaultMessage": "Last Name is required"
   },
   "error_password": {
+    "defaultMessage": "Password is required"
+  },
+  "error_password2": {
     "defaultMessage": "Password is required"
   },
   "error_postalCode": {
@@ -245,14 +275,17 @@
   "guest": {
     "defaultMessage": "Guest"
   },
+  "guest_checkout": {
+    "defaultMessage": "Guest checkout"
+  },
+  "guest_checkout_submit_button": {
+    "defaultMessage": "Continue to Payment"
+  },
   "hero": {
     "defaultMessage": "Hero"
   },
   "home": {
     "defaultMessage": "Home"
-  },
-  "i_have_read_term": {
-    "defaultMessage": "I have read term"
   },
   "imprint": {
     "defaultMessage": "imprint"
@@ -260,11 +293,8 @@
   "in_cart": {
     "defaultMessage": "In cart"
   },
-  "invalid_email_password": {
-    "defaultMessage": "Invalid password"
-  },
-  "invoice": {
-    "defaultMessage": "View invoice"
+  "invalid_credentials": {
+    "defaultMessage": "Invalid credentials"
   },
   "invoice_mobile": {
     "defaultMessage": "View invoice"
@@ -293,23 +323,23 @@
   "log_out": {
     "defaultMessage": "Log Out"
   },
+  "login": {
+    "defaultMessage": "Login"
+  },
   "manage_orders": {
     "defaultMessage": "Check the status of recent orders, manage returns, and download invoices."
   },
   "menu": {
     "defaultMessage": "Menu"
   },
+  "metamask_fox": {
+    "defaultMessage": "Metamask Fox"
+  },
   "my_orders": {
     "defaultMessage": "My orders"
   },
   "name_on_card": {
     "defaultMessage": "Name on card"
-  },
-  "new_here": {
-    "defaultMessage": "New here"
-  },
-  "new_here_message": {
-    "defaultMessage": "New here message"
   },
   "new_password": {
     "defaultMessage": "New password"
@@ -318,7 +348,7 @@
     "defaultMessage": "No"
   },
   "no_data_message": {
-    "defaultMessage": "<p>No&nbsp;<span> {message} available</span> </p>"
+    "defaultMessage": "<p>No <span> {message} available</span> </p>"
   },
   "no_item_in_cart": {
     "defaultMessage": "item in cart"
@@ -359,6 +389,9 @@
   "order_numbered": {
     "defaultMessage": "Order: {orderNumber}"
   },
+  "order_pickup": {
+    "defaultMessage": "Order is pick up"
+  },
   "order_placed": {
     "defaultMessage": "Order placed"
   },
@@ -388,6 +421,9 @@
   },
   "pay_now": {
     "defaultMessage": "Pay now"
+  },
+  "pay_with_metamask": {
+    "defaultMessage": "Pay with metamask"
   },
   "payment": {
     "defaultMessage": "Payment"
@@ -419,6 +455,9 @@
   "privacy_policy": {
     "defaultMessage": "Privacy Policy"
   },
+  "processing_payment": {
+    "defaultMessage": "Processing payment, waiting for block confirmation. this might take few seconds to a minute"
+  },
   "product_categories": {
     "defaultMessage": "Product Categories"
   },
@@ -433,9 +472,6 @@
   },
   "recent_orders": {
     "defaultMessage": "Recent orders"
-  },
-  "recent_reviews": {
-    "defaultMessage": "Recent Reviews"
   },
   "region": {
     "defaultMessage": "Region"
@@ -454,6 +490,9 @@
   },
   "request_new_password": {
     "defaultMessage": "Request new password"
+  },
+  "required_info_missing_for_checkout": {
+    "defaultMessage": "Billing address missing and email are required for successful checkout, please provide this information"
   },
   "resend": {
     "defaultMessage": "ReSend"
@@ -482,8 +521,14 @@
   "search": {
     "defaultMessage": "Search"
   },
+  "select_tab": {
+    "defaultMessage": "Select a tab"
+  },
   "shipping": {
     "defaultMessage": "Shipping"
+  },
+  "shipping_address": {
+    "defaultMessage": "Shipping Address"
   },
   "shop": {
     "defaultMessage": "Shop"
@@ -530,14 +575,20 @@
   "subtotal": {
     "defaultMessage": "Subtotal"
   },
-  "subtotal_vat": {
-    "defaultMessage": "Subtotal(vat included) 7.7%"
-  },
   "taxes": {
     "defaultMessage": "Taxes"
   },
+  "telNumber": {
+    "defaultMessage": "Telephone"
+  },
   "telephone": {
     "defaultMessage": "Telephone"
+  },
+  "terms_and_condition_main": {
+    "defaultMessage": "In particular, I confirm that I know what I am doing and that I am not violating any governing jurisdictions law. The company Unchained Commerce GmbH or any of its employees can not be held liable for any loss of funds, hacks or other damages that might have happend by using this webapp."
+  },
+  "terms_and_conditions": {
+    "defaultMessage": "Terms and Conditions"
   },
   "thank_you": {
     "defaultMessage": "Thank you!"
@@ -559,9 +610,6 @@
   },
   "to_checkout": {
     "defaultMessage": "To checkout"
-  },
-  "to_order_review": {
-    "defaultMessage": "To Order Rbutton--primaryeview"
   },
   "top_notification": {
     "defaultMessage": "Top Notification"

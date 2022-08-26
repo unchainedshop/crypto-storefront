@@ -8,7 +8,7 @@ import MetaTags from '../modules/common/components/MetaTags';
 import ManageCart from '../modules/cart/components/ManageCart';
 import useUser from '../modules/auth/hooks/useUser';
 import Tab from '../modules/common/components/Tab';
-import SignUpComponent from '../modules/common/components/SignUpComponent';
+import SignUp from '../modules/common/components/SignUp';
 
 const GetCurrentTab = ({ selectedView }) => {
   const router = useRouter();
@@ -21,17 +21,17 @@ const GetCurrentTab = ({ selectedView }) => {
       <div className="mt-2 w-full rounded-md border-2 bg-white px-4 py-4 shadow dark:bg-slate-600 sm:px-6 md:px-8 lg:mt-0 lg:px-10 xl:px-12">
         <h2 className="mx-auto w-2/3 text-center text-2xl font-bold text-slate-700 dark:text-slate-300">
           {formatMessage({
-            id: 'new_here',
-            defaultMessage: 'New here',
+            id: 'checkout_as_guest',
+            defaultMessage: 'Checkout as Guest',
           })}
         </h2>
         <p className="mx-auto my-4 mb-4 w-2/3 text-center text-lg font-bold text-slate-700 dark:text-slate-300">
           {formatMessage({
-            id: 'new_here_message',
-            defaultMessage: 'New here message',
+            id: 'enter_delivery_address',
+            defaultMessage: 'Enter delivery address',
           })}
         </p>
-        <SignUpComponent />
+        <SignUp />
       </div>
     );
   }
@@ -54,7 +54,7 @@ const GetCurrentTab = ({ selectedView }) => {
   );
 };
 
-const SignUp = () => {
+const Checkout = () => {
   const { formatMessage } = useIntl();
   const { user } = useUser();
 
@@ -103,4 +103,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Checkout;
