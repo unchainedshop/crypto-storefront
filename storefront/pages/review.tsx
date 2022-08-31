@@ -23,7 +23,6 @@ const Review = () => {
 
   const router = useRouter();
   const [isFromSignUp, setIsFromSignUp] = useState(false);
-
   const { updateOrderDeliveryAddress } = useUpdateOrderDeliveryShipping();
   const { updateCart } = useUpdateCart();
   const [sameCheckbox, setSameCheckbox] = useState(
@@ -102,14 +101,11 @@ const Review = () => {
               <div className="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16">
                 <div>
                   <div>
-                    <h2 className="text-lg font-medium text-slate-900 dark:text-white">
-                      {formatMessage({
-                        id: 'delivery_address',
-                        defaultMessage: 'Delivery address',
-                      })}
-                    </h2>
                     {!isFromSignUp ? (
-                      <DeliveryAddressEditable user={user} />
+                      <DeliveryAddressEditable
+                        user={user}
+                        onSuccess={() => setIsFromSignUp(!isFromSignUp)}
+                      />
                     ) : (
                       <DeliveryAddress
                         address={user?.cart}

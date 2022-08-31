@@ -4,7 +4,9 @@ import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 
 import useCreateUser from '../../auth/hooks/useCreateUser';
+import useUser from '../../auth/hooks/useUser';
 import useUpdateCart from '../../checkout/hooks/useUpdateCart';
+import useUpdateOrderDeliveryShipping from '../../checkout/hooks/useUpdateDeliveryShipping';
 import EditableField from './EditableField';
 import PasswordVisible from './PasswordVisible';
 
@@ -41,6 +43,8 @@ const SignUp = () => {
   const hasErrors = Object.keys(errors).length;
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isPassword2Visible, setIsPassword2Visible] = useState(false);
+  const { updateOrderDeliveryAddress } = useUpdateOrderDeliveryShipping();
+  const { user } = useUser();
 
   const signUpFields = [
     {
@@ -244,6 +248,20 @@ const SignUp = () => {
         countryCode,
         regionCode,
       },
+    });
+    await updateOrderDeliveryAddress({
+      orderDeliveryId: user?.cart?.deliveryInfo?._id,
+      address: {
+        firstName,
+        lastName,
+        company,
+        addressLine,
+        postalCode,
+        city,
+        countryCode,
+        regionCode,
+      },
+      meta: null,
     });
 
     router.replace({ pathname: '/review', query: { newSignUp: 'true' } });

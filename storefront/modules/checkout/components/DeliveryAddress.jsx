@@ -4,7 +4,7 @@ import normalizeCountryISOCode from '../../common/utils/normalizeCountryISOCode'
 const DeliveryAddress = ({ onEdit, address }) => {
   const { locale, formatMessage } = useIntl();
 
-  const { contact, billingAddress } = address;
+  const { contact, deliveryInfo, billingAddress } = address;
   const {
     firstName,
     lastName,
@@ -14,7 +14,7 @@ const DeliveryAddress = ({ onEdit, address }) => {
     addressLine2,
     company,
     countryCode,
-  } = billingAddress;
+  } = deliveryInfo?.address || billingAddress;
   const { emailAddress, telNumber } = contact;
 
   return (

@@ -6,7 +6,7 @@ import useUpdateCart from '../hooks/useUpdateCart';
 import useUpdateOrderDeliveryShipping from '../hooks/useUpdateDeliveryShipping';
 import EditableField from '../../common/components/EditableField';
 
-const DeliveryAddressEditable = ({ user }) => {
+const DeliveryAddressEditable = ({ user, onSuccess }) => {
   const { formatMessage } = useIntl();
   const { updateCart } = useUpdateCart();
   const {
@@ -29,7 +29,7 @@ const DeliveryAddressEditable = ({ user }) => {
     message,
   }) => {
     if (user?.cart?.deliveryInfo?.address) {
-      updateOrderDeliveryAddress({
+      await updateOrderDeliveryAddress({
         orderDeliveryId: user?.cart?.deliveryInfo?._id,
         address: {
           firstName,
@@ -61,6 +61,7 @@ const DeliveryAddressEditable = ({ user }) => {
         },
       });
     }
+    onSuccess();
   };
 
   const addressFields = [
@@ -161,6 +162,12 @@ const DeliveryAddressEditable = ({ user }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <h2 className="text-lg font-medium text-slate-900 dark:text-white">
+        {formatMessage({
+          id: 'delivery_address',
+          defaultMessage: 'Delivery address',
+        })}
+      </h2>
       <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
         {addressFields.map(({ name, translation, type, validator, full }) => (
           <div className={classNames({ 'sm:col-span-2': full })} key={name}>
