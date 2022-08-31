@@ -15,6 +15,7 @@ import LoadingItem from '../modules/common/components/LoadingItem';
 import NoData from '../modules/common/components/NoData';
 import DeliveryMethod from '../modules/checkout/components/DeliveryMethod';
 import PaymentMethod from '../modules/checkout/components/PaymentMethod';
+import DeliveryAddress from '../modules/checkout/components/DeliveryAddress';
 
 const Review = () => {
   const { user, loading } = useUser();
@@ -110,16 +111,10 @@ const Review = () => {
                     {!isFromSignUp ? (
                       <DeliveryAddressEditable user={user} />
                     ) : (
-                      <button
-                        type="submit"
-                        onClick={() => setIsFromSignUp(!isFromSignUp)}
-                        className="w-50 rounded-md border border-transparent bg-indigo-600 py-3 px-4 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-50"
-                      >
-                        {formatMessage({
-                          id: 'edit_delivery_address',
-                          defaultMessage: 'Edit delivery address',
-                        })}
-                      </button>
+                      <DeliveryAddress
+                        address={user?.cart}
+                        onEdit={() => setIsFromSignUp(!isFromSignUp)}
+                      />
                     )}
                   </div>
 
