@@ -52,10 +52,12 @@ services:
     env_file:
       - .env
     healthcheck:
-      test: >-
-        curl -XPOST http://localhost:4010/graphql -H 'content-type: application/json' --data-raw '{"operationName":null,"variables":{},"query":"{shopInfo{_id}}"}' || exit 1
-      start_period: 3s
-      timeout: 3s
+      disable: true
+    # healthcheck:
+    #   test: >-
+    #     curl -XPOST http://localhost:4010/graphql -H 'content-type: application/json' --data-raw '{"operationName":null,"variables":{},"query":"{shopInfo{_id}}"}' || exit 1
+    #   start_period: 3s
+    #   timeout: 3s
     depends_on:
       - my-mongoDB
 
@@ -74,6 +76,7 @@ services:
     command: redis-server --loglevel debug
     volumes:
       - cache:/data
+      
   geth-eth-node:
     image: ethereum/client-go
     restart: on-failure

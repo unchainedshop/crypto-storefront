@@ -13,26 +13,26 @@ const CartFragment = gql`
       }
     }
     total(category: ITEMS) {
-      gweiAmount
+      amount
       currency
     }
     deliveryTotal: total(category: DELIVERY) {
-      gweiAmount
+      amount
       currency
     }
     paymentTotal: total(category: PAYMENT) {
-      gweiAmount
+      amount
       currency
     }
     taxesTotal: total(category: TAXES) {
-      gweiAmount
+      amount
       currency
     }
     items {
       _id
       quantity
       total {
-        gweiAmount
+        amount
         currency
       }
       product {

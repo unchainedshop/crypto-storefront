@@ -30,8 +30,7 @@ import "@unchainedshop/plugins/events/node-event-emitter";
 
 import "@unchainedshop/plugins/delivery/send-message";
 
-// import setupCryptopay from '@unchainedshop/plugins/payment/cryptopay';
-import setupCryptopay from "./cryptopay";
+import setupCryptopay from '@unchainedshop/plugins/payment/cryptopay';
 
 import { configureGridFSFileUploadModule } from "@unchainedshop/plugins/files/gridfs";
 

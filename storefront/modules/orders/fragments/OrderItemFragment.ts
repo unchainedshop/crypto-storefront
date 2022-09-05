@@ -25,24 +25,24 @@ const OrderItemFragment = gql`
     }
     quantity
     unitPrice {
-      gweiAmount
+      amount
       currency
     }
     discounts {
       orderDiscount {
         total {
-          gweiAmount
+          amount
           currency
         }
         code
       }
       total {
-        gweiAmount
+        amount
         currency
       }
     }
     total {
-      gweiAmount
+      amount
       currency
     }
   }

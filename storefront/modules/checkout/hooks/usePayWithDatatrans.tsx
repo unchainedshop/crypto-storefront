@@ -35,14 +35,14 @@ const usePayWithDatatrans = () => {
 
   return async (cart) => {
     const orderPaymentId = cart?.paymentInfo?._id;
-    const { gweiAmount, currency } = cart?.total;
+    const { amount, currency } = cart?.total;
     const sign = await signForCheckout({
       orderPaymentId,
       transactionContext: {},
     });
     const href = buildLink({
       sign,
-      amount: gweiAmount,
+      amount,
       currency,
       orderId: cart._id,
       refno: orderPaymentId,

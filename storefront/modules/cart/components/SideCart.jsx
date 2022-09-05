@@ -21,14 +21,14 @@ const SideCart = ({ isOpen }) => {
     (acc, item) => {
       return {
         ...acc,
-        gweiAmount:
-          parseInt(acc.gweiAmount, 10) +
-          parseInt(item?.total?.gweiAmount || 0, 10),
+        amount:
+          parseInt(acc.amount, 10) +
+          parseInt(item?.total?.amount || 0, 10),
       };
     },
     {
       currency: user?.cart?.itemsTotal?.currency,
-      gweiAmount: 0,
+      amount: 0,
     },
   );
 

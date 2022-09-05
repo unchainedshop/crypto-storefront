@@ -4,7 +4,7 @@ const UpdateCartItem = gql`
   mutation UpdateCartItem($itemId: ID!, $quantity: Int = 1) {
     updateCartItem(itemId: $itemId, quantity: $quantity) {
       total {
-        gweiAmount
+        amount
         currency
       }
     }

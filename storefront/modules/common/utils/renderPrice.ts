@@ -12,17 +12,17 @@ const renderPrice = (
     amount?: number;
     currency?: string;
     addBTCFraction?: boolean;
-    gweiAmount?: string;
+    amount?: string;
   } = {},
 ): string => {
-  const { currency = null, gweiAmount } = args || {};
-  if (Number.isNaN(isNumber(gweiAmount))) return null;
+  const { currency = null, amount } = args || {};
+  if (Number.isNaN(isNumber(amount))) return null;
   if (currency === 'ETH') {
     return `${currency} ${ethers.utils.formatEther(
-      (parseInt(gweiAmount, 10) * 1000000000).toString(),
+      (parseInt(amount, 10) * 1000000000).toString(),
     )}`;
   }
-  return `${currency ?? ''} ${gweiAmount}`;
+  return `${currency ?? ''} ${amount}`;
 };
 
 export default renderPrice;

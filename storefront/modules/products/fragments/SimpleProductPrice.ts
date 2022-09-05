@@ -6,7 +6,7 @@ const SimpleProductPrice = gql`
       _id
       isTaxable
       isNetPrice
-      gweiAmount
+      amount
       currency
     }
   }

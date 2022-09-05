@@ -68,7 +68,7 @@ export const AppContextWrapper = ({ children }) => {
         from: accounts[0],
         to: orderAddress,
         value: ethers.utils
-          .parseUnits(String(price.gweiAmount / 1000000000), 'ether')
+          .parseUnits(String(price.amount / 1000000000), 'ether')
           .toHexString(),
       },
     ];
@@ -111,7 +111,7 @@ export const AppContextWrapper = ({ children }) => {
     
   } else {
       const contract = new ethers.Contract('0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce', ERC20_ABI, currentProvider.getSigner())
-      contract.transfer(orderAddress, ethers.utils.parseUnits(price.gweiAmount));
+      contract.transfer(orderAddress, ethers.utils.parseUnits(price.amount));
     
 
   }
